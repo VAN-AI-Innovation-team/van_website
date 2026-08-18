@@ -4,17 +4,17 @@ import './Service.css'
 const activities = [
   {
     number: '01',
-    label: 'STUDY & SEMINAR',
-    title: '함께 배우고 지식을 나눕니다.',
-    text: '관심 분야를 중심으로 정기 스터디를 진행하고, 각자의 배움과 경험을 세미나에서 공유합니다.',
-    outcomes: ['정기 스터디', '주제별 세미나', '멤버 발표'],
+    label: 'AI STUDY & SEMINAR',
+    title: 'AI를 함께 배우고 지식을 나눕니다.',
+    text: 'AI 기초부터 최신 기술까지 함께 공부하고, 각자의 배움과 경험을 세미나에서 공유합니다.',
+    outcomes: ['AI 기초·응용 스터디', '논문·기술 세미나', '멤버 발표'],
   },
   {
     number: '02',
     label: 'TEAM PROJECT',
-    title: '다른 전공이 만나 결과물을 만듭니다.',
-    text: '기획, 디자인, 개발 등 서로 다른 강점을 가진 멤버들이 팀을 이루어 아이디어를 구현합니다.',
-    outcomes: ['아이디어 기획', '팀 프로젝트', '결과 공유회'],
+    title: 'AI 아이디어를 팀 프로젝트로 만듭니다.',
+    text: '기획, 디자인, 개발 등 서로 다른 강점을 가진 멤버들이 팀을 이루어 AI 아이디어를 구현합니다.',
+    outcomes: ['AI 아이디어 기획', '팀 프로젝트', '결과 공유회'],
   },
   {
     number: '03',
@@ -39,12 +39,12 @@ function Service() {
         <div className="service-hero__content">
           <p className="eyebrow">VAN ACTIVITIES</p>
           <h1 id="service-title">
-            함께 배우고,
+            AI를 함께 배우고,
             <span>직접 만들며 성장합니다.</span>
           </h1>
           <p className="service-hero__description">
-            VAN은 스터디, 팀 프로젝트, 교류 활동을 통해 혼자서는 어려웠던 도전을 함께
-            시작하고 끝까지 완성합니다.
+            VAN은 AI 스터디, 팀 프로젝트, 기술 교류를 통해 혼자서는 어려웠던 도전을 함께
+            시작하고 실제 결과물로 완성합니다.
           </p>
           <div className="service-hero__actions">
             <a className="button button--primary" href="#activity-list">
@@ -64,9 +64,9 @@ function Service() {
             <strong>VAN</strong>
             <span>GROW</span>
           </div>
-          <span className="service-visual__tag service-visual__tag--ai">STUDY</span>
+          <span className="service-visual__tag service-visual__tag--ai">AI</span>
           <span className="service-visual__tag service-visual__tag--ux">TEAM</span>
-          <span className="service-visual__tag service-visual__tag--data">MEET</span>
+          <span className="service-visual__tag service-visual__tag--data">SHARE</span>
         </div>
       </section>
 
@@ -75,7 +75,7 @@ function Service() {
           <div className="service-section-heading">
             <div>
               <p className="eyebrow">OUR ACTIVITIES</p>
-              <h2 id="offerings-title">관심을 경험으로 바꾸는 활동</h2>
+              <h2 id="offerings-title">AI에 대한 관심을 경험으로 바꾸는 활동</h2>
             </div>
             <p>
               함께 공부하고, 직접 만들고, 자유롭게 교류하며 각자의 관심사를 오래 이어갈
@@ -131,7 +131,7 @@ function Service() {
         <div>
           <p className="eyebrow">JOIN THE NEXT VAN</p>
           <h2 id="service-cta-title">VAN의 다음 활동을 함께 만들어 보세요.</h2>
-          <p>새로운 사람을 만나 배우고, 아이디어를 직접 실현하고 싶은 멤버를 기다립니다.</p>
+          <p>AI를 함께 배우고, 아이디어를 직접 실현하며 성장하고 싶은 멤버를 기다립니다.</p>
         </div>
         <div className="service-cta__actions">
           <Link className="button service-cta__primary" to="/about">
