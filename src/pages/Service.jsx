@@ -1,35 +1,35 @@
 import { Link } from 'react-router'
 import './Service.css'
 
-const services = [
+const activities = [
   {
     number: '01',
-    label: 'AI TRANSFORMATION',
-    title: '비즈니스에 맞는 AI를 설계합니다.',
-    text: '기술 도입 자체보다 해결해야 할 문제에 집중해, 실제 업무에 적용되는 AI 경험을 만듭니다.',
-    outcomes: ['업무 자동화', '데이터 기반 의사결정', 'AI 서비스 기획'],
+    label: 'STUDY & SEMINAR',
+    title: '함께 배우고 지식을 나눕니다.',
+    text: '관심 분야를 중심으로 정기 스터디를 진행하고, 각자의 배움과 경험을 세미나에서 공유합니다.',
+    outcomes: ['정기 스터디', '주제별 세미나', '멤버 발표'],
   },
   {
     number: '02',
-    label: 'DIGITAL PRODUCT',
-    title: '사용자가 다시 찾는 경험을 만듭니다.',
-    text: '브랜드의 목표와 사용자의 맥락을 연결해 명확하고 직관적인 디지털 제품을 구현합니다.',
-    outcomes: ['웹·앱 서비스', 'UX/UI 디자인', '프로토타입 개발'],
+    label: 'TEAM PROJECT',
+    title: '다른 전공이 만나 결과물을 만듭니다.',
+    text: '기획, 디자인, 개발 등 서로 다른 강점을 가진 멤버들이 팀을 이루어 아이디어를 구현합니다.',
+    outcomes: ['아이디어 기획', '팀 프로젝트', '결과 공유회'],
   },
   {
     number: '03',
-    label: 'GROWTH PARTNERSHIP',
-    title: '아이디어가 성과가 될 때까지 함께합니다.',
-    text: '작은 검증부터 안정적인 확장까지, 빠른 실행과 반복으로 지속 가능한 성장을 지원합니다.',
-    outcomes: ['MVP 구축', '서비스 고도화', '운영·성장 전략'],
+    label: 'COMMUNITY',
+    title: '학교 밖의 연결을 오래 이어갑니다.',
+    text: '활동 안팎에서 편하게 교류하고, 서로의 고민과 경험을 나누는 연합 커뮤니티를 만듭니다.',
+    outcomes: ['멤버 네트워킹', '교류 프로그램', '활동 아카이빙'],
   },
 ]
 
 const processSteps = [
-  { number: '01', title: 'Discover', text: '사용자와 비즈니스의 핵심 문제를 발견합니다.' },
-  { number: '02', title: 'Define', text: '우선순위와 성공 기준을 명확하게 정의합니다.' },
-  { number: '03', title: 'Build', text: '빠르게 만들고 검증하며 완성도를 높입니다.' },
-  { number: '04', title: 'Grow', text: '데이터를 바탕으로 다음 성장을 설계합니다.' },
+  { number: '01', title: 'Meet', text: '서로 다른 학교와 전공의 멤버가 만나 연결됩니다.' },
+  { number: '02', title: 'Learn', text: '관심 분야를 함께 공부하고 경험과 지식을 나눕니다.' },
+  { number: '03', title: 'Make', text: '팀을 이루어 아이디어를 직접 결과물로 완성합니다.' },
+  { number: '04', title: 'Share', text: '과정과 결과를 공유하며 다음 활동으로 성장합니다.' },
 ]
 
 function Service() {
@@ -37,21 +37,21 @@ function Service() {
     <main className="service-page">
       <section className="service-hero page-section" aria-labelledby="service-title">
         <div className="service-hero__content">
-          <p className="eyebrow">WHAT WE DO</p>
+          <p className="eyebrow">VAN ACTIVITIES</p>
           <h1 id="service-title">
-            좋은 아이디어를
-            <span>움직이는 경험으로.</span>
+            함께 배우고,
+            <span>직접 만들며 성장합니다.</span>
           </h1>
           <p className="service-hero__description">
-            VAN은 기술, 디자인, 비즈니스를 하나의 흐름으로 연결해 아이디어가 실제 변화로
-            이어지도록 돕습니다.
+            VAN은 스터디, 팀 프로젝트, 교류 활동을 통해 혼자서는 어려웠던 도전을 함께
+            시작하고 끝까지 완성합니다.
           </p>
           <div className="service-hero__actions">
-            <a className="button button--primary" href="#service-list">
-              서비스 살펴보기
+            <a className="button button--primary" href="#activity-list">
+              활동 살펴보기
             </a>
             <a className="service-text-link" href="#process">
-              진행 방식 보기 <span aria-hidden="true">↘</span>
+              활동 방식 보기 <span aria-hidden="true">↘</span>
             </a>
           </div>
         </div>
@@ -60,40 +60,40 @@ function Service() {
           <span className="service-orbit service-orbit--outer" />
           <span className="service-orbit service-orbit--inner" />
           <div className="service-visual__core">
-            <span>IDEA</span>
+            <span>MEET</span>
             <strong>VAN</strong>
-            <span>IMPACT</span>
+            <span>GROW</span>
           </div>
-          <span className="service-visual__tag service-visual__tag--ai">AI</span>
-          <span className="service-visual__tag service-visual__tag--ux">UX</span>
-          <span className="service-visual__tag service-visual__tag--data">DATA</span>
+          <span className="service-visual__tag service-visual__tag--ai">STUDY</span>
+          <span className="service-visual__tag service-visual__tag--ux">TEAM</span>
+          <span className="service-visual__tag service-visual__tag--data">MEET</span>
         </div>
       </section>
 
-      <section className="service-offerings" id="service-list" aria-labelledby="offerings-title">
+      <section className="service-offerings" id="activity-list" aria-labelledby="offerings-title">
         <div className="page-section">
           <div className="service-section-heading">
             <div>
-              <p className="eyebrow">OUR SERVICES</p>
-              <h2 id="offerings-title">필요한 변화를 함께 만듭니다.</h2>
+              <p className="eyebrow">OUR ACTIVITIES</p>
+              <h2 id="offerings-title">관심을 경험으로 바꾸는 활동</h2>
             </div>
             <p>
-              전략에서 실행까지 끊김 없이 연결해 가장 필요한 해답을 가장 현실적인 방식으로
-              구현합니다.
+              함께 공부하고, 직접 만들고, 자유롭게 교류하며 각자의 관심사를 오래 이어갈
+              동료와 경험을 만듭니다.
             </p>
           </div>
 
           <div className="service-card-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.number}>
+            {activities.map((activity) => (
+              <article className="service-card" key={activity.number}>
                 <div className="service-card__meta">
-                  <span>{service.number}</span>
-                  <span>{service.label}</span>
+                  <span>{activity.number}</span>
+                  <span>{activity.label}</span>
                 </div>
-                <h3>{service.title}</h3>
-                <p>{service.text}</p>
-                <ul aria-label={`${service.title} 주요 제공 항목`}>
-                  {service.outcomes.map((outcome) => (
+                <h3>{activity.title}</h3>
+                <p>{activity.text}</p>
+                <ul aria-label={`${activity.title} 주요 활동`}>
+                  {activity.outcomes.map((outcome) => (
                     <li key={outcome}>{outcome}</li>
                   ))}
                 </ul>
@@ -106,10 +106,10 @@ function Service() {
       <section className="service-process" id="process" aria-labelledby="process-title">
         <div className="page-section">
           <div className="service-process__intro">
-            <p className="eyebrow">HOW WE WORK</p>
+            <p className="eyebrow">HOW WE GROW</p>
             <h2 id="process-title">
-              빠르게 움직이고,
-              <span>분명하게 나아갑니다.</span>
+              연결에서 시작해,
+              <span>함께한 경험으로 성장합니다.</span>
             </h2>
           </div>
 
@@ -129,16 +129,16 @@ function Service() {
 
       <section className="service-cta page-section" aria-labelledby="service-cta-title">
         <div>
-          <p className="eyebrow">START WITH VAN</p>
-          <h2 id="service-cta-title">새로운 가능성을 함께 시작해 보세요.</h2>
-          <p>아직 구체적인 계획이 없어도 괜찮습니다. VAN이 필요한 질문부터 함께 찾겠습니다.</p>
+          <p className="eyebrow">JOIN THE NEXT VAN</p>
+          <h2 id="service-cta-title">VAN의 다음 활동을 함께 만들어 보세요.</h2>
+          <p>새로운 사람을 만나 배우고, 아이디어를 직접 실현하고 싶은 멤버를 기다립니다.</p>
         </div>
         <div className="service-cta__actions">
-          <Link className="button service-cta__primary" to="/company">
-            VAN 소개 보기
+          <Link className="button service-cta__primary" to="/about">
+            동아리 소개 보기
           </Link>
-          <a className="button service-cta__secondary" href="#service-list">
-            서비스 다시 보기
+          <a className="button service-cta__secondary" href="#activity-list">
+            활동 다시 보기
           </a>
         </div>
       </section>

@@ -8,16 +8,16 @@ function Footer() {
           <Link className="brand brand--footer" to="/" aria-label="VAN 홈">
             <span>V</span>AN
           </Link>
-          <p>기술로 더 나은 연결과 가능성을 만듭니다.</p>
+          <p>학교와 전공을 넘어, 배움과 경험으로 연결되는 연합동아리입니다.</p>
         </div>
 
         <nav aria-label="하단 메뉴">
           <Link to="/">HOME</Link>
-          <Link to="/company">COMPANY</Link>
-          <Link to="/service">SERVICE</Link>
+          <Link to="/about">ABOUT</Link>
+          <Link to="/activities">ACTIVITIES</Link>
         </nav>
 
-        <small>© {new Date().getFullYear()} VAN AI INNOVATION. All rights reserved.</small>
+        <small>© {new Date().getFullYear()} VAN. All rights reserved.</small>
       </div>
     </footer>
   )
