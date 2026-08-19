@@ -4,20 +4,30 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-inner page-section">
-        <div>
+        <div className="footer-brand-block">
           <Link className="brand brand--footer" to="/" aria-label="VAN 홈">
-            <span>V</span>AN
+            <span className="brand__mark">V</span>
+            <span className="brand__name">VAN</span>
           </Link>
-          <p>AI를 함께 배우고 프로젝트로 성장하는 대학생 연합동아리입니다.</p>
+          <p>
+            AI와 데이터로 사회의 변화를 읽고,
+            <br />사람과 지식을 연결합니다.
+          </p>
         </div>
 
-        <nav aria-label="하단 메뉴">
-          <Link to="/">HOME</Link>
-          <Link to="/about">ABOUT</Link>
-          <Link to="/activities">ACTIVITIES</Link>
-        </nav>
+        <div className="footer-links">
+          <div>
+            <strong>Explore</strong>
+            <Link to="/about">VAN 소개</Link>
+            <Link to="/departments">부서 소개</Link>
+            <Link to="/archive">소식 · 아카이브</Link>
+          </div>
+        </div>
 
-        <small>© {new Date().getFullYear()} VAN. All rights reserved.</small>
+        <div className="footer-bottom">
+          <small>© {new Date().getFullYear()} VAN. All rights reserved.</small>
+          <span>Responsible AI · Evidence First · Human Review</span>
+        </div>
       </div>
     </footer>
   )
