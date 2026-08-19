@@ -3,8 +3,8 @@ import { useMenuStore } from '../stores/useMenuStore.js'
 
 const navigation = [
   { to: '/', label: 'HOME', end: true },
-  { to: '/company', label: 'COMPANY' },
-  { to: '/service', label: 'SERVICE' },
+  { to: '/about', label: 'ABOUT' },
+  { to: '/activities', label: 'ACTIVITIES' },
 ]
 
 function Header() {

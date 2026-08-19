@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router'
+import { Navigate, Route, Routes } from 'react-router'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
 import Company from './pages/Company.jsx'
@@ -14,8 +14,10 @@ function App() {
       <div className="site-main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/company" element={<Company />} />
-          <Route path="/service" element={<Service />} />
+          <Route path="/about" element={<Company />} />
+          <Route path="/activities" element={<Service />} />
+          <Route path="/company" element={<Navigate replace to="/about" />} />
+          <Route path="/service" element={<Navigate replace to="/activities" />} />
           <Route
             path="*"
             element={
