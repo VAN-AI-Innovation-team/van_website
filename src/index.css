@@ -1,17 +1,20 @@
 :root {
-  --color-primary: #6d3cff;
-  --color-primary-dark: #4a24c4;
-  --color-accent: #8cf2d3;
-  --color-ink: #101426;
-  --color-muted: #61697d;
-  --color-bg: #f6f7fb;
+  --color-primary: #1463ff;
+  --color-primary-dark: #0846c9;
+  --color-navy: #0b1f33;
+  --color-navy-soft: #173a5c;
+  --color-teal: #0b9a93;
+  --color-sky: #78c8ee;
+  --color-ink: #10283e;
+  --color-muted: #64788b;
+  --color-bg: #f5f8fa;
   --color-surface: #ffffff;
-  --color-border: #e4e6ef;
-  --color-footer: #0c1020;
-  --shadow-soft: 0 24px 60px rgba(29, 18, 73, 0.1);
-  --page-width: 1180px;
-  --font-sans: Inter, Pretendard, 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', sans-serif;
+  --color-border: #dce5eb;
+  --color-soft-blue: #eaf2ff;
+  --shadow-soft: 0 24px 70px rgba(20, 55, 84, 0.11);
+  --page-width: 1240px;
+  --font-sans: 'Pretendard Variable', Pretendard, 'Noto Sans KR', Inter, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   font-family: var(--font-sans);
   color: var(--color-ink);
@@ -34,11 +37,19 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
+  background: var(--color-bg);
 }
 
 button,
+input,
+textarea,
 a {
   font: inherit;
+}
+
+button {
+  color: inherit;
 }
 
 a {
@@ -46,9 +57,11 @@ a {
 }
 
 button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
 a:focus-visible {
-  outline: 3px solid rgba(109, 60, 255, 0.35);
-  outline-offset: 4px;
+  outline: 3px solid rgba(20, 99, 255, 0.3);
+  outline-offset: 3px;
 }
 
 h1,
@@ -58,6 +71,16 @@ p {
   margin-top: 0;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 #root {
   min-height: 100vh;
+}
+
+::selection {
+  color: #fff;
+  background: var(--color-primary);
 }

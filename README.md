@@ -1,16 +1,50 @@
-# React + Vite
+# VAN Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+VAN 공식 홈페이지 2-3 과제의 프론트엔드 구현입니다.
 
-Currently, two official plugins are available:
+## Feature 06 - Web Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+작업 브랜치: `feat/#6-web`
 
-## React Compiler
+### 새로 만든 기능
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- VAN의 정체성과 핵심 메시지를 보여주는 반응형 메인 화면
+- VAN 소개, 비전, 운영 원칙, 조직, 연혁 화면
+- AI혁신부, 금융투자리서치부, 보건의료언론부, 대외협력부 소개
+- 행사, 프로젝트, 미디어, 언론보도를 구분해서 볼 수 있는 아카이브 필터
+- 모바일 내비게이션과 키보드 접근성 처리
+- 페이지 설명, 제목, 파비콘 등 기본 검색 노출 정보
+- AI·금융 데이터·보건의료 이미지를 결합한 웹 최적화 대표 비주얼
 
-## Expanding the Oxlint configuration
+### 기능을 추가한 이유
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- 공식 홈페이지에 필요한 소개, 부서, 행사, 언론보도, 아카이브 구조를 한곳에 제공하기 위해
+- 비개발자도 실제 자료를 교체하기 쉽도록 화면과 콘텐츠 데이터를 분리하기 위해
+- 금융투자와 보건의료를 각각 별도 서비스로 구현하지 않고 VAN의 부서로 명확하게 보여주기 위해
+- 방문자가 모바일에서도 VAN의 활동을 쉽게 이해할 수 있도록 하기 위해
+- 향후 관리자와 백엔드를 연결할 때 현재 프론트 구조를 재사용할 수 있도록 하기 위해
+
+## 현재 제외한 기능
+
+- 일반 사용자 회원가입, 아이디, 비밀번호, 로그인
+- 관리자 페이지와 관리자 인증
+- 데이터베이스와 문의 기능
+- AI 기사 생성과 금융 데이터 자동 수집
+
+현재 아카이브 데이터는 프론트엔드 시연용입니다.
+
+## 실행 방법
+
+```bash
+npm install
+npm run dev
+```
+
+브라우저에서 `http://localhost:5173`을 엽니다.
+
+## 검사
+
+```bash
+npm run lint
+npm run build
+```

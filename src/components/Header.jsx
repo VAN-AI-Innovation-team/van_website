@@ -2,9 +2,9 @@ import { NavLink } from 'react-router'
 import { useMenuStore } from '../stores/useMenuStore.js'
 
 const navigation = [
-  { to: '/', label: 'HOME', end: true },
-  { to: '/about', label: 'ABOUT' },
-  { to: '/activities', label: 'ACTIVITIES' },
+  { to: '/about', label: 'VAN 소개' },
+  { to: '/departments', label: '부서 소개' },
+  { to: '/archive', label: '소식 · 아카이브' },
 ]
 
 function Header() {
@@ -16,7 +16,9 @@ function Header() {
     <header className="site-header">
       <div className="header-inner page-section">
         <NavLink className="brand" to="/" onClick={closeMenu} aria-label="VAN 홈">
-          <span>V</span>AN
+          <span className="brand__mark">V</span>
+          <span className="brand__name">VAN</span>
+          <span className="brand__descriptor">AI Research Network</span>
         </NavLink>
 
         <button
@@ -40,11 +42,8 @@ function Header() {
             <NavLink
               key={item.to}
               to={item.to}
-              end={item.end}
               onClick={closeMenu}
-              className={({ isActive }) =>
-                `gnb__link${isActive ? ' is-active' : ''}`
-              }
+              className={({ isActive }) => `gnb__link${isActive ? ' is-active' : ''}`}
             >
               {item.label}
             </NavLink>
