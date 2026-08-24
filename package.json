@@ -10,6 +10,7 @@
     "dev": "vite",
     "dev:share": "vite --host 0.0.0.0",
     "build": "vite build",
+    "build:pages": "vite build --mode pages --base=/van-website-preview/",
     "lint": "oxlint",
     "preview": "vite preview",
     "check": "npm run lint && npm run build"

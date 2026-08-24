@@ -78,6 +78,12 @@ npm run check
 
 검사가 통과하면 배포 가능한 파일이 `dist` 폴더에 생성됩니다. GitHub Actions도 `main`과 `dev` 브랜치의 코드를 같은 방식으로 검사하고, 성공한 빌드를 14일 동안 Artifact로 제공합니다. Artifact는 내려받는 빌드 파일이며, 브라우저에서 바로 열리는 공개 웹사이트 주소는 아닙니다.
 
+개인 GitHub Pages 미리보기용 정적 파일은 아래 명령으로 생성합니다. 이 빌드는 `van-website-preview` 저장소 경로와 정적 호스팅에 맞게 해시 라우팅을 사용합니다.
+
+```bash
+npm run build:pages
+```
+
 ## 기술 구성
 
 - React 19

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router'
+import { Link, Navigate, Route, Routes } from 'react-router'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
 import Archive from './pages/Archive.jsx'
@@ -28,9 +28,9 @@ function App() {
               <main className="page-section empty-state">
                 <p className="eyebrow">404 ERROR</p>
                 <h1>페이지를 찾을 수 없습니다.</h1>
-                <a className="button button--primary" href="/">
+                <Link className="button button--primary" to="/">
                   홈으로 돌아가기
-                </a>
+                </Link>
               </main>
             }
           />
