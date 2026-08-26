@@ -1,0 +1,62 @@
+---
+import { basePath, content, navItems, routePath } from '../data/conference.js'
+
+const { lang, currentKey, currentSlug } = Astro.props
+const copy = content[lang]
+const otherLang = lang === 'ko' ? 'en' : 'ko'
+const languageLabel = otherLang === 'ko' ? 'KO' : 'EN'
+---
+
+<header class="site-header">
+  <a class="skip-link" href="#main-content">{copy.skip}</a>
+  <div class="header-inner">
+    <a class="brand" href={basePath(routePath(lang))} aria-label="VAN home">
+      <span class="brand-mark" aria-hidden="true"><i></i></span>
+      <span class="brand-name">VAN</span>
+      <span class="brand-type">VERITAS ACADEMIAE NEXUS</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {navItems.map(({ key, slug }) => (
+        <a
+          href={basePath(routePath(lang, slug))}
+          aria-current={currentKey === key ? 'page' : undefined}
+        >
+          {copy.nav[key]}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="language-link" href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>
+        {languageLabel}
+      </a>
+      <a class="header-cta" href={basePath(routePath(lang, 'contact'))}>
+        {lang === 'ko' ? '문의하기' : 'CONTACT'}
+      </a>
+    </div>
+
+    <details class="mobile-menu">
+      <summary aria-label={copy.menu}>
+        <span>{copy.menu}</span>
+        <i aria-hidden="true"></i>
+      </summary>
+      <nav aria-label="Mobile navigation">
+        <div class="mobile-menu-meta">
+          <span>VERITAS ACADEMIAE NEXUS</span>
+          <a href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a>
+        </div>
+        {navItems.map(({ key, slug }, index) => (
+          <a
+            class="mobile-menu-link"
+            href={basePath(routePath(lang, slug))}
+            aria-current={currentKey === key ? 'page' : undefined}
+          >
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            {copy.nav[key]}
+          </a>
+        ))}
+      </nav>
+    </details>
+  </div>
+</header>
