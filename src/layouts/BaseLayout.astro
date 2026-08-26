@@ -1,0 +1,103 @@
+---
+import SiteFooter from '../components/SiteFooter.astro'
+import SiteHeader from '../components/SiteHeader.astro'
+import { basePath, content, routePath } from '../data/conference.js'
+import '../styles/global.css'
+import '../styles/simple.css'
+
+const { lang = 'ko', pageKey = 'home', slug = '', title, description } = Astro.props
+const copy = content[lang]
+const alternateLang = lang === 'ko' ? 'en' : 'ko'
+const canonicalPath = basePath(routePath(lang, slug))
+const alternatePath = basePath(routePath(alternateLang, slug))
+const rootPath = basePath(routePath('ko', slug))
+const canonical = new URL(canonicalPath, Astro.site)
+const alternate = new URL(alternatePath, Astro.site)
+const xDefault = new URL(rootPath, Astro.site)
+const homeUrl = new URL(basePath('/'), Astro.site)
+const socialImage = new URL(basePath('/social-card.svg'), Astro.site)
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'VAN',
+    url: homeUrl.href,
+    description: copy.meta.home[1],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'VAN',
+    url: homeUrl.href,
+    inLanguage: ['ko', 'en'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'VAN',
+        item: new URL(basePath(routePath(lang)), Astro.site).href,
+      },
+      ...(pageKey === 'home' ? [] : [{
+        '@type': 'ListItem',
+        position: 2,
+        name: title,
+        item: canonical.href,
+      }]),
+    ],
+  },
+]
+
+if (pageKey === 'conference2026') {
+  structuredData.push({
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: 'VAN Conference 2026',
+    description,
+    url: canonical.href,
+    eventStatus: 'https://schema.org/EventScheduled',
+    organizer: {
+      '@type': 'Organization',
+      name: 'VAN',
+      url: homeUrl.href,
+    },
+  })
+}
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b2037" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical.href} />
+    <link rel="alternate" hreflang={lang} href={canonical.href} />
+    <link rel="alternate" hreflang={alternateLang} href={alternate.href} />
+    <link rel="alternate" hreflang="x-default" href={xDefault.href} />
+    <link rel="icon" type="image/svg+xml" href={basePath('/favicon.svg')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VAN" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={socialImage.href} />
+    <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll('<', '\\u003c')}></script>
+  </head>
+  <body>
+    <SiteHeader lang={lang} currentKey={pageKey} currentSlug={slug} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter lang={lang} />
+  </body>
+</html>

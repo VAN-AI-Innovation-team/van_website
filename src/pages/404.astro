@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { basePath, routePath } from '../data/conference.js'
+---
+
+<BaseLayout lang="ko" pageKey="home" slug="" title="404 | VAN Conference" description="요청한 페이지를 찾을 수 없습니다.">
+  <section class="page-hero error-page">
+    <div class="container">
+      <p class="eyebrow eyebrow--accent">404 / NOT FOUND</p>
+      <h1>페이지를 찾을 수 없습니다.</h1>
+      <a class="button button--accent" href={basePath(routePath('ko'))}>홈으로 돌아가기</a>
+    </div>
+  </section>
+</BaseLayout>
