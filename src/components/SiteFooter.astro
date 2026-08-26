@@ -1,0 +1,26 @@
+---
+import { basePath, content, routePath } from '../data/conference.js'
+
+const { lang } = Astro.props
+const copy = content[lang]
+---
+
+<footer class="site-footer">
+  <div class="footer-orbit" aria-hidden="true"><span>VAN</span></div>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-kicker">VERITAS · ACADEMIAE · NEXUS</p>
+      <p class="footer-line">{copy.footer.line}</p>
+    </div>
+    <nav aria-label="Footer navigation">
+      <a href={basePath(routePath(lang, 'about'))}>{copy.nav.about}</a>
+      <a href={basePath(routePath(lang, 'departments'))}>{copy.nav.departments}</a>
+      <a href={basePath(routePath(lang, 'archive'))}>{copy.nav.archive}</a>
+      <a href={basePath(routePath(lang, 'contact'))}>{copy.nav.contact}</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>© {new Date().getFullYear()} {copy.footer.copyright}</span>
+    <span>{copy.footer.domain}</span>
+  </div>
+</footer>
