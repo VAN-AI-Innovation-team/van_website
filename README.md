@@ -7,7 +7,6 @@ VAN(Veritas Academiae Nexus)의 소개, 활동 영역, 컨퍼런스, 소식과 �
 - Vercel 한국어: https://van-website-kappa.vercel.app/ko/
 - Vercel English: https://van-website-kappa.vercel.app/en/
 - 2026 행사 상세 페이지: https://van-website-kappa.vercel.app/ko/conference/2026/
-- GitHub Pages 보조 배포: https://van-ai-innovation.github.io/van_website/ko/
 
 ## 구현 범위
 
@@ -59,13 +58,11 @@ Windows PowerShell 실행 정책 때문에 `npm`이 차단되면 `npm.cmd`를 �
 
 ```bash
 npm run check
-npm run build:pages
 ```
 
 - `npm run check`: 코드 검사 후 공식 도메인 기준 정적 빌드
-- `npm run build:pages`: VAN 조직 GitHub Pages 경로 기준 정적 빌드
 
-`main` 브랜치에 병합하면 GitHub Actions가 검사와 GitHub Pages 배포를 실행하고, 연결된 Vercel 프로젝트도 자동 배포합니다. Vercel 빌드 설정은 `vercel.json`에 고정되어 있습니다.
+`main` 브랜치에 병합하면 GitHub Actions가 코드 검사와 정적 빌드를 실행합니다. 현재 공개 화면은 위 Vercel 주소에서 확인하며, Vercel 빌드 설정은 `vercel.json`에 고정되어 있습니다.
 
 ## 콘텐츠 수정 위치
 
@@ -88,4 +85,4 @@ npm run build:pages
 - Astro 7 정적 사이트 생성
 - HTML / CSS
 - oxlint
-- GitHub Actions / GitHub Pages
+- GitHub Actions / Vercel
