@@ -1,29 +1,27 @@
 export const archiveLabels = {
   ko: {
-    notice: '기획팀에서 전달한 샘플 콘텐츠를 반영했습니다. 일정과 활동 기록은 운영팀 확인 전까지 기획 샘플입니다.',
     searchLabel: '아카이브 검색',
     searchPlaceholder: '제목 또는 내용 검색',
     filterLabel: '분류 선택',
     all: '전체',
     read: '자세히 읽기',
-    sample: '기획 샘플',
+    status: '개발 중',
     results: '개의 콘텐츠',
     empty: '검색 조건에 맞는 콘텐츠가 없습니다.',
     back: '아카이브로 돌아가기',
-    detailNotice: '이 글은 기획 단계의 샘플 콘텐츠입니다. 실제 행사·활동 정보는 운영팀 확인 후 업데이트됩니다.',
+    detailNotice: '현재 개발 중인 콘텐츠입니다. 실제 행사·활동 정보는 확정 후 업데이트됩니다.',
   },
   en: {
-    notice: 'These planning samples were supplied as reference content. Dates and activity records remain samples until confirmed by the VAN team.',
     searchLabel: 'Search the archive',
     searchPlaceholder: 'Search titles or summaries',
     filterLabel: 'Filter by category',
     all: 'ALL',
     read: 'Read more',
-    sample: 'PLANNING SAMPLE',
+    status: 'IN DEVELOPMENT',
     results: 'items',
     empty: 'No archive items match your search.',
     back: 'Back to archive',
-    detailNotice: 'This is planning-stage sample content. Event and activity information will be updated after confirmation by the VAN team.',
+    detailNotice: 'This content is in development. Event and activity information will be updated after confirmation.',
   },
 }
 
@@ -142,7 +140,7 @@ export const archiveItems = {
       category: 'NEWS',
       date: '2025-03-20',
       title: 'VAN Announcement: 2026 컨퍼런스 준비 착수',
-      excerpt: 'VAN Conference 2026 준비 방향과 향후 공개될 정보 범위를 안내하는 샘플 뉴스입니다.',
+      excerpt: 'VAN Conference 2026 준비 방향과 향후 공개 예정 정보를 안내하는 소식입니다.',
       body: [
         'VAN은 2026년 대표 컨퍼런스를 중심으로 공식 사이트와 아카이브를 정비합니다.',
         '행사 정보, 신청, 파트너십 문의는 사이트를 통해 순차적으로 공개됩니다.',
@@ -264,7 +262,7 @@ export const archiveItems = {
       category: 'NEWS',
       date: '2025-03-20',
       title: 'VAN Announcement: Preparing the 2026 Conference',
-      excerpt: 'Sample news introducing the preparation direction for VAN Conference 2026.',
+      excerpt: 'An update introducing the preparation direction and forthcoming information for VAN Conference 2026.',
       body: [
         'VAN is organizing its official site and archive around the 2026 flagship conference.',
         'Event information, applications and partnership inquiries will be released through the site.',

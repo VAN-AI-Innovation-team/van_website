@@ -29,7 +29,7 @@ const formattedDate = lang === 'ko' ? post.date.replaceAll('-', '.') : post.date
         <div class="archive-article-meta">
           <span>{post.category}</span>
           <time datetime={post.date}>{formattedDate}</time>
-          <small>{labels.sample}</small>
+          <small>{labels.status}</small>
         </div>
         <h1>{post.title}</h1>
         <p>{post.excerpt}</p>
@@ -40,7 +40,7 @@ const formattedDate = lang === 'ko' ? post.date.replaceAll('-', '.') : post.date
         <aside>
           <span>VAN ARCHIVE</span>
           <strong>{post.category}</strong>
-          <small>{labels.sample}</small>
+          <small>{labels.status}</small>
         </aside>
         <div class="archive-article-body">
           {post.body.map((paragraph) => <p>{paragraph}</p>)}
