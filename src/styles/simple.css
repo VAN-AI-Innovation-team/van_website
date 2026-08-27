@@ -801,7 +801,6 @@ h3 {
   gap: 2rem;
 }
 
-.archive-sample-note,
 .archive-detail-notice {
   display: flex;
   align-items: flex-start;
@@ -813,7 +812,6 @@ h3 {
   background: #edf5f9;
 }
 
-.archive-sample-note > span,
 .archive-detail-notice > span {
   display: grid;
   flex: 0 0 24px;
@@ -827,7 +825,6 @@ h3 {
   font-weight: 800;
 }
 
-.archive-sample-note p,
 .archive-detail-notice p {
   margin: 0;
   line-height: 1.65;
