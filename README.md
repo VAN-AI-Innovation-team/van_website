@@ -74,7 +74,7 @@ npm run check
 - 페이지 화면: `src/pages/[lang]/[...slug].astro`
 - 디자인과 반응형: `src/styles/global.css`
 
-기획팀용 수정 안내와 확정이 필요한 항목은 [기획팀 전달 가이드](docs/PLANNING_HANDOFF.md)를 참고합니다.
+
 
 ## 공식 도메인 연결
 
