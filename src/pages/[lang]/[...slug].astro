@@ -230,8 +230,9 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
   {pageKey === 'departments' && (
     <>
       <section class="page-hero page-hero--departments">
-        <div class="container page-hero-grid">
-          <div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div>
+        <div class="container departments-intro">
+          <p class="eyebrow eyebrow--accent">{page.eyebrow}</p>
+          <h1>{page.title}</h1>
           <p class="page-lead">{page.lead}</p>
         </div>
       </section>

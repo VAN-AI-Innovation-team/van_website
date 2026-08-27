@@ -503,6 +503,35 @@ h3 {
   color: #bdcad5;
 }
 
+.departments-intro {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.departments-intro .eyebrow {
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.departments-intro h1 {
+  max-width: 1000px;
+  margin: 0;
+  font-size: clamp(3rem, 5.5vw, 5.25rem);
+  line-height: 1.08;
+  white-space: normal;
+  text-wrap: balance;
+}
+
+.departments-intro .page-lead {
+  max-width: 640px;
+  margin: clamp(1.75rem, 3.5vw, 2.75rem) 0 0;
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  border-left: 2px solid #8bb6d9;
+  line-height: 1.75;
+}
+
 .conference-feature,
 .archive-feature {
   overflow: hidden;
