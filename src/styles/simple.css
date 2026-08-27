@@ -503,35 +503,6 @@ h3 {
   color: #bdcad5;
 }
 
-.departments-intro {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-.departments-intro .eyebrow {
-  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
-}
-
-.departments-intro h1 {
-  max-width: 1000px;
-  margin: 0;
-  font-size: clamp(3rem, 5.5vw, 5.25rem);
-  line-height: 1.08;
-  white-space: normal;
-  text-wrap: balance;
-}
-
-.departments-intro .page-lead {
-  max-width: 640px;
-  margin: clamp(1.75rem, 3.5vw, 2.75rem) 0 0;
-  padding: 0.2rem 0 0.2rem 1.25rem;
-  border-left: 2px solid #8bb6d9;
-  line-height: 1.75;
-}
-
 .conference-feature,
 .archive-feature {
   overflow: hidden;
@@ -638,12 +609,39 @@ h3 {
   background: #f1f6f9;
 }
 
-.information-status > p {
-  padding: 1.25rem 1.4rem;
+.information-status {
+  grid-template-columns: minmax(110px, 0.22fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.5rem, 5vw, 5rem);
+}
+
+.information-status > .eyebrow {
+  margin: 0.65rem 0 0;
+}
+
+.information-status__content {
+  display: grid;
+  gap: clamp(1.4rem, 2.5vw, 2rem);
+}
+
+.information-status__content h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 4.4vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+
+.information-status__content > p {
+  max-width: 760px;
+  margin: 0;
+  padding: 1.3rem 1.5rem;
   color: #526576;
   border: 0;
+  border-left: 3px solid #8bb6d9;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.7);
+  line-height: 1.75;
 }
 
 .event-facts {
@@ -740,6 +738,11 @@ h3 {
   .split-content,
   .information-status {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .information-status > .eyebrow {
+    margin-top: 0;
   }
 
   .update-list {
@@ -772,6 +775,14 @@ h3 {
   .page-hero h1,
   .event-hero h1 {
     font-size: clamp(2.65rem, 12vw, 4rem);
+  }
+
+  .information-status__content h2 {
+    font-size: clamp(1.8rem, 9vw, 2.6rem);
+  }
+
+  .information-status__content > p {
+    padding: 1.1rem 1.2rem;
   }
 
   .track-card,
