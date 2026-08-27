@@ -230,9 +230,8 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
   {pageKey === 'departments' && (
     <>
       <section class="page-hero page-hero--departments">
-        <div class="container departments-intro">
-          <p class="eyebrow eyebrow--accent">{page.eyebrow}</p>
-          <h1>{page.title}</h1>
+        <div class="container page-hero-grid">
+          <div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div>
           <p class="page-lead">{page.lead}</p>
         </div>
       </section>
@@ -254,8 +253,11 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--mist">
         <div class="container information-status">
-          <div><p class="eyebrow">II / STATUS</p><h2>{page.statusTitle}</h2></div>
-          <p>{page.statusBody}</p>
+          <p class="eyebrow">II / STATUS</p>
+          <div class="information-status__content">
+            <h2>{page.statusTitle}</h2>
+            <p>{page.statusBody}</p>
+          </div>
         </div>
       </section>
     </>
