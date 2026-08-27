@@ -301,7 +301,6 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--paper">
         <div class="container archive-browser" data-archive-browser>
-          <aside class="archive-sample-note"><span aria-hidden="true">i</span><p>{archiveCopy.notice}</p></aside>
           <div class="archive-toolbar">
             <label class="archive-search">
               <span>{archiveCopy.searchLabel}</span>
@@ -332,7 +331,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
                   <div class="archive-card-meta">
                     <span>{item.category}</span>
                     <time datetime={item.date}>{formatArchiveDate(item.date)}</time>
-                    <small>{archiveCopy.sample}</small>
+                    <small>{archiveCopy.status}</small>
                   </div>
                   <h2>{item.title}</h2>
                   <p>{item.excerpt}</p>
