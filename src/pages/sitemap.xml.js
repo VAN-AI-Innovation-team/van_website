@@ -1,9 +1,14 @@
 import { basePath, languages, routeEntries, routePath } from '../data/conference.js'
+import { archiveItems } from '../data/archive.js'
 
 export const prerender = true
 
 export function GET({ site }) {
-  const urls = languages.flatMap((language) => routeEntries.map(({ slug }) => {
+  const routeSlugs = [
+    ...routeEntries.map(({ slug }) => slug),
+    ...archiveItems.ko.map(({ slug }) => `archive/${slug}`),
+  ]
+  const urls = languages.flatMap((language) => routeSlugs.map((slug) => {
     const location = new URL(basePath(routePath(language, slug)), site).href
     const korean = new URL(basePath(routePath('ko', slug)), site).href
     const english = new URL(basePath(routePath('en', slug)), site).href

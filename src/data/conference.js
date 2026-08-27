@@ -55,7 +55,7 @@ export const content = {
       departments: ['Departments | VAN', 'VAN의 학술·대외협력·기획운영 활동 영역을 확인합니다.'],
       application: ['Application | VAN Conference', 'VAN Conference 참가, 발표, 운영 참여와 리크루팅 정보를 확인합니다.'],
       partners: ['Partners | VAN Conference', 'VAN Conference 공동 개최, 후원, 기관 초청 및 협력 방식을 안내합니다.'],
-      archive: ['Archive | VAN Conference', 'VAN Conference와 포럼의 연도별 기록, 발표 자료, 미디어 콘텐츠를 축적합니다.'],
+      archive: ['Archive | VAN Conference', 'VAN의 컨퍼런스, 포럼, 뉴스, 인사이트와 미디어 콘텐츠를 검색하고 분류별로 확인합니다.'],
       contact: ['Contact | VAN Conference', '공동 컨퍼런스, 포럼, 후원, 연사 초청 및 협력 문의를 안내합니다.'],
     },
     home: {
@@ -174,19 +174,9 @@ export const content = {
       ctaBody: '협력 목적과 기대하는 형태를 간단히 알려주시면 적합한 방식부터 함께 정리합니다.',
     },
     archive: {
-      eyebrow: 'NEWS & ARCHIVE',
-      title: '활동은 소식으로,\n결과는 기록으로 남깁니다.',
-      lead: 'VAN의 컨퍼런스, 공동 포럼, 발표 자료와 미디어 기록을 한곳에 차곡차곡 모읍니다.',
-      latestTitle: '2026 · VAN Conference',
-      latestBody: '현재 개발 중인 메인 컨퍼런스입니다. 행사 정보와 결과 콘텐츠가 같은 상세 페이지에 이어집니다.',
-      structureTitle: 'Archive Categories',
-      categories: [
-        ['CONFERENCES', '연도별 메인 컨퍼런스'],
-        ['FORUMS', '기관·커뮤니티 공동 포럼'],
-        ['SESSIONS', '발표 자료와 세션 요약'],
-        ['MEDIA', '기사, 영상, 사진, 인터뷰'],
-      ],
-      empty: '첫 기록은 VAN Conference 2026부터 시작됩니다.',
+      eyebrow: 'VAN ARCHIVE',
+      title: '기록을 모으고,\n다음 대화를 이어갑니다.',
+      lead: '컨퍼런스와 포럼, 뉴스, 인사이트, 미디어 콘텐츠를 한곳에서 검색하고 살펴볼 수 있습니다.',
     },
     contact: {
       eyebrow: 'CONTACT',
@@ -245,7 +235,7 @@ export const content = {
       departments: ['Departments | VAN', 'Explore VAN activities across research, external affairs, conference operations and media.'],
       application: ['Application | VAN Conference', 'Find ways to attend, speak, or join the team behind VAN Conference.'],
       partners: ['Partners | VAN Conference', 'Explore co-hosting, sponsorship, invitation and content partnerships.'],
-      archive: ['Archive | VAN Conference', 'Browse the growing record of VAN Conferences, forums, sessions and media.'],
+      archive: ['Archive | VAN Conference', 'Search and browse VAN conferences, forums, news, insights and media by category.'],
       contact: ['Contact | VAN Conference', 'Contact VAN Conference about co-hosting, sponsorship, invitations and collaboration.'],
     },
     home: {
@@ -364,19 +354,9 @@ export const content = {
       ctaBody: 'Tell us your goal and preferred form of collaboration, and we will shape the right starting point together.',
     },
     archive: {
-      eyebrow: 'NEWS & ARCHIVE',
-      title: 'Activities become news.\nOutcomes become records.',
-      lead: 'We bring VAN conferences, forums, session materials and media together in one growing archive.',
-      latestTitle: '2026 · VAN Conference',
-      latestBody: 'Our current flagship conference. Event details and post-event materials will remain on the same page.',
-      structureTitle: 'Archive Categories',
-      categories: [
-        ['CONFERENCES', 'Annual flagship conferences'],
-        ['FORUMS', 'Collaborative institutional forums'],
-        ['SESSIONS', 'Presentation materials and summaries'],
-        ['MEDIA', 'Articles, video, photography and interviews'],
-      ],
-      empty: 'The archive begins with VAN Conference 2026.',
+      eyebrow: 'VAN ARCHIVE',
+      title: 'Collect the record.\nContinue the conversation.',
+      lead: 'Search and explore VAN conferences, forums, news, insights and media in one place.',
     },
     contact: {
       eyebrow: 'CONTACT',

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import { archiveCategories, archiveItems, archiveLabels } from '../../data/archive.js'
 import {
   basePath,
   content,
@@ -23,6 +24,9 @@ const copy = content[lang]
 const page = copy[pageKey]
 const [title, description] = copy.meta[pageKey]
 const link = (target) => basePath(routePath(lang, target))
+const archiveCopy = archiveLabels[lang]
+const archivePosts = archiveItems[lang]
+const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : date
 ---
 
 <BaseLayout lang={lang} pageKey={pageKey} slug={slug} title={title} description={description}>
@@ -296,9 +300,102 @@ const link = (target) => basePath(routePath(lang, target))
         <div class="container page-hero-grid"><div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div><p class="page-lead">{page.lead}</p></div>
       </section>
       <section class="section section--paper">
-        <div class="container archive-feature"><div class="archive-year">2026</div><div><p class="eyebrow">CURRENT RECORD</p><h2>{page.latestTitle}</h2><p>{page.latestBody}</p><a class="text-link" href={link('conference/2026')}>{copy.common.details}<span aria-hidden="true">↗</span></a></div></div>
+        <div class="container archive-browser" data-archive-browser>
+          <aside class="archive-sample-note"><span aria-hidden="true">i</span><p>{archiveCopy.notice}</p></aside>
+          <div class="archive-toolbar">
+            <label class="archive-search">
+              <span>{archiveCopy.searchLabel}</span>
+              <input type="search" placeholder={archiveCopy.searchPlaceholder} data-archive-search />
+            </label>
+            <div class="archive-filter-wrap">
+              <span>{archiveCopy.filterLabel}</span>
+              <div class="archive-filters" role="group" aria-label={archiveCopy.filterLabel}>
+                <button type="button" data-archive-filter="ALL" aria-pressed="true">{archiveCopy.all}</button>
+                {archiveCategories.map((category) => <button type="button" data-archive-filter={category} aria-pressed="false">{category}</button>)}
+              </div>
+            </div>
+          </div>
+          <p class="archive-result-count"><strong data-archive-count>{archivePosts.length}</strong> {archiveCopy.results}</p>
+          <div class="archive-card-list">
+            {archivePosts.map((item) => (
+              <article
+                class="archive-content-card"
+                data-archive-card
+                data-archive-category={item.category}
+                data-archive-search={`${item.category} ${item.title} ${item.excerpt}`.toLocaleLowerCase()}
+              >
+                <div class={`archive-card-visual archive-card-visual--${item.category.toLowerCase()}`} aria-hidden="true">
+                  <span>VAN</span>
+                  <strong>{item.category}</strong>
+                </div>
+                <div class="archive-card-content">
+                  <div class="archive-card-meta">
+                    <span>{item.category}</span>
+                    <time datetime={item.date}>{formatArchiveDate(item.date)}</time>
+                    <small>{archiveCopy.sample}</small>
+                  </div>
+                  <h2>{item.title}</h2>
+                  <p>{item.excerpt}</p>
+                  <a class="archive-read-link" href={link(`archive/${item.slug}`)}>{archiveCopy.read}<span aria-hidden="true">↗</span></a>
+                </div>
+              </article>
+            ))}
+          </div>
+          <p class="archive-empty" data-archive-empty hidden>{archiveCopy.empty}</p>
+        </div>
       </section>
-      <section class="section section--ink"><div class="container"><div class="section-heading"><div><p class="eyebrow">INDEX</p><h2>{page.structureTitle}</h2></div><p>{page.empty}</p></div><div class="archive-grid">{page.categories.map(([title, body], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
+      <script>
+        const archiveRoot = document.querySelector('[data-archive-browser]')
+
+        if (archiveRoot instanceof HTMLElement) {
+          const archiveInput = archiveRoot.querySelector('[data-archive-search]')
+          const archiveCards = [...archiveRoot.querySelectorAll('[data-archive-card]')]
+          const archiveButtons = [...archiveRoot.querySelectorAll('[data-archive-filter]')]
+          const archiveCount = archiveRoot.querySelector('[data-archive-count]')
+          const archiveEmpty = archiveRoot.querySelector('[data-archive-empty]')
+          const requestedCategory = new URLSearchParams(window.location.search).get('category')?.toUpperCase()
+          let activeCategory = archiveButtons.some((button) => button.getAttribute('data-archive-filter') === requestedCategory)
+            ? requestedCategory
+            : 'ALL'
+
+          const applyArchiveFilters = () => {
+            const query = archiveInput instanceof HTMLInputElement ? archiveInput.value.trim().toLocaleLowerCase() : ''
+            let visibleCount = 0
+
+            archiveCards.forEach((card) => {
+              if (!(card instanceof HTMLElement)) return
+              const matchesCategory = activeCategory === 'ALL' || card.dataset.archiveCategory === activeCategory
+              const matchesQuery = !query || (card.dataset.archiveSearch || '').includes(query)
+              const isVisible = matchesCategory && matchesQuery
+              card.hidden = !isVisible
+              if (isVisible) visibleCount += 1
+            })
+
+            archiveButtons.forEach((button) => {
+              if (!(button instanceof HTMLButtonElement)) return
+              button.setAttribute('aria-pressed', String(button.dataset.archiveFilter === activeCategory))
+            })
+
+            if (archiveCount) archiveCount.textContent = String(visibleCount)
+            if (archiveEmpty instanceof HTMLElement) archiveEmpty.hidden = visibleCount !== 0
+          }
+
+          archiveButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+              if (!(button instanceof HTMLButtonElement)) return
+              activeCategory = button.dataset.archiveFilter || 'ALL'
+              const url = new URL(window.location.href)
+              if (activeCategory === 'ALL') url.searchParams.delete('category')
+              else url.searchParams.set('category', activeCategory)
+              window.history.replaceState(null, '', url)
+              applyArchiveFilters()
+            })
+          })
+
+          if (archiveInput instanceof HTMLInputElement) archiveInput.addEventListener('input', applyArchiveFilters)
+          applyArchiveFilters()
+        }
+      </script>
     </>
   )}
 

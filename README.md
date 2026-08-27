@@ -19,6 +19,7 @@ VAN(Veritas Academiae Nexus)의 소개, 활동 영역, 컨퍼런스, 소식과 �
 - ARCHIVE
 - CONTACT
 - VAN Conference 2026 영구 상세 페이지
+- 기획 참고안 기반 아카이브 샘플 10개, 분류 필터, 검색 및 한·영 상세 페이지
 - 짙은 네이비·화이트·블루그레이 기반의 심플한 반응형 디자인
 - 한국어 `/ko/` 및 영어 `/en/` 정적 URL
 - 휴대폰·태블릿·데스크톱 반응형 화면
@@ -67,6 +68,7 @@ npm run check
 ## 콘텐츠 수정 위치
 
 - 한·영 문구, 페이지 설명, 프로그램 방향: `src/data/conference.js`
+- 아카이브 샘플 콘텐츠와 상세 본문: `src/data/archive.js`
 - 전체 레이아웃과 SEO: `src/layouts/BaseLayout.astro`
 - 헤더·모바일 메뉴: `src/components/SiteHeader.astro`
 - 페이지 화면: `src/pages/[lang]/[...slug].astro`
@@ -79,6 +81,8 @@ npm run check
 현재 대표 배포는 `van-website-kappa.vercel.app`에서 확인합니다. 공식 도메인 연결 시 Vercel Domains에 도메인을 추가하고, 빌드 환경의 `SITE_URL`을 확정된 HTTPS 도메인으로, `BASE_PATH`를 `/`로 설정합니다.
 
 기획안에 전달된 도메인 문자열이 인코딩된 형태이므로 실제 사용할 정확한 영문 도메인과 HTTPS 적용 여부를 확인한 뒤 연결해야 합니다. 도메인 연결 전 canonical 기본값은 현재 작동하는 Vercel 주소이며, 공식 도메인 확정 후 `SITE_URL` 환경변수로 교체합니다.
+
+아카이브에 반영된 일정과 활동 글은 기획 참고안의 샘플이므로 화면에 `기획 샘플`로 표시합니다. 실제 기록으로 확정하기 전 운영팀 검토가 필요합니다.
 
 ## 기술 구성
 

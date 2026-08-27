@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import { archiveItems, archiveLabels } from '../../../data/archive.js'
+import { basePath, languages, routePath } from '../../../data/conference.js'
+
+export function getStaticPaths() {
+  return languages.flatMap((lang) => archiveItems[lang].map((post) => ({
+    params: { lang, slug: post.slug },
+    props: { post },
+  })))
+}
+
+const lang = Astro.params.lang
+const { post } = Astro.props
+const labels = archiveLabels[lang]
+const pageSlug = `archive/${post.slug}`
+const title = `${post.title} | VAN Archive`
+const description = post.excerpt
+const archiveLink = basePath(routePath(lang, 'archive'))
+const contactLink = basePath(routePath(lang, 'contact'))
+const formattedDate = lang === 'ko' ? post.date.replaceAll('-', '.') : post.date
+---
+
+<BaseLayout lang={lang} pageKey="archive" slug={pageSlug} title={title} description={description}>
+  <article class="archive-article">
+    <header class="archive-article-hero">
+      <div class="container">
+        <a class="archive-back-link" href={archiveLink}><span aria-hidden="true">←</span>{labels.back}</a>
+        <div class="archive-article-meta">
+          <span>{post.category}</span>
+          <time datetime={post.date}>{formattedDate}</time>
+          <small>{labels.sample}</small>
+        </div>
+        <h1>{post.title}</h1>
+        <p>{post.excerpt}</p>
+      </div>
+    </header>
+    <section class="section section--paper">
+      <div class="container archive-article-layout">
+        <aside>
+          <span>VAN ARCHIVE</span>
+          <strong>{post.category}</strong>
+          <small>{labels.sample}</small>
+        </aside>
+        <div class="archive-article-body">
+          {post.body.map((paragraph) => <p>{paragraph}</p>)}
+          <div class="archive-detail-notice"><span aria-hidden="true">i</span><p>{labels.detailNotice}</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="section section--mist">
+      <div class="container archive-article-footer">
+        <div><p class="eyebrow">VAN ARCHIVE</p><h2>{lang === 'ko' ? '확정된 정보가 준비되면 업데이트합니다.' : 'Confirmed information will be added here.'}</h2></div>
+        <a class="button button--dark" href={contactLink}>{lang === 'ko' ? '문의하기' : 'CONTACT'}<span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
