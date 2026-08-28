@@ -1,0 +1,103 @@
+---
+const {
+  items = [],
+  developmentLabel = 'In development',
+} = Astro.props
+---
+
+<div class="faq-list">
+  {items.length > 0 ? items.map((item, index) => (
+    <details>
+      <summary>
+        <span>{String(index + 1).padStart(2, '0')}</span>
+        <strong>{item.question}</strong>
+        <i aria-hidden="true">+</i>
+      </summary>
+      <div><p>{item.answer}</p></div>
+    </details>
+  )) : (
+    <p class="faq-list__empty">{developmentLabel}</p>
+  )}
+</div>
+
+<style>
+  .faq-list {
+    margin-top: 3rem;
+    border-top: 1px solid var(--line-light);
+  }
+
+  .faq-list details {
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  .faq-list summary {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    min-height: 76px;
+    padding: 1rem 0;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-list summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-list summary > span {
+    color: #617788;
+    font-size: 0.68rem;
+    font-weight: 760;
+  }
+
+  .faq-list summary strong {
+    color: #10283d;
+    font-size: 1rem;
+  }
+
+  .faq-list summary i {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 1px solid #bdcdd8;
+    border-radius: 50%;
+    color: #315f80;
+    font-size: 1.25rem;
+    font-style: normal;
+    transition: transform 160ms ease;
+  }
+
+  .faq-list details[open] summary i {
+    transform: rotate(45deg);
+  }
+
+  .faq-list details > div {
+    padding: 0 44px 1.5rem 60px;
+  }
+
+  .faq-list details p,
+  .faq-list__empty {
+    color: #5d7180;
+  }
+
+  .faq-list__empty {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  @media (max-width: 520px) {
+    .faq-list summary {
+      grid-template-columns: minmax(0, 1fr) 44px;
+    }
+
+    .faq-list summary > span {
+      display: none;
+    }
+
+    .faq-list details > div {
+      padding-left: 0;
+    }
+  }
+</style>

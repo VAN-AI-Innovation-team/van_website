@@ -67,14 +67,28 @@ npm run check
 
 ## 콘텐츠 수정 위치
 
-- 한·영 문구, 페이지 설명, 프로그램 방향: `src/data/conference.js`
+- 공통 한·영 문구와 일반 페이지 설명: `src/data/conference.js`
+- 연도별 행사 정보, 연사, 프로그램, 파트너, FAQ: `src/data/conferenceEditions.js`
 - 아카이브 콘텐츠와 상세 본문: `src/data/archive.js`
 - 전체 레이아웃과 SEO: `src/layouts/BaseLayout.astro`
 - 헤더·모바일 메뉴: `src/components/SiteHeader.astro`
-- 페이지 화면: `src/pages/[lang]/[...slug].astro`
+- Conference 재사용 UI: `src/components/SpeakerCard.astro`, `ProgrammeList.astro`, `PartnerGrid.astro`, `FaqList.astro`, `ConferenceArchiveCard.astro`
+- 페이지 조합: `src/pages/[lang]/[...slug].astro`
 - 디자인과 반응형: `src/styles/global.css`
 
 기획팀용 수정 안내와 확정이 필요한 항목은 [기획팀 전달 가이드](docs/PLANNING_HANDOFF.md)를 참고합니다.
+
+## 연도별 Conference 추가
+
+`src/data/conferenceEditions.js`의 `conferenceEditions` 배열에 새 연도 객체를 추가하면 해당 연도의 한국어·영어 영구 URL과 Conference 목록 카드가 함께 생성됩니다. 예를 들어 `year`와 `slug`를 `2027`로 지정하면 `/ko/conference/2027/`, `/en/conference/2027/` 경로를 같은 화면 구조로 사용할 수 있습니다.
+
+새 연도 추가 시 다음 원칙을 지킵니다.
+
+1. 기존 연도 객체를 덮어쓰지 않고 새 객체를 추가합니다.
+2. 한국어와 영어의 `meta`, `hero`, `facts`, `overview`, `speakers`, `programme`, `partners`, `faq`, `archive`를 함께 작성합니다.
+3. 날짜·장소·연사·파트너처럼 확정되지 않은 값은 `status: 'development'`, `value: null`로 둡니다.
+4. 확정된 정보만 `status: 'confirmed'`로 변경합니다.
+5. 검색용 Event 구조화 데이터는 날짜와 장소가 확정된 이후에만 `structuredEvent`에 추가합니다.
 
 ## 공식 도메인 연결
 

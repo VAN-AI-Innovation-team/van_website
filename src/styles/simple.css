@@ -1238,3 +1238,23 @@ h3 {
     flex-direction: column;
   }
 }
+
+.conference-edition-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.conference-speakers {
+  border-top: 1px solid var(--line-light);
+}
+
+.conference-speaker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+.conference-speaker-grid > :only-child {
+  width: min(100%, 420px);
+}
