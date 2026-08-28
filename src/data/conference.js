@@ -1,3 +1,5 @@
+import { conferenceEditionRoutes } from './conferenceEditions.js'
+
 export const languages = ['ko', 'en']
 
 export const routeEntries = [
@@ -5,7 +7,7 @@ export const routeEntries = [
   { key: 'about', slug: 'about' },
   { key: 'departments', slug: 'departments' },
   { key: 'conference', slug: 'conference' },
-  { key: 'conference2026', slug: 'conference/2026' },
+  ...conferenceEditionRoutes,
   { key: 'application', slug: 'application' },
   { key: 'partners', slug: 'partners' },
   { key: 'archive', slug: 'archive' },
@@ -37,7 +39,7 @@ export const content = {
     common: {
       latest: '현재 컨퍼런스',
       planning: '개발 중',
-      details: '2026 컨퍼런스 보기',
+      details: '현재 컨퍼런스 보기',
       apply: '참가 안내 보기',
       partnership: '협력 제안하기',
       backHome: '홈으로 돌아가기',
@@ -50,7 +52,6 @@ export const content = {
     meta: {
       home: ['VAN | Veritas Academiae Nexus', '대학생과 연구자, 산업을 연결해 학술적 탐구를 실제 협력으로 확장하는 VAN 공식 홈페이지입니다.'],
       conference: ['Conference | VAN Conference', '현재 및 향후 VAN Conference와 공동 포럼을 한곳에서 확인합니다.'],
-      conference2026: ['VAN Conference 2026 | 공식 행사 안내', 'VAN Conference 2026의 주제, 트랙, 참가 및 파트너 안내를 확인합니다.'],
       about: ['About | VAN', 'VAN이 지향하는 학술 네트워크의 방향과 운영 원칙을 소개합니다.'],
       departments: ['Departments | VAN', 'VAN의 학술·대외협력·기획운영 활동 영역을 확인합니다.'],
       application: ['Application | VAN Conference', 'VAN Conference 참가, 발표, 운영 참여와 리크루팅 정보를 확인합니다.'],
@@ -62,7 +63,7 @@ export const content = {
       eyebrow: 'VERITAS · ACADEMIAE · NEXUS',
       title: '지식이 연결될 때,\n새로운 기준이 시작됩니다.',
       lead: 'VAN은 대학생과 연구자, 산업의 전문성을 연결해 질문을 연구로, 연구를 협력과 실행으로 확장하는 학술 네트워크입니다.',
-      note: 'VAN Conference 2026의 세부 일정과 프로그램은 현재 개발 중입니다.',
+      note: '현재 컨퍼런스의 세부 일정과 프로그램은 개발 중입니다.',
       statementTitle: '탐구의 깊이와\n연결의 가능성을 함께.',
       statementBody: '서로 다른 전공과 현장의 언어를 잇고, 신뢰할 수 있는 지식과 대화를 축적합니다. 컨퍼런스와 포럼, 리서치와 대외협력을 하나의 지속 가능한 네트워크로 연결합니다.',
       tracksTitle: 'Departments & Focus',
@@ -75,7 +76,6 @@ export const content = {
       updatesTitle: 'Now at VAN',
       updatesLead: '현재 공개 가능한 활동과 다음 업데이트를 한곳에서 확인하세요.',
       updates: [
-        ['CONFERENCE', 'VAN Conference 2026', 'AI·금융·헬스케어를 연결하는 메인 컨퍼런스를 준비하고 있습니다.', 'conference/2026'],
         ['ORGANIZATION', 'VAN 활동 영역 안내', '학술·리서치, 대외협력, 컨퍼런스·미디어의 역할을 소개합니다.', 'departments'],
         ['PARTNERSHIP', '공동 포럼·협력 제안', '공동 개최, 후원, 기관 초청과 콘텐츠 협력 제안을 상시 검토합니다.', 'partners'],
       ],
@@ -86,8 +86,6 @@ export const content = {
       eyebrow: 'VAN CONFERENCE',
       title: '배움과 대화가\n새로운 연결이 되는 곳.',
       lead: '다양한 전공과 현장의 사람들이 한자리에 모여 경험을 나누고, 함께 다음 질문을 만들어 갑니다.',
-      cardTitle: 'VAN Conference 2026',
-      cardBody: 'AI, 금융투자, 보건의료를 중심으로 연구자와 실무자의 시선을 연결하는 VAN의 메인 컨퍼런스입니다.',
       frameworkTitle: '프로그램 구성',
       framework: [
         ['기조 세션', '새로운 관점과 앞으로 함께 고민할 질문을 나눕니다.'],
@@ -95,28 +93,6 @@ export const content = {
         ['라운드테이블', '서로 다른 경험을 가진 참가자가 의견을 나누고 해답을 모색합니다.'],
         ['네트워킹', '관심사를 공유하는 사람들과 만나 다음 협력의 가능성을 찾습니다.'],
       ],
-    },
-    conference2026: {
-      eyebrow: 'VAN CONFERENCE · 2026',
-      title: 'VAN Conference 2026',
-      lead: 'AI가 산업과 일상을 바꾸는 지금, 기술을 더 잘 이해하고 현명하게 활용하는 방법을 함께 이야기합니다.',
-      overviewTitle: '함께 만드는 2026 컨퍼런스',
-      overviewBody: 'VAN Conference 2026은 AI, 금융투자, 보건의료 분야의 연구자와 실무자가 경험과 질문을 나누는 자리입니다. 확정되는 내용은 이 페이지에 차례로 반영합니다.',
-      facts: [
-        ['일정', '2026 · 개발 중'],
-        ['장소', '개발 중'],
-        ['형식', '강연 · 세션 · 네트워킹'],
-        ['언어', '한국어 · 영어'],
-      ],
-      programTitle: '세 가지 주제, 하나의 대화',
-      programLead: 'AI, 금융투자, 보건의료를 중심으로 서로 다른 관점을 연결하는 프로그램을 개발하고 있습니다.',
-      program: [
-        ['AI Innovation', '에이전트, 자동화, 책임 있는 AI'],
-        ['Financial Insight', '리서치, 데이터, 투자 의사결정'],
-        ['Health Futures', '의료 경험, 안전, 디지털 헬스'],
-      ],
-      noticeTitle: '현재 개발 중입니다.',
-      noticeBody: '참가 등록, 연사, 장소와 세부 시간표는 개발이 완료되는 순서대로 이 페이지에 반영됩니다.',
     },
     about: {
       eyebrow: 'ABOUT VAN',
@@ -217,7 +193,7 @@ export const content = {
     common: {
       latest: 'CURRENT CONFERENCE',
       planning: 'IN DEVELOPMENT',
-      details: 'Explore Conference 2026',
+      details: 'Explore current conference',
       apply: 'View application paths',
       partnership: 'Propose a partnership',
       backHome: 'Back to home',
@@ -230,7 +206,6 @@ export const content = {
     meta: {
       home: ['VAN | Veritas Academiae Nexus', 'The official VAN website connecting students, researchers and industry through scholarship and collaboration.'],
       conference: ['Conference | VAN Conference', 'Discover current and future VAN Conferences and collaborative forums.'],
-      conference2026: ['VAN Conference 2026 | Official Event Page', 'Explore the direction, tracks, application and partnership information for VAN Conference 2026.'],
       about: ['About | VAN', 'Learn about the mission and principles behind the VAN academic network.'],
       departments: ['Departments | VAN', 'Explore VAN activities across research, external affairs, conference operations and media.'],
       application: ['Application | VAN Conference', 'Find ways to attend, speak, or join the team behind VAN Conference.'],
@@ -242,7 +217,7 @@ export const content = {
       eyebrow: 'VERITAS · ACADEMIAE · NEXUS',
       title: 'When knowledge connects,\na new standard begins.',
       lead: 'VAN is an academic network connecting students, researchers and industry—turning questions into research and research into collaboration.',
-      note: 'Details and programming for VAN Conference 2026 are in development.',
+      note: 'Details and programming for the current conference are in development.',
       statementTitle: 'Depth in inquiry.\nPossibility through connection.',
       statementBody: 'We bridge the languages of different disciplines and fields, building a trusted body of knowledge and conversation through research, forums, conferences and partnerships.',
       tracksTitle: 'Departments & Focus',
@@ -255,7 +230,6 @@ export const content = {
       updatesTitle: 'Now at VAN',
       updatesLead: 'Explore current public activities and upcoming updates.',
       updates: [
-        ['CONFERENCE', 'VAN Conference 2026', 'Our flagship conference connecting AI, finance and healthcare is in development.', 'conference/2026'],
         ['ORGANIZATION', 'VAN Activity Areas', 'Explore our work across research, external affairs, conference operations and media.', 'departments'],
         ['PARTNERSHIP', 'Forum & Partnership Proposals', 'We review year-round proposals for co-hosting, sponsorship and content collaboration.', 'partners'],
       ],
@@ -266,8 +240,6 @@ export const content = {
       eyebrow: 'VAN CONFERENCE',
       title: 'Where ideas meet\nnew connections.',
       lead: 'People across disciplines and fields come together to share experience and shape the questions worth asking next.',
-      cardTitle: 'VAN Conference 2026',
-      cardBody: 'VAN’s flagship conference connects researchers and practitioners across AI, finance and healthcare.',
       frameworkTitle: 'Program Format',
       framework: [
         ['KEYNOTE', 'Questions and perspectives that reshape an industry.'],
@@ -275,28 +247,6 @@ export const content = {
         ['ROUNDTABLE', 'Shared standards built across roles and sectors.'],
         ['NETWORKING', 'Connections that continue into projects and forums.'],
       ],
-    },
-    conference2026: {
-      eyebrow: 'VAN CONFERENCE · 2026',
-      title: 'VAN Conference 2026',
-      lead: 'As AI reshapes industries and everyday life, we explore how to understand it better and use it wisely.',
-      overviewTitle: 'Building the 2026 Conference Together',
-      overviewBody: 'VAN Conference 2026 brings researchers and practitioners across AI, finance and healthcare together to exchange experience and questions. Confirmed details will be added here as development continues.',
-      facts: [
-        ['Date', '2026 · In development'],
-        ['Venue', 'In development'],
-        ['Format', 'Talks · Sessions · Networking'],
-        ['Language', 'Korean · English'],
-      ],
-      programTitle: 'Three Topics, One Conversation',
-      programLead: 'The program is being developed around AI, finance and healthcare, connecting different perspectives in one conversation.',
-      program: [
-        ['AI Innovation', 'Agents, automation and responsible AI'],
-        ['Financial Insight', 'Research, data and investment decisions'],
-        ['Health Futures', 'Care experience, safety and digital health'],
-      ],
-      noticeTitle: 'Currently in development.',
-      noticeBody: 'Registration, speakers, venue and the full schedule will be added here as development is completed.',
     },
     about: {
       eyebrow: 'ABOUT VAN',

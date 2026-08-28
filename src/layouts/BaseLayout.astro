@@ -5,7 +5,15 @@ import { basePath, content, routePath } from '../data/conference.js'
 import '../styles/global.css'
 import '../styles/simple.css'
 
-const { lang = 'ko', pageKey = 'home', slug = '', title, description } = Astro.props
+const {
+  lang = 'ko',
+  pageKey = 'home',
+  navKey = pageKey,
+  slug = '',
+  title,
+  description,
+  structuredEvent = null,
+} = Astro.props
 const copy = content[lang]
 const alternateLang = lang === 'ko' ? 'en' : 'ko'
 const canonicalPath = basePath(routePath(lang, slug))
@@ -52,13 +60,27 @@ const structuredData = [
   },
 ]
 
-if (pageKey === 'conference2026') {
+if (
+  structuredEvent?.status === 'confirmed'
+  && structuredEvent.name
+  && structuredEvent.startDate
+  && structuredEvent.location?.name
+) {
   structuredData.push({
     '@context': 'https://schema.org',
     '@type': 'Event',
-    name: 'VAN Conference 2026',
+    name: structuredEvent.name,
     description,
     url: canonical.href,
+    startDate: structuredEvent.startDate,
+    ...(structuredEvent.endDate ? { endDate: structuredEvent.endDate } : {}),
+    ...(structuredEvent.location ? {
+      location: {
+        '@type': 'Place',
+        name: structuredEvent.location.name,
+        ...(structuredEvent.location.address ? { address: structuredEvent.location.address } : {}),
+      },
+    } : {}),
     eventStatus: 'https://schema.org/EventScheduled',
     organizer: {
       '@type': 'Organization',
@@ -94,7 +116,7 @@ if (pageKey === 'conference2026') {
     <script type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll('<', '\\u003c')}></script>
   </head>
   <body>
-    <SiteHeader lang={lang} currentKey={pageKey} currentSlug={slug} />
+    <SiteHeader lang={lang} currentKey={navKey} currentSlug={slug} />
     <main id="main-content">
       <slot />
     </main>

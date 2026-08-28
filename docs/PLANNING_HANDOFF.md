@@ -39,7 +39,7 @@
 - 파트너 로고와 노출 순서
 - 정확한 공식 도메인과 HTTPS 주소
 
-확정된 내용을 전달받으면 `src/data/conference.js`의 한국어·영어 문구를 수정합니다.
+확정된 공통 문구는 `src/data/conference.js`에서 수정하고, 연도별 행사·연사·프로그램·파트너·FAQ는 `src/data/conferenceEditions.js`에서 수정합니다.
 
 ## 4. 직접 실행하기
 
@@ -62,15 +62,16 @@ npm run dev:share
 
 ## 5. GitHub에서 문구 수정하기
 
-1. GitHub 저장소에서 `src/data/conference.js`를 엽니다.
+1. 공통 페이지 문구는 `src/data/conference.js`, 연도별 Conference 정보는 `src/data/conferenceEditions.js`를 엽니다.
 2. 연필 아이콘을 누릅니다.
-3. `ko`는 한국어, `en`은 영어 문구입니다.
-4. 수정 후 별도 브랜치를 만들고 Pull Request를 요청합니다.
-5. `main`에 병합되면 자동 검사와 배포가 실행됩니다.
+3. `localized.ko`는 한국어, `localized.en`은 영어 행사 정보입니다.
+4. 확정되지 않은 값은 `status: 'development'`, `value: null` 상태로 유지합니다.
+5. 수정 후 별도 브랜치를 만들고 Pull Request를 요청합니다.
+6. `main`에 병합되면 자동 검사와 배포가 실행됩니다.
 
 ## 6. 새 컨퍼런스 추가 원칙
 
-2027 행사를 추가할 때 2026 페이지를 덮어쓰지 않습니다. 새 영구 URL을 추가하고 기존 2026 URL과 기록은 그대로 보존합니다.
+2027 행사를 추가할 때 2026 페이지를 덮어쓰지 않습니다. `src/data/conferenceEditions.js`의 `conferenceEditions` 배열에 2027 객체를 추가하면 새 영구 URL이 생성되고 기존 2026 URL과 기록은 그대로 보존됩니다.
 
 예시:
 

@@ -1,0 +1,128 @@
+---
+const {
+  speaker = null,
+  developmentLabel = 'In development',
+  speakerLabel = 'Speakers',
+  sessionLabel = 'Session',
+} = Astro.props
+
+const isConfirmed = speaker?.status === 'confirmed' && speaker?.name
+const initials = isConfirmed
+  ? speaker.name
+      .split(/\s+/)
+      .map((part) => part[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase()
+  : 'VAN'
+---
+
+<article class:list={['speaker-card', { 'speaker-card--development': !isConfirmed }]}>
+  <div class="speaker-card__visual" aria-hidden={!speaker?.image?.src ? 'true' : undefined}>
+    {isConfirmed && speaker.image?.src
+      ? <img src={speaker.image.src} alt="" width="640" height="800" loading="lazy" />
+      : <span>{initials}</span>}
+  </div>
+  <div class="speaker-card__content">
+    <small>{isConfirmed ? speaker.role : speakerLabel}</small>
+    <h3>{isConfirmed ? speaker.name : developmentLabel}</h3>
+    {isConfirmed ? (
+      <>
+        <p class="speaker-card__affiliation">{speaker.affiliation}</p>
+        {speaker.bio && <p class="speaker-card__bio">{speaker.bio}</p>}
+        {speaker.session && (
+          <p class="speaker-card__session"><span>{sessionLabel}</span>{speaker.session}</p>
+        )}
+      </>
+    ) : (
+      <p class="speaker-card__bio">{speaker?.developmentMessage || developmentLabel}</p>
+    )}
+  </div>
+</article>
+
+<style>
+  .speaker-card {
+    display: grid;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--line-light);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 14px 36px rgba(17, 46, 70, 0.06);
+  }
+
+  .speaker-card__visual {
+    display: grid;
+    min-height: 250px;
+    overflow: hidden;
+    place-items: center;
+    color: #d6e4ee;
+    background: linear-gradient(145deg, #173650, #0b2037);
+  }
+
+  .speaker-card__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .speaker-card__visual span {
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    font-weight: 760;
+    letter-spacing: 0.08em;
+  }
+
+  .speaker-card__content {
+    padding: 1.5rem;
+  }
+
+  .speaker-card small,
+  .speaker-card__session span {
+    display: block;
+    color: #52748d;
+    font-size: 0.65rem;
+    font-weight: 760;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .speaker-card h3 {
+    margin-top: 0.7rem;
+    color: #10283d;
+    font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+    line-height: 1.25;
+  }
+
+  .speaker-card__affiliation,
+  .speaker-card__bio,
+  .speaker-card__session {
+    margin-top: 0.8rem;
+    color: #5d7180;
+    font-size: 0.9rem;
+  }
+
+  .speaker-card__session {
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-light);
+  }
+
+  .speaker-card__session span {
+    margin-bottom: 0.25rem;
+  }
+
+  .speaker-card--development .speaker-card__visual {
+    min-height: 180px;
+    color: #90a9bb;
+    background: linear-gradient(145deg, #eef3f6, #dfe8ee);
+  }
+
+  .speaker-card--development .speaker-card__visual span {
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 600px) {
+    .speaker-card__visual {
+      min-height: 210px;
+    }
+  }
+</style>
