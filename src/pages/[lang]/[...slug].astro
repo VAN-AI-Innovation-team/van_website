@@ -329,6 +329,17 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
           />
         </div>
       </section>
+      <section class="section section--paper conference-venue">
+        <div class="container split-content">
+          <p class="section-number">{conferenceEdition.venue.eyebrow}</p>
+          <article class="conference-venue-card">
+            <span>{getConferenceStatusLabel(lang, conferenceEdition.venue.status)}</span>
+            <h2>{conferenceEdition.venue.title}</h2>
+            <p class="section-lead">{conferenceEdition.venue.lead}</p>
+            <p>{conferenceEdition.venue.detail}</p>
+          </article>
+        </div>
+      </section>
       <section class="section section--mist">
         <div class="container section-heading section-heading--paper">
           <div><p class="eyebrow">{conferenceEdition.partners.eyebrow}</p><h2>{conferenceEdition.partners.title}</h2></div>
@@ -349,6 +360,24 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         </div>
         <div class="container">
           <FaqList items={conferenceEdition.faq.items} developmentLabel={conferenceEdition.statusLabel} />
+        </div>
+      </section>
+      <section class="section section--mist conference-closing">
+        <div class="container conference-closing-grid">
+          <article class="conference-application-card">
+            <p class="eyebrow">{conferenceEdition.application.eyebrow}</p>
+            <h2>{conferenceEdition.application.title}</h2>
+            <p>{conferenceEdition.application.body}</p>
+            <a class="button button--dark" href={link('application')}>{conferenceEdition.application.linkLabel}</a>
+          </article>
+          <article class="conference-highlight-card">
+            <div>
+              <p class="eyebrow">{conferenceEdition.highlights.eyebrow}</p>
+              <span>{getConferenceStatusLabel(lang, conferenceEdition.highlights.status)}</span>
+            </div>
+            <h2>{conferenceEdition.highlights.title}</h2>
+            <p>{conferenceEdition.highlights.body}</p>
+          </article>
         </div>
       </section>
     </>

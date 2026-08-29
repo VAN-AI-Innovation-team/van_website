@@ -25,7 +25,7 @@ const initials = isConfirmed
   </div>
   <div class="speaker-card__content">
     <small>{isConfirmed ? speaker.role : speakerLabel}</small>
-    <h3>{isConfirmed ? speaker.name : developmentLabel}</h3>
+    <h3>{isConfirmed ? speaker.name : speaker?.category || developmentLabel}</h3>
     {isConfirmed ? (
       <>
         <p class="speaker-card__affiliation">{speaker.affiliation}</p>
