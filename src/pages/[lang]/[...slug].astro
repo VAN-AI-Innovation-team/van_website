@@ -521,7 +521,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
               </div>
             </div>
           </div>
-          <p class="archive-result-count"><strong data-archive-count>{archivePosts.length}</strong> {archiveCopy.results}</p>
+          <p class="archive-result-count" aria-live="polite" aria-atomic="true"><strong data-archive-count>{archivePosts.length}</strong> {archiveCopy.results}</p>
           <div class="archive-card-list">
             {archivePosts.map((item) => (
               <article
@@ -531,7 +531,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
                 data-archive-search={`${item.category} ${item.title} ${item.subtitle || ''} ${item.venue || ''} ${item.excerpt}`.toLocaleLowerCase()}
               >
                 <div class={`archive-card-visual archive-card-visual--${item.category.toLowerCase()} ${item.cover ? 'archive-card-visual--image' : ''}`}>
-                  {item.cover && <img src={item.cover} alt={item.coverAlt} width="1200" height="675" loading="lazy" />}
+                  {item.cover && <img src={basePath(item.cover)} alt={item.coverAlt} width="1200" height="675" loading="lazy" />}
                   <div class="archive-card-visual-label" aria-hidden="true">
                     <span>VAN</span>
                     <strong>{item.category}</strong>

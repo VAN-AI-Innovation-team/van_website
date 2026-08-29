@@ -44,6 +44,7 @@ export const archiveItems = {
       date: '2025-11-30',
       venue: '코지 컨벤션센터 14F',
       participants: '100인 이상',
+      organizer: 'Veritas Academic Nexus (VAN)',
       title: 'VAN Renaissance 2025',
       subtitle: 'VAN Launching Forum & Networking Night',
       excerpt: '국제 정치와 사회 현안을 주제로 발표와 토론을 진행하며 청년 주도의 공론장 모델을 제시한 학술 컨퍼런스입니다.',
@@ -53,6 +54,8 @@ export const archiveItems = {
       ],
       cover: '/archive/renaissance-2025-cover.jpg',
       coverAlt: 'VAN Renaissance 2025 참가자 단체사진',
+      coverWidth: 1200,
+      coverHeight: 455,
       gallery: [
         {
           src: '/archive/renaissance-2025-session.jpg',
@@ -69,6 +72,7 @@ export const archiveItems = {
       date: '2025-05-10',
       venue: '연세대학교 신촌캠퍼스',
       participants: null,
+      organizer: '서연고 사회과학학회 연합',
       title: 'SKY Zeitgeist 2025',
       subtitle: '서연고 사회과학학회 연합 컨퍼런스',
       excerpt: '서울대학교·연세대학교·고려대학교 사회과학 학회가 연구 성과와 이론적 논의를 공유한 연합 학술 교류 프로그램입니다.',
@@ -78,6 +82,8 @@ export const archiveItems = {
       ],
       cover: '/archive/zeitgeist-2025-cover.jpg',
       coverAlt: 'SKY Zeitgeist 2025 참가자 단체사진',
+      coverWidth: 1200,
+      coverHeight: 675,
       gallery: [
         {
           src: '/archive/zeitgeist-2025-session.jpg',
@@ -96,6 +102,7 @@ export const archiveItems = {
       date: '2025-11-30',
       venue: 'Cozy Convention Center, 14F',
       participants: '100+ participants',
+      organizer: 'Veritas Academic Nexus (VAN)',
       title: 'VAN Renaissance 2025',
       subtitle: 'VAN Launching Forum & Networking Night',
       excerpt: 'An academic conference presenting a youth-led model for public discourse through talks and discussions on international politics and social issues.',
@@ -105,6 +112,8 @@ export const archiveItems = {
       ],
       cover: '/archive/renaissance-2025-cover.jpg',
       coverAlt: 'Group photo from VAN Renaissance 2025',
+      coverWidth: 1200,
+      coverHeight: 455,
       gallery: [
         {
           src: '/archive/renaissance-2025-session.jpg',
@@ -121,6 +130,7 @@ export const archiveItems = {
       date: '2025-05-10',
       venue: 'Yonsei University, Sinchon Campus',
       participants: null,
+      organizer: 'Joint social science societies of Seoul National, Yonsei and Korea University',
       title: 'SKY Zeitgeist 2025',
       subtitle: 'Joint Social Science Conference',
       excerpt: 'A joint academic exchange where social science societies from Seoul National, Yonsei and Korea University shared research and theoretical discussions.',
@@ -130,6 +140,8 @@ export const archiveItems = {
       ],
       cover: '/archive/zeitgeist-2025-cover.jpg',
       coverAlt: 'Group photo from SKY Zeitgeist 2025',
+      coverWidth: 1200,
+      coverHeight: 675,
       gallery: [
         {
           src: '/archive/zeitgeist-2025-session.jpg',
