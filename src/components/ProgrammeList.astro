@@ -1,0 +1,114 @@
+---
+const {
+  sessions = [],
+  directionLabel = 'Programme direction',
+  speakersLabel = 'Speakers',
+} = Astro.props
+---
+
+<ul class="programme-list">
+  {sessions.length > 0 ? sessions.map((session) => (
+    <li>
+      <div class="programme-list__time">
+        {session.time
+          ? <time datetime={session.startAt || undefined}>{session.time}</time>
+          : <small>{directionLabel}</small>}
+      </div>
+      <div class="programme-list__content">
+        <h3>{session.title}</h3>
+        <p>{session.description}</p>
+        {session.speakers?.length > 0 && (
+          <p class="programme-list__speakers"><span>{speakersLabel}</span>{session.speakers.join(' · ')}</p>
+        )}
+      </div>
+    </li>
+  )) : (
+    <li class="programme-list__empty" aria-hidden="true"></li>
+  )}
+</ul>
+
+<style>
+  .programme-list {
+    padding: 0;
+    margin: 3rem 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    list-style: none;
+  }
+
+  .programme-list li {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
+    min-width: 0;
+    padding: 1.7rem 0;
+    align-items: start;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .programme-list__time time,
+  .programme-list__time small,
+  .programme-list__speakers span {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 760;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .programme-list__time time {
+    color: #9cb3c4;
+  }
+
+  .programme-list__time small {
+    width: fit-content;
+    margin-top: 0.55rem;
+    padding: 0.25rem 0.45rem;
+    border-radius: 999px;
+    color: #c9deec;
+    background: rgba(139, 182, 217, 0.14);
+  }
+
+  .programme-list h3 {
+    color: #fff;
+    font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+    line-height: 1.25;
+  }
+
+  .programme-list__content > p {
+    margin-top: 0.75rem;
+    color: #b8c6d2;
+    font-size: 0.92rem;
+  }
+
+  .programme-list__speakers {
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .programme-list__speakers span {
+    margin-bottom: 0.25rem;
+    color: #8bb6d9;
+  }
+
+  .programme-list li.programme-list__empty {
+    grid-template-columns: 1fr;
+    color: #b8c6d2;
+  }
+
+  @media (max-width: 700px) {
+    .programme-list li {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .programme-list__content {
+      grid-column: 1;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .programme-list__time small {
+      margin-top: 0;
+    }
+  }
+</style>

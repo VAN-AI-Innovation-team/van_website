@@ -10,13 +10,13 @@ const languageLabel = otherLang === 'ko' ? 'KO' : 'EN'
 <header class="site-header">
   <a class="skip-link" href="#main-content">{copy.skip}</a>
   <div class="header-inner">
-    <a class="brand" href={basePath(routePath(lang))} aria-label="VAN home">
+    <a class="brand" href={basePath(routePath(lang))} aria-label={lang === 'ko' ? 'VAN 홈' : 'VAN home'}>
       <span class="brand-mark" aria-hidden="true"><i></i></span>
       <span class="brand-name">VAN</span>
       <span class="brand-type">VERITAS ACADEMIAE NEXUS</span>
     </a>
 
-    <nav class="desktop-nav" aria-label="Primary navigation">
+    <nav class="desktop-nav" aria-label={lang === 'ko' ? '주요 탐색' : 'Primary navigation'}>
       {navItems.map(({ key, slug }) => (
         <a
           href={basePath(routePath(lang, slug))}
@@ -32,7 +32,7 @@ const languageLabel = otherLang === 'ko' ? 'KO' : 'EN'
         {languageLabel}
       </a>
       <a class="header-cta" href={basePath(routePath(lang, 'contact'))}>
-        {lang === 'ko' ? '문의하기' : 'CONTACT'}
+        {lang === 'ko' ? '문의 안내' : 'CONTACT INFO'}
       </a>
     </div>
 
@@ -41,18 +41,17 @@ const languageLabel = otherLang === 'ko' ? 'KO' : 'EN'
         <span>{copy.menu}</span>
         <i aria-hidden="true"></i>
       </summary>
-      <nav aria-label="Mobile navigation">
+      <nav aria-label={lang === 'ko' ? '모바일 탐색' : 'Mobile navigation'}>
         <div class="mobile-menu-meta">
           <span>VERITAS ACADEMIAE NEXUS</span>
           <a href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a>
         </div>
-        {navItems.map(({ key, slug }, index) => (
+        {navItems.map(({ key, slug }) => (
           <a
             class="mobile-menu-link"
             href={basePath(routePath(lang, slug))}
             aria-current={currentKey === key ? 'page' : undefined}
           >
-            <span>{String(index + 1).padStart(2, '0')}</span>
             {copy.nav[key]}
           </a>
         ))}

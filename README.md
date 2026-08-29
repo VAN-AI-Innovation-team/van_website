@@ -2,11 +2,13 @@
 
 VAN(Veritas Academiae Nexus)의 소개, 활동 영역, 컨퍼런스, 소식과 아카이브를 한곳에서 확인하는 공식 홈페이지 프론트엔드입니다. VAN Conference 2026과 향후 공동 포럼도 영구 URL로 축적할 수 있습니다.
 
-## 현재 미리보기
+## 현재 운영 미리보기
 
 - Vercel 한국어: https://van-website-kappa.vercel.app/ko/
 - Vercel English: https://van-website-kappa.vercel.app/en/
 - 2026 행사 상세 페이지: https://van-website-kappa.vercel.app/ko/conference/2026/
+
+위 주소는 `main` 기준 운영 미리보기입니다. 다음 배포 전 개발 내용은 `dev` 브랜치에서 검토합니다.
 
 ## 구현 범위
 
@@ -19,7 +21,8 @@ VAN(Veritas Academiae Nexus)의 소개, 활동 영역, 컨퍼런스, 소식과 �
 - ARCHIVE
 - CONTACT
 - VAN Conference 2026 영구 상세 페이지
-- 아카이브 콘텐츠 10개, 분류 필터, 검색 및 한·영 상세 페이지
+- 실제 2025 행사 기록 2개, 분류 필터, 검색 및 한·영 상세 페이지
+- 연도별 Conference 사진·영상·하이라이트 누적 데이터 구조
 - 짙은 네이비·화이트·블루그레이 기반의 심플한 반응형 디자인
 - 한국어 `/ko/` 및 영어 `/en/` 정적 URL
 - 휴대폰·태블릿·데스크톱 반응형 화면
@@ -67,14 +70,31 @@ npm run check
 
 ## 콘텐츠 수정 위치
 
-- 한·영 문구, 페이지 설명, 프로그램 방향: `src/data/conference.js`
+- 공통 한·영 문구와 일반 페이지 설명: `src/data/conference.js`
+- 연도별 행사 정보, 연사, 프로그램, 파트너, FAQ: `src/data/conferenceEditions.js`
 - 아카이브 콘텐츠와 상세 본문: `src/data/archive.js`
 - 전체 레이아웃과 SEO: `src/layouts/BaseLayout.astro`
 - 헤더·모바일 메뉴: `src/components/SiteHeader.astro`
-- 페이지 화면: `src/pages/[lang]/[...slug].astro`
-- 디자인과 반응형: `src/styles/global.css`
+- Conference 재사용 UI: `src/components/SpeakerCard.astro`, `ProgrammeList.astro`, `PartnerGrid.astro`, `FaqList.astro`, `ConferenceArchiveCard.astro`, `ConferenceEditionRecord.astro`
+- 페이지 조합: `src/pages/[lang]/[...slug].astro`
+- 디자인과 반응형: `src/styles/global.css`, `src/styles/simple.css`
 
 
+
+## 연도별 Conference 추가
+
+`src/data/conferenceEditions.js`의 `conferenceEditions` 배열에 새 연도 객체를 추가하면 해당 연도의 한국어·영어 영구 URL과 Conference 목록 카드가 함께 생성됩니다. 예를 들어 `year`와 `slug`를 `2027`로 지정하면 `/ko/conference/2027/`, `/en/conference/2027/` 경로를 같은 화면 구조로 사용할 수 있습니다.
+
+새 연도 추가 시 다음 원칙을 지킵니다.
+
+1. 기존 연도 객체를 덮어쓰지 않고 새 객체를 추가합니다.
+2. 한국어와 영어의 `meta`, `hero`, `facts`, `overview`, `speakers`, `programme`, `partners`, `faq`, `highlights`, `gallery`, `videos`, `archive`를 함께 작성합니다.
+3. 날짜·장소·연사·파트너처럼 확정되지 않은 값은 `status: 'development'`, `value: null`로 둡니다.
+4. 확정된 정보만 `status: 'confirmed'`로 변경합니다.
+5. 검색용 Event 구조화 데이터는 날짜와 장소가 확정된 이후에만 `structuredEvent`에 추가합니다.
+6. 사진·영상·하이라이트는 공개가 확인된 자료만 `confirmed`, `published` 또는 `archived` 상태로 추가합니다.
+
+HOME의 현재 연도, Conference 목록, 영구 URL, sitemap과 종료 행사 Archive는 `conferenceEditions` 데이터에 자동으로 연결됩니다. 종료된 행사는 `publicationStatus: 'archived'`로 변경하면 Archive에도 표시됩니다.
 
 ## 공식 도메인 연결
 

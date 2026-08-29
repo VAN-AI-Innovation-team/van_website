@@ -1,0 +1,243 @@
+---
+import { basePath } from '../data/conference.js'
+
+const {
+  highlights = {},
+  gallery = {},
+  videos = {},
+  statusLabel = 'View record',
+} = Astro.props
+
+const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+const visibleHighlights = (highlights.items || []).filter((item) => visibleStatuses.has(item.status))
+const visibleGallery = (gallery.items || []).filter((item) => visibleStatuses.has(item.status) && item.src)
+const visibleVideos = (videos.items || []).filter((item) => visibleStatuses.has(item.status) && item.href)
+const hasRecords = visibleHighlights.length > 0 || visibleGallery.length > 0 || visibleVideos.length > 0
+const assetPath = (pathname) => pathname?.startsWith('/') ? basePath(pathname) : pathname
+---
+
+{hasRecords && (
+  <section class="section section--paper conference-record" aria-labelledby="conference-record-title">
+    <div class="container conference-record__heading">
+      <div>
+        <p class="eyebrow">{highlights.eyebrow || 'HIGHLIGHTS'}</p>
+        <h2 id="conference-record-title">{highlights.title}</h2>
+      </div>
+      <p>{highlights.body}</p>
+    </div>
+
+    {visibleHighlights.length > 0 && (
+      <div class="container conference-record__highlights">
+        {visibleHighlights.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    )}
+
+    {visibleGallery.length > 0 && (
+      <div class="container conference-record__group">
+        <div class="conference-record__group-heading">
+          <div><p class="eyebrow">{gallery.eyebrow || 'PHOTOS'}</p><h3>{gallery.title}</h3></div>
+          <p>{gallery.lead}</p>
+        </div>
+        <div class="conference-record__gallery">
+          {visibleGallery.map((image) => (
+            <figure>
+              <img
+                src={assetPath(image.src)}
+                alt={image.alt || ''}
+                width={image.width || 1200}
+                height={image.height || 675}
+                loading="lazy"
+              />
+              {image.caption && <figcaption>{image.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {visibleVideos.length > 0 && (
+      <div class="container conference-record__group">
+        <div class="conference-record__group-heading">
+          <div><p class="eyebrow">{videos.eyebrow || 'VIDEOS'}</p><h3>{videos.title}</h3></div>
+          <p>{videos.lead}</p>
+        </div>
+        <div class="conference-record__videos">
+          {visibleVideos.map((video) => (
+            <a
+              class:list={{ 'conference-record__video--thumbnail': video.thumbnail?.src }}
+              href={video.href}
+              target={video.href.startsWith('http') ? '_blank' : undefined}
+              rel={video.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
+              {video.thumbnail?.src && (
+                <img
+                  src={assetPath(video.thumbnail.src)}
+                  alt={video.thumbnail.alt || ''}
+                  width={video.thumbnail.width || 1200}
+                  height={video.thumbnail.height || 675}
+                  loading="lazy"
+                />
+              )}
+              <span>{videos.eyebrow || 'VIDEO'}</span>
+              <h4>{video.title}</h4>
+              {video.description && <p>{video.description}</p>}
+              <small>{video.linkLabel || statusLabel}<b aria-hidden="true">↗</b></small>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </section>
+)}
+
+<style>
+  .conference-record {
+    border-top: 1px solid var(--line-light);
+  }
+
+  .conference-record__heading,
+  .conference-record__group-heading {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+    align-items: end;
+    gap: 1.5rem clamp(2rem, 6vw, 6rem);
+  }
+
+  .conference-record__heading h2,
+  .conference-record__group-heading h3 {
+    margin-top: 0.65rem;
+    color: #10283d;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 1.08;
+  }
+
+  .conference-record__heading > p,
+  .conference-record__group-heading > p {
+    margin: 0;
+    color: #5d7180;
+    line-height: 1.75;
+  }
+
+  .conference-record__highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    margin-top: 3rem;
+    gap: 1rem;
+  }
+
+  .conference-record__highlights article {
+    min-height: 210px;
+    padding: 1.5rem;
+    border: 1px solid var(--line-light);
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .conference-record__videos > a > span {
+    color: #52748d;
+    font-size: 0.66rem;
+    font-weight: 760;
+    letter-spacing: 0.09em;
+  }
+
+  .conference-record__highlights h3 {
+    margin-top: 0;
+    color: #10283d;
+    font-size: 1.35rem;
+  }
+
+  .conference-record__highlights p,
+  .conference-record__videos p {
+    margin-top: 0.8rem;
+    color: #607480;
+    line-height: 1.7;
+  }
+
+  .conference-record__group {
+    margin-top: clamp(4rem, 8vw, 7rem);
+  }
+
+  .conference-record__gallery,
+  .conference-record__videos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  .conference-record__gallery figure,
+  .conference-record__videos > a {
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--line-light);
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .conference-record__gallery img,
+  .conference-record__videos img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .conference-record__gallery figcaption {
+    padding: 0.85rem 1rem;
+    color: #617788;
+    font-size: 0.74rem;
+  }
+
+  .conference-record__videos > a {
+    display: flex;
+    min-height: 250px;
+    padding: 1.35rem;
+    flex-direction: column;
+    color: inherit;
+  }
+
+  .conference-record__video--thumbnail {
+    padding-top: 0;
+  }
+
+  .conference-record__videos img {
+    width: calc(100% + 2.7rem);
+    max-width: none;
+    margin: 0 -1.35rem 1.35rem;
+  }
+
+  .conference-record__videos h4 {
+    margin-top: 0.65rem;
+    color: #10283d;
+    font-size: 1.35rem;
+  }
+
+  .conference-record__videos small {
+    display: flex;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    color: #315f80;
+    font-weight: 760;
+  }
+
+  @media (max-width: 760px) {
+    .conference-record__heading,
+    .conference-record__group-heading,
+    .conference-record__gallery,
+    .conference-record__videos {
+      grid-template-columns: 1fr;
+    }
+
+    .conference-record__highlights article,
+    .conference-record__videos > a {
+      min-height: auto;
+    }
+  }
+</style>

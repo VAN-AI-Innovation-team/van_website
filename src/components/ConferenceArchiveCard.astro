@@ -1,0 +1,145 @@
+---
+import { basePath } from '../data/conference.js'
+
+const { edition, href } = Astro.props
+const cover = edition.archive.cover
+const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+const showStatus = visibleStatuses.has(edition.publicationStatus)
+---
+
+<article class="conference-archive-card">
+  <div class:list={['conference-archive-card__year', { 'conference-archive-card__year--image': cover }]}>
+    {cover && (
+      <img
+        src={cover.src.startsWith('/') ? basePath(cover.src) : cover.src}
+        alt={cover.alt || edition.archive.title}
+        width={cover.width || 1200}
+        height={cover.height || 675}
+        loading="lazy"
+      />
+    )}
+    <span aria-hidden="true">{edition.year}</span>
+  </div>
+  <div class="conference-archive-card__content">
+    <div class="conference-archive-card__meta">
+      <span>VAN CONFERENCE</span>
+      {showStatus && <small>{edition.statusLabel}</small>}
+    </div>
+    <h2>{edition.archive.title}</h2>
+    <p>{edition.archive.summary}</p>
+    <a href={href} aria-label={edition.archive.linkLabel}>{edition.archive.linkLabel}<span aria-hidden="true">↗</span></a>
+  </div>
+</article>
+
+<style>
+  .conference-archive-card {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr);
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--line-light);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 16px 40px rgba(17, 46, 70, 0.06);
+  }
+
+  .conference-archive-card__year {
+    position: relative;
+    display: grid;
+    min-height: 310px;
+    padding: 1.5rem;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(145deg, #315f80, #0b2037);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 760;
+    letter-spacing: -0.06em;
+  }
+
+  .conference-archive-card__year > span {
+    position: relative;
+    z-index: 2;
+  }
+
+  .conference-archive-card__year--image {
+    overflow: hidden;
+  }
+
+  .conference-archive-card__year--image::after {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5, 18, 31, 0.08), rgba(5, 18, 31, 0.74));
+    content: '';
+  }
+
+  .conference-archive-card__year--image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .conference-archive-card__content {
+    display: flex;
+    min-width: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .conference-archive-card__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    color: #52748d;
+    font-size: 0.68rem;
+    font-weight: 760;
+    letter-spacing: 0.08em;
+  }
+
+  .conference-archive-card__meta small {
+    padding: 0.28rem 0.5rem;
+    border-radius: 999px;
+    color: #315f80;
+    background: #e4eff5;
+    font-size: 0.62rem;
+    font-weight: 800;
+  }
+
+  .conference-archive-card h2 {
+    margin-top: 1rem;
+    color: #10283d;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+  }
+
+  .conference-archive-card p {
+    max-width: 700px;
+    margin-top: 1rem;
+    color: #5d7180;
+  }
+
+  .conference-archive-card a {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 44px;
+    margin-top: 1.7rem;
+    align-items: center;
+    gap: 0.6rem;
+    color: #315f80;
+    font-size: 0.78rem;
+    font-weight: 760;
+  }
+
+  @media (max-width: 760px) {
+    .conference-archive-card {
+      grid-template-columns: 1fr;
+    }
+
+    .conference-archive-card__year {
+      min-height: 150px;
+    }
+  }
+</style>

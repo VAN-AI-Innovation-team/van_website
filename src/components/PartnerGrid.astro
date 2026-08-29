@@ -1,0 +1,120 @@
+---
+import { basePath } from '../data/conference.js'
+
+const {
+  partners = [],
+  developmentLabel = 'Partners will be announced after confirmation',
+  emptyMessage = developmentLabel,
+} = Astro.props
+
+const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+const publishedPartners = partners.filter((partner) => visibleStatuses.has(partner.status))
+const logoPath = (pathname) => pathname?.startsWith('/') ? basePath(pathname) : pathname
+---
+
+<ul class:list={['partner-grid', { 'partner-grid--empty': publishedPartners.length === 0 }]}>
+  {publishedPartners.length > 0 ? publishedPartners.map((partner) => (
+    <li>
+      {partner.url ? (
+        <a href={partner.url} rel="noopener noreferrer">
+          {partner.logo?.src && <img src={logoPath(partner.logo.src)} alt={partner.logo.alt || ''} loading="lazy" />}
+          <span>{partner.name}</span>
+          <small>{partner.type}</small>
+        </a>
+      ) : (
+        <div>
+          {partner.logo?.src && <img src={logoPath(partner.logo.src)} alt={partner.logo.alt || ''} loading="lazy" />}
+          <span>{partner.name}</span>
+          <small>{partner.type}</small>
+        </div>
+      )}
+    </li>
+  )) : (
+    <li class="partner-grid__notice"><strong>{developmentLabel}</strong><p>{emptyMessage}</p></li>
+  )}
+</ul>
+
+<style>
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0;
+    margin: 3rem 0 0;
+    gap: 1rem;
+    list-style: none;
+  }
+
+  .partner-grid li,
+  .partner-grid a,
+  .partner-grid li > div {
+    min-width: 0;
+  }
+
+  .partner-grid a,
+  .partner-grid li > div {
+    display: flex;
+    min-height: 150px;
+    padding: 1.35rem;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-direction: column;
+    border: 1px solid var(--line-light);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .partner-grid img {
+    max-width: 170px;
+    max-height: 54px;
+    margin-bottom: auto;
+    object-fit: contain;
+  }
+
+  .partner-grid span,
+  .partner-grid strong {
+    color: #10283d;
+    font-size: 1rem;
+    font-weight: 760;
+  }
+
+  .partner-grid small {
+    margin-top: 0.3rem;
+    color: #617788;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .partner-grid--empty {
+    grid-template-columns: 1fr;
+  }
+
+  .partner-grid li.partner-grid__notice {
+    padding: 1.7rem;
+    border: 1px dashed #aabdc9;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .partner-grid__notice p {
+    margin-top: 0.4rem;
+    color: #617788;
+  }
+
+  @media (max-width: 820px) {
+    .partner-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .partner-grid--empty {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .partner-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

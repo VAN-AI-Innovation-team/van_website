@@ -12,7 +12,7 @@ const copy = content[lang]
       <p class="footer-kicker">VERITAS · ACADEMIAE · NEXUS</p>
       <p class="footer-line">{copy.footer.line}</p>
     </div>
-    <nav aria-label="Footer navigation">
+    <nav aria-label={lang === 'ko' ? '하단 탐색' : 'Footer navigation'}>
       <a href={basePath(routePath(lang, 'about'))}>{copy.nav.about}</a>
       <a href={basePath(routePath(lang, 'departments'))}>{copy.nav.departments}</a>
       <a href={basePath(routePath(lang, 'archive'))}>{copy.nav.archive}</a>

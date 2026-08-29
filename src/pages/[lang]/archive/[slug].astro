@@ -19,9 +19,42 @@ const description = post.excerpt
 const archiveLink = basePath(routePath(lang, 'archive'))
 const contactLink = basePath(routePath(lang, 'contact'))
 const formattedDate = lang === 'ko' ? post.date.replaceAll('-', '.') : post.date
+const statusLabel = post.status === 'archived' ? labels.recordStatus : labels.status
+const archiveImage = post.cover ? new URL(basePath(post.cover), Astro.site).href : null
+const archiveEvent = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: post.title,
+  description: post.excerpt,
+  url: new URL(basePath(routePath(lang, pageSlug)), Astro.site).href,
+  startDate: post.date,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  inLanguage: lang,
+  ...(archiveImage ? { image: [archiveImage] } : {}),
+  location: {
+    '@type': 'Place',
+    name: post.venue,
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: post.organizer,
+  },
+}
 ---
 
-<BaseLayout lang={lang} pageKey="archive" slug={pageSlug} title={title} description={description}>
+<BaseLayout
+  lang={lang}
+  pageKey="archive"
+  slug={pageSlug}
+  title={title}
+  description={description}
+  ogType="article"
+  socialImagePath={post.cover}
+  socialImageAlt={post.coverAlt}
+  socialImageWidth={post.coverWidth}
+  socialImageHeight={post.coverHeight}
+  extraStructuredData={[archiveEvent]}
+>
   <article class="archive-article">
     <header class="archive-article-hero">
       <div class="container">
@@ -29,29 +62,50 @@ const formattedDate = lang === 'ko' ? post.date.replaceAll('-', '.') : post.date
         <div class="archive-article-meta">
           <span>{post.category}</span>
           <time datetime={post.date}>{formattedDate}</time>
-          <small>{labels.status}</small>
+          <small>{statusLabel}</small>
         </div>
         <h1>{post.title}</h1>
+        {post.subtitle && <p class="archive-article-subtitle">{post.subtitle}</p>}
         <p>{post.excerpt}</p>
       </div>
     </header>
+    {post.cover && (
+      <figure class="container archive-article-cover">
+        <img src={basePath(post.cover)} alt={post.coverAlt} width="1200" height="675" />
+      </figure>
+    )}
     <section class="section section--paper">
       <div class="container archive-article-layout">
         <aside>
           <span>VAN ARCHIVE</span>
           <strong>{post.category}</strong>
-          <small>{labels.status}</small>
+          <small>{statusLabel}</small>
+          <dl>
+            <div><dt>{labels.venue}</dt><dd>{post.venue}</dd></div>
+            {post.participants && <div><dt>{labels.participants}</dt><dd>{post.participants}</dd></div>}
+          </dl>
         </aside>
         <div class="archive-article-body">
           {post.body.map((paragraph) => <p>{paragraph}</p>)}
-          <div class="archive-detail-notice"><span aria-hidden="true">i</span><p>{labels.detailNotice}</p></div>
+          {post.gallery?.length > 0 && (
+            <div class="archive-gallery">
+              {post.gallery.map((image) => (
+                <figure>
+                  <img src={basePath(image.src)} alt={image.alt} width="1200" height="675" loading="lazy" />
+                  {image.caption && <figcaption>{image.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          )}
+          {post.sourceNote && <p class="archive-source-note"><strong>{labels.source}</strong>{post.sourceNote}</p>}
+          {post.status !== 'archived' && <div class="archive-detail-notice"><span aria-hidden="true">i</span><p>{labels.detailNotice}</p></div>}
         </div>
       </div>
     </section>
     <section class="section section--mist">
       <div class="container archive-article-footer">
-        <div><p class="eyebrow">VAN ARCHIVE</p><h2>{lang === 'ko' ? '확정된 정보가 준비되면 업데이트합니다.' : 'Confirmed information will be added here.'}</h2></div>
-        <a class="button button--dark" href={contactLink}>{lang === 'ko' ? '문의하기' : 'CONTACT'}<span aria-hidden="true">↗</span></a>
+        <div><p class="eyebrow">VAN ARCHIVE · 2025</p><h2>{labels.footerTitle}</h2></div>
+        <a class="button button--dark" href={contactLink}>{lang === 'ko' ? '문의 안내' : 'CONTACT INFO'}<span aria-hidden="true">↗</span></a>
       </div>
     </section>
   </article>
