@@ -16,12 +16,27 @@ export const conferenceEditions = [
           title: 'VAN Conference 2026',
           lead: '행사의 주제와 프로그램은 기획팀 확인을 거쳐 확정되는 순서대로 공개합니다.',
         },
+        theme: {
+          label: '2026 THEME',
+          title: '대격변의 시대, 혁신을 묻다',
+          status: 'development',
+        },
         facts: [
           { id: 'date', label: '일정', value: null, status: 'development' },
           { id: 'venue', label: '장소', value: null, status: 'development' },
           { id: 'format', label: '형식', value: '강연 · 세션 · 네트워킹', status: 'development' },
           { id: 'language', label: '언어', value: null, status: 'development' },
         ],
+        stats: {
+          title: 'Conference at a Glance',
+          lead: '참가 규모와 참여 기관, 연사 수는 최종 확정 후 공개합니다.',
+          items: [
+            { id: 'attendees', label: '참가 규모', value: null, status: 'development' },
+            { id: 'organizations', label: '참여 단체', value: null, status: 'development' },
+            { id: 'speakers', label: '연사', value: null, status: 'development' },
+            { id: 'sessions', label: '세션', value: null, status: 'development' },
+          ],
+        },
         overview: {
           eyebrow: '01 / OVERVIEW',
           title: '함께 만드는 2026 컨퍼런스',
@@ -127,12 +142,27 @@ export const conferenceEditions = [
           title: 'VAN Conference 2026',
           lead: 'The theme and programme will be published as each item is reviewed and confirmed by the planning team.',
         },
+        theme: {
+          label: '2026 THEME',
+          title: 'The Arena of Innovation · 2026',
+          status: 'development',
+        },
         facts: [
           { id: 'date', label: 'Date', value: null, status: 'development' },
           { id: 'venue', label: 'Venue', value: null, status: 'development' },
           { id: 'format', label: 'Format', value: 'Talks · Sessions · Networking', status: 'development' },
           { id: 'language', label: 'Language', value: null, status: 'development' },
         ],
+        stats: {
+          title: 'Conference at a Glance',
+          lead: 'Attendance, participating organizations and speaker numbers will be published after confirmation.',
+          items: [
+            { id: 'attendees', label: 'Attendees', value: null, status: 'development' },
+            { id: 'organizations', label: 'Organizations', value: null, status: 'development' },
+            { id: 'speakers', label: 'Speakers', value: null, status: 'development' },
+            { id: 'sessions', label: 'Sessions', value: null, status: 'development' },
+          ],
+        },
         overview: {
           eyebrow: '01 / OVERVIEW',
           title: 'Building Conference 2026 together',
