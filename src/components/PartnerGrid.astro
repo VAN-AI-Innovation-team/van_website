@@ -1,25 +1,29 @@
 ---
+import { basePath } from '../data/conference.js'
+
 const {
   partners = [],
   developmentLabel = 'In development',
   emptyMessage = developmentLabel,
 } = Astro.props
 
-const confirmedPartners = partners.filter((partner) => partner.status === 'confirmed')
+const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+const publishedPartners = partners.filter((partner) => visibleStatuses.has(partner.status))
+const logoPath = (pathname) => pathname?.startsWith('/') ? basePath(pathname) : pathname
 ---
 
-<ul class:list={['partner-grid', { 'partner-grid--empty': confirmedPartners.length === 0 }]}>
-  {confirmedPartners.length > 0 ? confirmedPartners.map((partner) => (
+<ul class:list={['partner-grid', { 'partner-grid--empty': publishedPartners.length === 0 }]}>
+  {publishedPartners.length > 0 ? publishedPartners.map((partner) => (
     <li>
       {partner.url ? (
         <a href={partner.url} rel="noopener noreferrer">
-          {partner.logo?.src && <img src={partner.logo.src} alt="" loading="lazy" />}
+          {partner.logo?.src && <img src={logoPath(partner.logo.src)} alt={partner.logo.alt || ''} loading="lazy" />}
           <span>{partner.name}</span>
           <small>{partner.type}</small>
         </a>
       ) : (
         <div>
-          {partner.logo?.src && <img src={partner.logo.src} alt="" loading="lazy" />}
+          {partner.logo?.src && <img src={logoPath(partner.logo.src)} alt={partner.logo.alt || ''} loading="lazy" />}
           <span>{partner.name}</span>
           <small>{partner.type}</small>
         </div>

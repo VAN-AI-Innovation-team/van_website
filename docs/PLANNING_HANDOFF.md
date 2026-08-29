@@ -9,6 +9,8 @@
 - 부서·활동 영역: https://van-website-kappa.vercel.app/ko/departments/
 - 2026 행사 상세: https://van-website-kappa.vercel.app/ko/conference/2026/
 
+위 링크는 `main` 기준 운영 화면입니다. 배포 전 변경 사항은 GitHub의 `dev` 브랜치에서 먼저 검토합니다.
+
 ## 2. 기획안 반영 내용
 
 - 참고 시안의 짙은 네이비 정체성은 유지하면서 장식과 세리프 사용을 줄인 심플한 디자인 반영
@@ -16,6 +18,8 @@
 - HOME, ABOUT, DEPARTMENTS, CONFERENCE, ARCHIVE, CONTACT 중심 내비게이션 구성
 - APPLICATION과 PARTNERS는 관련 화면의 CTA와 푸터에서 계속 접근 가능
 - 컨퍼런스별 영구 상세 URL 제공
+- 연도별 사진·영상·하이라이트를 같은 영구 상세 URL에 누적할 수 있는 구조 제공
+- 종료된 Conference를 Archive에 자동으로 추가할 수 있는 구조 제공
 - 모든 페이지를 한국어와 영어의 별도 URL로 생성
 - PC, 태블릿, 휴대폰 반응형 적용
 - 휴대폰 전용 메뉴 적용
@@ -37,9 +41,10 @@
 - 발표자·운영진 모집 일정과 지원 URL
 - 공식 문의 이메일 또는 문의 폼
 - 파트너 로고와 노출 순서
+- 행사 사진·영상 공개 가능 여부와 출처·대체 텍스트
 - 정확한 공식 도메인과 HTTPS 주소
 
-확정된 공통 문구는 `src/data/conference.js`에서 수정하고, 연도별 행사·연사·프로그램·파트너·FAQ는 `src/data/conferenceEditions.js`에서 수정합니다.
+확정된 공통 문구는 `src/data/conference.js`에서 수정하고, 연도별 행사·연사·프로그램·파트너·FAQ·사진·영상·하이라이트는 `src/data/conferenceEditions.js`에서 수정합니다.
 
 ## 4. 직접 실행하기
 
@@ -72,6 +77,8 @@ npm run dev:share
 ## 6. 새 컨퍼런스 추가 원칙
 
 2027 행사를 추가할 때 2026 페이지를 덮어쓰지 않습니다. `src/data/conferenceEditions.js`의 `conferenceEditions` 배열에 2027 객체를 추가하면 새 영구 URL이 생성되고 기존 2026 URL과 기록은 그대로 보존됩니다.
+
+HOME의 현재 연도와 Conference 미리보기도 가장 최신의 종료 전 행사로 자동 변경됩니다. 행사가 끝난 뒤 `publicationStatus`를 `archived`로 바꾸면 연도별 Conference 카드가 Archive 화면에도 나타납니다. 사진·영상·하이라이트는 공개가 확인된 자료만 해당 연도 객체의 `gallery.items`, `videos.items`, `highlights.items`에 추가합니다.
 
 예시:
 

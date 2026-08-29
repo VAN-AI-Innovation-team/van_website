@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import ConferenceArchiveCard from '../../components/ConferenceArchiveCard.astro'
+import ConferenceEditionRecord from '../../components/ConferenceEditionRecord.astro'
 import FaqList from '../../components/FaqList.astro'
 import PartnerGrid from '../../components/PartnerGrid.astro'
 import ProgrammeList from '../../components/ProgrammeList.astro'
@@ -40,9 +41,12 @@ const navKey = route.navKey || pageKey
 const link = (target) => basePath(routePath(lang, target))
 const conferenceSummaries = getConferenceEditionSummaries(lang)
 const currentConference = conferenceSummaries.find((edition) => edition.publicationStatus !== 'archived') || conferenceSummaries[0]
+const currentConferenceYear = currentConference?.year || '—'
+const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+const isPublished = (status) => visibleStatuses.has(status)
 const currentFactValue = (id) => {
   const fact = currentConference?.facts.find((item) => item.id === id)
-  return fact?.status === 'confirmed' && fact.value
+  return isPublished(fact?.status) && fact.value
     ? fact.value
     : currentConference?.statusLabel || copy.common.pending
 }
@@ -54,6 +58,9 @@ const homeUpdates = currentConference
   : copy.home.updates
 const archiveCopy = archiveLabels[lang]
 const archivePosts = archiveItems[lang]
+const featuredArchive = archivePosts.find((item) => item.cover)
+const archivedConferenceSummaries = conferenceSummaries.filter((edition) => edition.publicationStatus === 'archived')
+const conferenceSocialImage = conferenceEdition?.archive?.cover
 const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : date
 ---
 
@@ -65,10 +72,14 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
   title={title}
   description={description}
   structuredEvent={conferenceEdition?.structuredEvent}
+  socialImagePath={conferenceSocialImage?.src}
+  socialImageAlt={conferenceSocialImage?.alt}
+  socialImageWidth={conferenceSocialImage?.width}
+  socialImageHeight={conferenceSocialImage?.height}
 >
   {pageKey === 'home' && (
     <>
-      <section class="van-hero" style={`--conference-hero-image: url(${basePath('/conference-hero.jpg')})`}>
+      <section class="van-hero" style={`--conference-hero-image: url(${basePath(featuredArchive?.cover || '/conference-hero.jpg')})`}>
         <div class="van-hero-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         <div class="container van-hero-inner">
           <div class="van-emblem" aria-label="VAN, Veritas Academiae Nexus">
@@ -106,7 +117,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <section class="conference-stat-strip" aria-labelledby="conference-stats-title">
           <div class="container conference-stat-heading">
             <div>
-              <p class="eyebrow">CONFERENCE 2026</p>
+              <p class="eyebrow">CONFERENCE {currentConferenceYear}</p>
               <h2 id="conference-stats-title">{currentConference.stats.title}</h2>
             </div>
             <p>{currentConference.stats.lead}</p>
@@ -115,7 +126,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
             {currentConference.stats.items.map((item) => (
               <div>
                 <dt>{item.label}</dt>
-                <dd>{item.status === 'confirmed' && item.value
+                <dd>{isPublished(item.status) && item.value
                   ? item.value
                   : getConferenceStatusLabel(lang, item.status)}</dd>
               </div>
@@ -138,7 +149,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--mist home-preview" aria-labelledby="home-preview-title">
         <div class="container section-heading section-heading--paper">
           <div>
-            <p class="eyebrow">II / 2026 PREVIEW</p>
+            <p class="eyebrow">II / {currentConferenceYear} PREVIEW</p>
             <h2 id="home-preview-title">{page.previewTitle}</h2>
           </div>
           <p>{page.previewLead}</p>
@@ -193,7 +204,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--paper home-updates">
         <div class="container section-heading section-heading--paper">
           <div>
-            <p class="eyebrow">IV / CURRENT & YEAR-ROUND</p>
+            <p class="eyebrow">IV / CURRENT & PARTNERSHIP</p>
             <h2>{page.updatesTitle}</h2>
           </div>
           <p>{page.updatesLead}</p>
@@ -222,7 +233,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--accent">
         <div class="container bridge">
           <div>
-            <p class="eyebrow">V / YEAR-ROUND PARTNERSHIP</p>
+            <p class="eyebrow">V / PARTNERSHIP INFORMATION</p>
             <h2>{page.bridgeTitle}</h2>
             <p>{page.bridgeBody}</p>
           </div>
@@ -280,7 +291,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
           {conferenceEdition.facts.map((fact) => (
             <div>
               <span>{fact.label}</span>
-              <strong>{fact.status === 'confirmed' && fact.value
+              <strong>{isPublished(fact.status) && fact.value
                 ? fact.value
                 : getConferenceStatusLabel(lang, fact.status)}</strong>
             </div>
@@ -380,6 +391,12 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
           </article>
         </div>
       </section>
+      <ConferenceEditionRecord
+        highlights={conferenceEdition.highlights}
+        gallery={conferenceEdition.gallery}
+        videos={conferenceEdition.videos}
+        statusLabel={conferenceEdition.statusLabel}
+      />
     </>
   )}
 
@@ -497,7 +514,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
           <div class="partnership-grid">{page.types.map(([title, body], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
         </div>
       </section>
-      <section class="section section--accent"><div class="container partner-cta"><div><p class="eyebrow">OPEN CALL</p><h2>{page.ctaTitle}</h2><p>{page.ctaBody}</p></div><a class="button button--dark" href={link('contact')}>{copy.common.partnership}<span aria-hidden="true">↗</span></a></div></section>
+      <section class="section section--accent"><div class="container partner-cta"><div><p class="eyebrow">PARTNERSHIP STATUS</p><h2>{page.ctaTitle}</h2><p>{page.ctaBody}</p></div><a class="button button--dark" href={link('contact')}>{copy.common.partnership}<span aria-hidden="true">↗</span></a></div></section>
     </>
   )}
 
@@ -506,6 +523,24 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="page-hero">
         <div class="container page-hero-grid"><div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div><p class="page-lead">{page.lead}</p></div>
       </section>
+      {archivedConferenceSummaries.length > 0 && (
+        <section class="section section--mist">
+          <div class="container section-heading section-heading--paper">
+            <div>
+              <p class="eyebrow">VAN CONFERENCE ARCHIVE</p>
+              <h2>{lang === 'ko' ? '연도별 VAN Conference' : 'VAN Conference by Year'}</h2>
+            </div>
+            <p>{lang === 'ko'
+              ? '종료된 컨퍼런스의 주제와 연사, 프로그램, 사진과 영상을 연도별 영구 페이지에 보존합니다.'
+              : 'Past themes, speakers, programmes, photography and video remain on permanent edition pages.'}</p>
+          </div>
+          <div class="container conference-edition-list">
+            {archivedConferenceSummaries.map((edition) => (
+              <ConferenceArchiveCard edition={edition} href={link(`conference/${edition.slug}`)} />
+            ))}
+          </div>
+        </section>
+      )}
       <section class="section section--paper">
         <div class="container archive-browser" data-archive-browser>
           <div class="archive-toolbar">

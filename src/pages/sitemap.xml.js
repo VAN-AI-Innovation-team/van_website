@@ -1,5 +1,6 @@
 import { basePath, languages, routeEntries, routePath } from '../data/conference.js'
 import { archiveItems } from '../data/archive.js'
+import { getConferenceEdition } from '../data/conferenceEditions.js'
 
 export const prerender = true
 
@@ -11,6 +12,7 @@ const escapeXml = (value) => String(value)
   .replaceAll("'", '&apos;')
 
 export function GET({ site }) {
+  const imageUrl = (pathname) => new URL(pathname.startsWith('/') ? basePath(pathname) : pathname, site).href
   const routeSlugs = [
     ...routeEntries.map(({ slug }) => slug),
     ...archiveItems.ko.map(({ slug }) => `archive/${slug}`),
@@ -26,6 +28,22 @@ export function GET({ site }) {
     const archiveImage = archivePost?.cover
       ? new URL(basePath(archivePost.cover), site).href
       : null
+    const editionRoute = routeEntries.find((route) => route.slug === slug && route.kind === 'edition')
+    const edition = editionRoute ? getConferenceEdition(editionRoute.year, language) : null
+    const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+    const editionImages = edition
+      ? [
+          ...(edition.archive.cover ? [edition.archive.cover] : []),
+          ...(edition.gallery?.items || []).filter((image) => visibleStatuses.has(image.status) && image.src),
+        ].map((image) => ({
+          location: imageUrl(image.src),
+          title: image.alt || edition.archive.title,
+        }))
+      : []
+    const pageImages = [
+      ...(archiveImage ? [{ location: archiveImage, title: archivePost.title }] : []),
+      ...editionImages,
+    ]
 
     return [
       '  <url>',
@@ -33,12 +51,12 @@ export function GET({ site }) {
       `    <xhtml:link rel="alternate" hreflang="ko" href="${korean}" />`,
       `    <xhtml:link rel="alternate" hreflang="en" href="${english}" />`,
       `    <xhtml:link rel="alternate" hreflang="x-default" href="${korean}" />`,
-      ...(archiveImage ? [
+      ...pageImages.flatMap((image) => [
         '    <image:image>',
-        `      <image:loc>${escapeXml(archiveImage)}</image:loc>`,
-        `      <image:title>${escapeXml(archivePost.title)}</image:title>`,
+        `      <image:loc>${escapeXml(image.location)}</image:loc>`,
+        `      <image:title>${escapeXml(image.title)}</image:title>`,
         '    </image:image>',
-      ] : []),
+      ]),
       '  </url>',
     ].join('\n')
   }))

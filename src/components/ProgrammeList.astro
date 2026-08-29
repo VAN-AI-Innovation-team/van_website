@@ -4,6 +4,9 @@ const {
   developmentLabel = 'In development',
   speakersLabel = 'Speakers',
 } = Astro.props
+
+const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+const isPublished = (status) => visibleStatuses.has(status)
 ---
 
 <ol class="programme-list">
@@ -14,7 +17,7 @@ const {
         {session.time ? (
           <>
             <time datetime={session.startAt || undefined}>{session.time}</time>
-            {session.status !== 'confirmed' && <small>{developmentLabel}</small>}
+            {!isPublished(session.status) && <small>{developmentLabel}</small>}
           </>
         ) : <small>{developmentLabel}</small>}
       </div>
