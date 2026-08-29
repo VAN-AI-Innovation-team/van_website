@@ -528,19 +528,23 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
                 class="archive-content-card"
                 data-archive-card
                 data-archive-category={item.category}
-                data-archive-search={`${item.category} ${item.title} ${item.excerpt}`.toLocaleLowerCase()}
+                data-archive-search={`${item.category} ${item.title} ${item.subtitle || ''} ${item.venue || ''} ${item.excerpt}`.toLocaleLowerCase()}
               >
-                <div class={`archive-card-visual archive-card-visual--${item.category.toLowerCase()}`} aria-hidden="true">
-                  <span>VAN</span>
-                  <strong>{item.category}</strong>
+                <div class={`archive-card-visual archive-card-visual--${item.category.toLowerCase()} ${item.cover ? 'archive-card-visual--image' : ''}`}>
+                  {item.cover && <img src={item.cover} alt={item.coverAlt} width="1200" height="675" loading="lazy" />}
+                  <div class="archive-card-visual-label" aria-hidden="true">
+                    <span>VAN</span>
+                    <strong>{item.category}</strong>
+                  </div>
                 </div>
                 <div class="archive-card-content">
                   <div class="archive-card-meta">
                     <span>{item.category}</span>
                     <time datetime={item.date}>{formatArchiveDate(item.date)}</time>
-                    <small>{archiveCopy.status}</small>
+                    <small>{item.status === 'archived' ? archiveCopy.recordStatus : archiveCopy.status}</small>
                   </div>
                   <h2>{item.title}</h2>
+                  {item.subtitle && <p class="archive-card-subtitle">{item.subtitle}</p>}
                   <p>{item.excerpt}</p>
                   <a class="archive-read-link" href={link(`archive/${item.slug}`)}>{archiveCopy.read}<span aria-hidden="true">↗</span></a>
                 </div>
