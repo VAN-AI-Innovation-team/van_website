@@ -396,20 +396,35 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container about-purpose-grid">
           <article>
             <span>01</span>
-            <p class="eyebrow">{lang === 'ko' ? '개최 목적' : 'PURPOSE'}</p>
+            <p class="eyebrow">{lang === 'ko' ? '단체 소개' : 'ORGANIZATION'}</p>
             <h2>{page.purposeTitle}</h2>
             <p>{page.purposeBody}</p>
           </article>
           <article>
             <span>02</span>
-            <p class="eyebrow">{lang === 'ko' ? '연결' : 'CONNECTION'}</p>
+            <p class="eyebrow">{lang === 'ko' ? '형성 배경' : 'ORIGIN'}</p>
             <h2>{page.agendaTitle}</h2>
             <p>{page.agendaBody}</p>
           </article>
         </div>
       </section>
+      <section class="section section--ink about-history" aria-labelledby="about-history-title">
+        <div class="container section-heading">
+          <div>
+            <p class="eyebrow">{lang === 'ko' ? '단체 연혁 및 소개' : 'HISTORY & INTRODUCTION'}</p>
+            <h2 id="about-history-title">{page.historyTitle}</h2>
+          </div>
+          <p>{page.historyLead}</p>
+        </div>
+        <div class="container about-history-grid">
+          {page.history.map(([number, title, body]) => (
+            <article><span>{number}</span><h3>{title}</h3><p>{body}</p></article>
+          ))}
+        </div>
+      </section>
       <section class="section section--paper">
-        <div class="container"><p class="section-number">{lang === 'ko' ? '운영 원칙' : 'HOW WE WORK'}</p><h2 class="wide-title">{page.principlesTitle}</h2>
+        <div class="container"><p class="section-number">{lang === 'ko' ? '단체 철학' : 'OUR PRINCIPLES'}</p><h2 class="wide-title">{page.principlesTitle}</h2>
+          <p class="section-lead about-principles-lead">{page.principlesLead}</p>
           <div class="principle-grid">
             {page.principles.map(([number, title, body]) => <article><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
           </div>
@@ -417,7 +432,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--mist">
         <div class="container section-heading section-heading--paper">
-          <div><p class="eyebrow">{lang === 'ko' ? '함께하는 사람들' : 'WHO MEETS HERE'}</p><h2>{page.audiencesTitle}</h2></div>
+          <div><p class="eyebrow">{lang === 'ko' ? '연결하는 네트워크' : 'THE NETWORK'}</p><h2>{page.audiencesTitle}</h2></div>
           <p>{page.audiencesLead}</p>
         </div>
         <div class="container audience-grid">
@@ -427,7 +442,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         </div>
       </section>
       <section class="section section--accent">
-        <div class="container manifesto"><p class="eyebrow">{lang === 'ko' ? '컨퍼런스의 순환' : 'THE CONFERENCE CYCLE'}</p><h2>{page.modelTitle}</h2><p>{page.modelBody}</p></div>
+        <div class="container manifesto"><p class="eyebrow">{lang === 'ko' ? 'VAN과 CONFERENCE' : 'VAN & CONFERENCE'}</p><h2>{page.modelTitle}</h2><p>{page.modelBody}</p></div>
       </section>
     </>
   )}
