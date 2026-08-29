@@ -447,6 +447,11 @@ h3 {
   gap: 1rem;
 }
 
+.home-preview-grid > :only-child {
+  grid-column: 1 / -1;
+  min-height: 360px;
+}
+
 .home-preview-card {
   display: flex;
   min-width: 0;
@@ -1869,6 +1874,11 @@ h3 {
 }
 
 @media (max-width: 430px) {
+  .page-hero h1,
+  .event-hero h1 {
+    font-size: clamp(1.9rem, 9.5vw, 2.35rem);
+  }
+
   .archive-filters {
     grid-template-columns: 1fr;
   }
