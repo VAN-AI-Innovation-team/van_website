@@ -13,6 +13,13 @@ const {
   title,
   description,
   structuredEvent = null,
+  extraStructuredData = [],
+  robots = 'index, follow, max-image-preview:large',
+  ogType = 'website',
+  socialImagePath = '/social-card.png',
+  socialImageAlt = 'VAN Conference',
+  socialImageWidth = 1200,
+  socialImageHeight = 630,
 } = Astro.props
 const copy = content[lang]
 const alternateLang = lang === 'ko' ? 'en' : 'ko'
@@ -23,7 +30,7 @@ const canonical = new URL(canonicalPath, Astro.site)
 const alternate = new URL(alternatePath, Astro.site)
 const xDefault = new URL(rootPath, Astro.site)
 const homeUrl = new URL(basePath('/'), Astro.site)
-const socialImage = new URL(basePath('/social-card.svg'), Astro.site)
+const socialImage = new URL(basePath(socialImagePath), Astro.site)
 
 const structuredData = [
   {
@@ -89,6 +96,10 @@ if (
     },
   })
 }
+
+if (Array.isArray(extraStructuredData)) {
+  structuredData.push(...extraStructuredData.filter(Boolean))
+}
 ---
 
 <!doctype html>
@@ -98,21 +109,29 @@ if (
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b2037" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content={robots} />
     <title>{title}</title>
     <link rel="canonical" href={canonical.href} />
     <link rel="alternate" hreflang={lang} href={canonical.href} />
     <link rel="alternate" hreflang={alternateLang} href={alternate.href} />
     <link rel="alternate" hreflang="x-default" href={xDefault.href} />
     <link rel="icon" type="image/svg+xml" href={basePath('/favicon.svg')} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="VAN" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.href} />
     <meta property="og:image" content={socialImage.href} />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    {socialImageWidth && <meta property="og:image:width" content={String(socialImageWidth)} />}
+    {socialImageHeight && <meta property="og:image:height" content={String(socialImageHeight)} />}
     <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'ko' ? 'en_US' : 'ko_KR'} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage.href} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll('<', '\\u003c')}></script>
   </head>
   <body>

@@ -1140,6 +1140,8 @@ h3 {
 
   .information-status__content h2 {
     font-size: clamp(1.8rem, 9vw, 2.6rem);
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .information-status__content > p {
@@ -1863,5 +1865,22 @@ h3 {
 @media (max-width: 760px) {
   .conference-closing-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .archive-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-source-note,
+  .conference-highlight-card > div {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .conference-application-card,
+  .conference-highlight-card {
+    padding: 1.25rem;
   }
 }

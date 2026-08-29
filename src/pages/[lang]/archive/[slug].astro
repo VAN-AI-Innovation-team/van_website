@@ -20,9 +20,41 @@ const archiveLink = basePath(routePath(lang, 'archive'))
 const contactLink = basePath(routePath(lang, 'contact'))
 const formattedDate = lang === 'ko' ? post.date.replaceAll('-', '.') : post.date
 const statusLabel = post.status === 'archived' ? labels.recordStatus : labels.status
+const archiveImage = post.cover ? new URL(basePath(post.cover), Astro.site).href : null
+const archiveEvent = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: post.title,
+  description: post.excerpt,
+  url: new URL(basePath(routePath(lang, pageSlug)), Astro.site).href,
+  startDate: post.date,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  inLanguage: lang,
+  ...(archiveImage ? { image: [archiveImage] } : {}),
+  location: {
+    '@type': 'Place',
+    name: post.venue,
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: post.organizer,
+  },
+}
 ---
 
-<BaseLayout lang={lang} pageKey="archive" slug={pageSlug} title={title} description={description}>
+<BaseLayout
+  lang={lang}
+  pageKey="archive"
+  slug={pageSlug}
+  title={title}
+  description={description}
+  ogType="article"
+  socialImagePath={post.cover}
+  socialImageAlt={post.coverAlt}
+  socialImageWidth={post.coverWidth}
+  socialImageHeight={post.coverHeight}
+  extraStructuredData={[archiveEvent]}
+>
   <article class="archive-article">
     <header class="archive-article-hero">
       <div class="container">
@@ -39,7 +71,7 @@ const statusLabel = post.status === 'archived' ? labels.recordStatus : labels.st
     </header>
     {post.cover && (
       <figure class="container archive-article-cover">
-        <img src={post.cover} alt={post.coverAlt} width="1200" height="675" />
+        <img src={basePath(post.cover)} alt={post.coverAlt} width="1200" height="675" />
       </figure>
     )}
     <section class="section section--paper">
@@ -59,7 +91,7 @@ const statusLabel = post.status === 'archived' ? labels.recordStatus : labels.st
             <div class="archive-gallery">
               {post.gallery.map((image) => (
                 <figure>
-                  <img src={image.src} alt={image.alt} width="1200" height="675" loading="lazy" />
+                  <img src={basePath(image.src)} alt={image.alt} width="1200" height="675" loading="lazy" />
                   {image.caption && <figcaption>{image.caption}</figcaption>}
                 </figure>
               ))}
