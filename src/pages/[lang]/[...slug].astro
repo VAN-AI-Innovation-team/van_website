@@ -44,12 +44,13 @@ const currentConference = conferenceSummaries.find((edition) => edition.publicat
 const currentConferenceYear = currentConference?.year || '—'
 const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
 const isPublished = (status) => visibleStatuses.has(status)
-const currentFactValue = (id) => {
-  const fact = currentConference?.facts.find((item) => item.id === id)
-  return isPublished(fact?.status) && fact.value
-    ? fact.value
-    : currentConference?.statusLabel || copy.common.pending
-}
+const visibleCurrentStats = currentConference?.stats?.items.filter((item) => isPublished(item.status) && item.value) || []
+const visibleCurrentSpeakers = currentConference?.speakers?.items.filter((speaker) => isPublished(speaker.status) && speaker.name) || []
+const currentProgrammeItems = currentConference?.programme?.items || []
+const visibleConferenceFacts = conferenceEdition?.facts.filter((fact) => isPublished(fact.status) && fact.value) || []
+const visibleConferenceSpeakers = conferenceEdition?.speakers.items.filter((speaker) => isPublished(speaker.status) && speaker.name) || []
+const visibleConferencePartners = conferenceEdition?.partners.items.filter((partner) => isPublished(partner.status) && partner.name) || []
+const showConferenceVenue = Boolean(conferenceEdition?.venue && isPublished(conferenceEdition.venue.status) && conferenceEdition.venue.detail)
 const homeUpdates = currentConference
   ? [
       ['CONFERENCE', currentConference.archive.title, currentConference.archive.summary, `conference/${currentConference.slug}`],
@@ -83,7 +84,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="van-hero-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         <div class="container van-hero-inner">
           <div class="van-emblem" aria-label="VAN, Veritas Academiae Nexus">
-            <span class="van-emblem-kicker">CURRENT EDITION</span>
+            <span class="van-emblem-kicker">{lang === 'ko' ? '현재 컨퍼런스' : 'CURRENT EDITION'}</span>
             <strong>{currentConference?.year || 'VAN'}</strong>
             <span class="van-emblem-motto">VAN CONFERENCE</span>
           </div>
@@ -95,7 +96,6 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
               <p class="current-theme">
                 <span>{currentConference.theme.label}</span>
                 <strong>{currentConference.theme.title}</strong>
-                <small>{currentConference.statusLabel}</small>
               </p>
             )}
             <div class="button-row">
@@ -105,15 +105,9 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
             <p class="hero-note"><span aria-hidden="true"></span>{page.note}</p>
           </div>
         </div>
-        <div class="container hero-index" aria-label={lang === 'ko' ? '현재 컨퍼런스 주요 정보' : 'Current conference overview'}>
-          <div><span>EDITION</span><strong>{currentConference?.year || '—'}</strong></div>
-          <div><span>STATUS</span><strong>{currentConference?.statusLabel || copy.common.pending}</strong></div>
-          <div><span>DATE</span><strong>{currentFactValue('date')}</strong></div>
-          <div><span>VENUE</span><strong>{currentFactValue('venue')}</strong></div>
-        </div>
       </section>
 
-      {currentConference?.stats && (
+      {visibleCurrentStats.length > 0 && (
         <section class="conference-stat-strip" aria-labelledby="conference-stats-title">
           <div class="container conference-stat-heading">
             <div>
@@ -123,12 +117,10 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
             <p>{currentConference.stats.lead}</p>
           </div>
           <dl class="container conference-stat-grid">
-            {currentConference.stats.items.map((item) => (
+            {visibleCurrentStats.map((item) => (
               <div>
                 <dt>{item.label}</dt>
-                <dd>{isPublished(item.status) && item.value
-                  ? item.value
-                  : getConferenceStatusLabel(lang, item.status)}</dd>
+                <dd>{item.value}</dd>
               </div>
             ))}
           </dl>
@@ -137,7 +129,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
 
       <section class="section section--paper">
         <div class="container statement-grid">
-          <p class="section-number">I / ABOUT THE CONFERENCE</p>
+          <p class="section-number">{lang === 'ko' ? 'I / 컨퍼런스 소개' : 'I / ABOUT THE CONFERENCE'}</p>
           <div>
             <h2>{page.statementTitle}</h2>
             <p class="section-lead">{page.statementBody}</p>
@@ -149,42 +141,40 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--mist home-preview" aria-labelledby="home-preview-title">
         <div class="container section-heading section-heading--paper">
           <div>
-            <p class="eyebrow">II / {currentConferenceYear} PREVIEW</p>
+            <p class="eyebrow">II / {currentConferenceYear} {lang === 'ko' ? '미리보기' : 'PREVIEW'}</p>
             <h2 id="home-preview-title">{page.previewTitle}</h2>
           </div>
           <p>{page.previewLead}</p>
         </div>
         <div class="container home-preview-grid">
-          <article class="home-preview-card home-preview-card--speaker">
+          {visibleCurrentSpeakers.length > 0 && (
+            <article class="home-preview-card home-preview-card--speaker">
+              <div class="home-preview-card__header"><span>{lang === 'ko' ? '연사' : 'SPEAKERS'}</span></div>
+              <div class="home-preview-speaker-mark" aria-hidden="true"><span>VAN</span><b>{visibleCurrentSpeakers.length}</b></div>
+              <h3>{page.speakerPreviewTitle}</h3>
+              <p>{page.speakerPreviewBody}</p>
+              <a class="text-link text-link--dark" href={link(currentConference ? `conference/${currentConference.slug}` : 'conference')}>{copy.common.details}<span aria-hidden="true">↗</span></a>
+            </article>
+          )}
+          {currentProgrammeItems.length > 0 && <article class="home-preview-card home-preview-card--programme">
             <div class="home-preview-card__header">
-              <span>SPEAKERS</span>
-              <small>{currentConference?.statusLabel || copy.common.pending}</small>
-            </div>
-            <div class="home-preview-speaker-mark" aria-hidden="true"><span>VAN</span><b>?</b></div>
-            <h3>{page.speakerPreviewTitle}</h3>
-            <p>{page.speakerPreviewBody}</p>
-            <a class="text-link text-link--dark" href={link(currentConference ? `conference/${currentConference.slug}` : 'conference')}>{copy.common.details}<span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="home-preview-card home-preview-card--programme">
-            <div class="home-preview-card__header">
-              <span>PROGRAMME</span>
-              <small>{currentConference?.statusLabel || copy.common.pending}</small>
+              <span>{lang === 'ko' ? '프로그램' : 'PROGRAMME'}</span>
             </div>
             <h3>{page.programmePreviewTitle}</h3>
             <p>{page.programmePreviewBody}</p>
             <ol class="home-programme-list">
-              {currentConference?.programme.items.slice(0, 4).map((item, index) => (
-                <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.title}</strong><small>{getConferenceStatusLabel(lang, item.status)}</small></li>
+              {currentProgrammeItems.slice(0, 4).map((item, index) => (
+                <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.title}</strong></li>
               ))}
             </ol>
-          </article>
+          </article>}
         </div>
       </section>
 
       <section class="section section--ink">
         <div class="container section-heading">
           <div>
-            <p class="eyebrow">III / ORGANIZING FLOW</p>
+            <p class="eyebrow">{lang === 'ko' ? 'III / 운영 흐름' : 'III / ORGANIZING FLOW'}</p>
             <h2>{page.tracksTitle}</h2>
           </div>
           <p>{page.tracksLead}</p>
@@ -204,7 +194,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--paper home-updates">
         <div class="container section-heading section-heading--paper">
           <div>
-            <p class="eyebrow">IV / CURRENT & PARTNERSHIP</p>
+            <p class="eyebrow">{lang === 'ko' ? 'IV / 현재 안내와 협력' : 'IV / CURRENT & PARTNERSHIP'}</p>
             <h2>{page.updatesTitle}</h2>
           </div>
           <p>{page.updatesLead}</p>
@@ -233,7 +223,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--accent">
         <div class="container bridge">
           <div>
-            <p class="eyebrow">V / PARTNERSHIP INFORMATION</p>
+            <p class="eyebrow">{lang === 'ko' ? 'V / 협력 안내' : 'V / PARTNERSHIP INFORMATION'}</p>
             <h2>{page.bridgeTitle}</h2>
             <p>{page.bridgeBody}</p>
           </div>
@@ -263,7 +253,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--ink">
         <div class="container">
-          <div class="section-heading"><div><p class="eyebrow">FORMAT</p><h2>{page.frameworkTitle}</h2></div></div>
+          <div class="section-heading"><div><p class="eyebrow">{lang === 'ko' ? '프로그램 형식' : 'FORMAT'}</p><h2>{page.frameworkTitle}</h2></div></div>
           <div class="framework-grid">
             {page.framework.map(([title, body], index) => (
               <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{body}</p></article>
@@ -282,52 +272,48 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
             <p class="eyebrow eyebrow--accent">{conferenceEdition.hero.eyebrow}</p>
             <h1>{conferenceEdition.hero.title}</h1>
             <p class="hero-lead">{conferenceEdition.hero.lead}</p>
+            {conferenceEdition.theme && (
+              <p class="current-theme">
+                <span>{conferenceEdition.theme.label}</span>
+                <strong>{conferenceEdition.theme.title}</strong>
+              </p>
+            )}
           </div>
           <div class="event-seal" aria-hidden="true"><span>VAN</span><b>{conferenceEdition.year}</b></div>
         </div>
       </section>
-      <section class="event-facts">
+      {visibleConferenceFacts.length > 0 && <section class="event-facts">
         <div class="container facts-grid">
-          {conferenceEdition.facts.map((fact) => (
+          {visibleConferenceFacts.map((fact) => (
             <div>
               <span>{fact.label}</span>
-              <strong>{isPublished(fact.status) && fact.value
-                ? fact.value
-                : getConferenceStatusLabel(lang, fact.status)}</strong>
+              <strong>{fact.value}</strong>
             </div>
           ))}
         </div>
-      </section>
+      </section>}
       <section class="section section--paper">
         <div class="container split-content">
           <p class="section-number">{conferenceEdition.overview.eyebrow}</p>
           <div><h2>{conferenceEdition.overview.title}</h2><p class="section-lead">{conferenceEdition.overview.body}</p></div>
         </div>
       </section>
-      <section class="section section--paper conference-speakers">
+      {visibleConferenceSpeakers.length > 0 && <section class="section section--paper conference-speakers">
         <div class="container section-heading section-heading--paper">
           <div><p class="eyebrow">{conferenceEdition.speakers.eyebrow}</p><h2>{conferenceEdition.speakers.title}</h2></div>
           <p>{conferenceEdition.speakers.lead}</p>
         </div>
         <div class="container conference-speaker-grid">
-          {conferenceEdition.speakers.items.length > 0
-            ? conferenceEdition.speakers.items.map((speaker) => (
-                <SpeakerCard
-                  speaker={speaker}
-                  developmentLabel={conferenceEdition.statusLabel}
-                  speakerLabel={conferenceEdition.speakers.title}
-                  sessionLabel={conferenceEdition.speakers.sessionLabel}
-                />
-              ))
-            : <SpeakerCard
-                speaker={{ developmentMessage: conferenceEdition.speakers.empty }}
-                developmentLabel={conferenceEdition.statusLabel}
-                speakerLabel={conferenceEdition.speakers.title}
-                sessionLabel={conferenceEdition.speakers.sessionLabel}
-              />}
+          {visibleConferenceSpeakers.map((speaker) => (
+            <SpeakerCard
+              speaker={speaker}
+              speakerLabel={conferenceEdition.speakers.title}
+              sessionLabel={conferenceEdition.speakers.sessionLabel}
+            />
+          ))}
         </div>
-      </section>
-      <section class="section section--ink">
+      </section>}
+      {conferenceEdition.programme.items.length > 0 && <section class="section section--ink">
         <div class="container section-heading">
           <div><p class="eyebrow">{conferenceEdition.programme.eyebrow}</p><h2>{conferenceEdition.programme.title}</h2></div>
           <p>{conferenceEdition.programme.lead}</p>
@@ -335,12 +321,12 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container">
           <ProgrammeList
             sessions={conferenceEdition.programme.items}
-            developmentLabel={conferenceEdition.statusLabel}
+            directionLabel={lang === 'ko' ? '기획 방향' : 'Programme direction'}
             speakersLabel={conferenceEdition.speakers.title}
           />
         </div>
-      </section>
-      <section class="section section--paper conference-venue">
+      </section>}
+      {showConferenceVenue && <section class="section section--paper conference-venue">
         <div class="container split-content">
           <p class="section-number">{conferenceEdition.venue.eyebrow}</p>
           <article class="conference-venue-card">
@@ -350,20 +336,18 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
             <p>{conferenceEdition.venue.detail}</p>
           </article>
         </div>
-      </section>
-      <section class="section section--mist">
+      </section>}
+      {visibleConferencePartners.length > 0 && <section class="section section--mist">
         <div class="container section-heading section-heading--paper">
           <div><p class="eyebrow">{conferenceEdition.partners.eyebrow}</p><h2>{conferenceEdition.partners.title}</h2></div>
           <p>{conferenceEdition.partners.lead}</p>
         </div>
         <div class="container">
           <PartnerGrid
-            partners={conferenceEdition.partners.items}
-            developmentLabel={conferenceEdition.statusLabel}
-            emptyMessage={conferenceEdition.partners.empty}
+            partners={visibleConferencePartners}
           />
         </div>
-      </section>
+      </section>}
       <section class="section section--paper">
         <div class="container section-heading section-heading--paper">
           <div><p class="eyebrow">{conferenceEdition.faq.eyebrow}</p><h2>{conferenceEdition.faq.title}</h2></div>
@@ -384,7 +368,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
           <article class="conference-highlight-card">
             <div>
               <p class="eyebrow">{conferenceEdition.highlights.eyebrow}</p>
-              <span>{getConferenceStatusLabel(lang, conferenceEdition.highlights.status)}</span>
+              {isPublished(conferenceEdition.highlights.status) && <span>{getConferenceStatusLabel(lang, conferenceEdition.highlights.status)}</span>}
             </div>
             <h2>{conferenceEdition.highlights.title}</h2>
             <p>{conferenceEdition.highlights.body}</p>
@@ -412,20 +396,20 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container about-purpose-grid">
           <article>
             <span>01</span>
-            <p class="eyebrow">PURPOSE</p>
+            <p class="eyebrow">{lang === 'ko' ? '개최 목적' : 'PURPOSE'}</p>
             <h2>{page.purposeTitle}</h2>
             <p>{page.purposeBody}</p>
           </article>
           <article>
             <span>02</span>
-            <p class="eyebrow">CONNECTION</p>
+            <p class="eyebrow">{lang === 'ko' ? '연결' : 'CONNECTION'}</p>
             <h2>{page.agendaTitle}</h2>
             <p>{page.agendaBody}</p>
           </article>
         </div>
       </section>
       <section class="section section--paper">
-        <div class="container"><p class="section-number">HOW WE WORK</p><h2 class="wide-title">{page.principlesTitle}</h2>
+        <div class="container"><p class="section-number">{lang === 'ko' ? '운영 원칙' : 'HOW WE WORK'}</p><h2 class="wide-title">{page.principlesTitle}</h2>
           <div class="principle-grid">
             {page.principles.map(([number, title, body]) => <article><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
           </div>
@@ -433,7 +417,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--mist">
         <div class="container section-heading section-heading--paper">
-          <div><p class="eyebrow">WHO MEETS HERE</p><h2>{page.audiencesTitle}</h2></div>
+          <div><p class="eyebrow">{lang === 'ko' ? '함께하는 사람들' : 'WHO MEETS HERE'}</p><h2>{page.audiencesTitle}</h2></div>
           <p>{page.audiencesLead}</p>
         </div>
         <div class="container audience-grid">
@@ -443,7 +427,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         </div>
       </section>
       <section class="section section--accent">
-        <div class="container manifesto"><p class="eyebrow">THE CONFERENCE CYCLE</p><h2>{page.modelTitle}</h2><p>{page.modelBody}</p></div>
+        <div class="container manifesto"><p class="eyebrow">{lang === 'ko' ? '컨퍼런스의 순환' : 'THE CONFERENCE CYCLE'}</p><h2>{page.modelTitle}</h2><p>{page.modelBody}</p></div>
       </section>
     </>
   )}
@@ -458,7 +442,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--paper">
         <div class="container">
-          <p class="section-number">I / ORGANIZING FUNCTIONS</p>
+          <p class="section-number">{lang === 'ko' ? 'I / 운영 기능' : 'I / ORGANIZING FUNCTIONS'}</p>
           <h2 class="wide-title">{page.unitsTitle}</h2>
           <div class="department-grid">
             {page.units.map(([number, title, body, tags]) => (
@@ -474,7 +458,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--mist">
         <div class="container information-status">
-          <p class="eyebrow">II / STATUS</p>
+          <p class="eyebrow">{lang === 'ko' ? 'II / 운영 안내' : 'II / INFORMATION'}</p>
           <div class="information-status__content">
             <h2>{page.statusTitle}</h2>
             <p>{page.statusBody}</p>
@@ -490,14 +474,14 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container page-hero-grid"><div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div><p class="page-lead">{page.lead}</p></div>
       </section>
       <section class="section section--paper">
-        <div class="container"><p class="section-number">01 / PATHS</p><h2 class="wide-title">{page.pathsTitle}</h2>
+        <div class="container"><p class="section-number">{lang === 'ko' ? '01 / 참여 방식' : '01 / PATHS'}</p><h2 class="wide-title">{page.pathsTitle}</h2>
           <div class="join-grid">
-            {page.paths.map(([title, body, status], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p><small>{status}</small></article>)}
+            {page.paths.map(([title, body, status], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p>{status && <small>{status}</small>}</article>)}
           </div>
         </div>
       </section>
       <section class="section section--ink">
-        <div class="container process-wrap"><div><p class="eyebrow">02 / PROCESS</p><h2>{page.processTitle}</h2><p>{page.notice}</p></div>
+        <div class="container process-wrap"><div><p class="eyebrow">{lang === 'ko' ? '02 / 참가 절차' : '02 / PROCESS'}</p><h2>{page.processTitle}</h2><p>{page.notice}</p></div>
           <ol class="process-list">{page.process.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ol>
         </div>
       </section>
@@ -510,11 +494,11 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container page-hero-grid"><div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div><p class="page-lead">{page.lead}</p></div>
       </section>
       <section class="section section--paper">
-        <div class="container"><p class="section-number">01 / COLLABORATE</p><h2 class="wide-title">{page.typesTitle}</h2>
+        <div class="container"><p class="section-number">{lang === 'ko' ? '01 / 협력 방식' : '01 / COLLABORATE'}</p><h2 class="wide-title">{page.typesTitle}</h2>
           <div class="partnership-grid">{page.types.map(([title, body], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
         </div>
       </section>
-      <section class="section section--accent"><div class="container partner-cta"><div><p class="eyebrow">PARTNERSHIP STATUS</p><h2>{page.ctaTitle}</h2><p>{page.ctaBody}</p></div><a class="button button--dark" href={link('contact')}>{copy.common.partnership}<span aria-hidden="true">↗</span></a></div></section>
+      <section class="section section--accent"><div class="container partner-cta"><div><p class="eyebrow">{lang === 'ko' ? '협력 문의' : 'PARTNERSHIP INQUIRIES'}</p><h2>{page.ctaTitle}</h2><p>{page.ctaBody}</p></div><a class="button button--dark" href={link('contact')}>{copy.common.partnership}<span aria-hidden="true">↗</span></a></div></section>
     </>
   )}
 
@@ -650,9 +634,9 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container page-hero-grid"><div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div><p class="page-lead">{page.lead}</p></div>
       </section>
       <section class="section section--paper">
-        <div class="container"><p class="section-number">01 / INQUIRIES</p><h2 class="wide-title">{page.topicsTitle}</h2><div class="contact-grid">{page.topics.map(([title, body], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div>
+        <div class="container"><p class="section-number">{lang === 'ko' ? '01 / 문의 유형' : '01 / INQUIRIES'}</p><h2 class="wide-title">{page.topicsTitle}</h2><div class="contact-grid">{page.topics.map(([title, body], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div>
       </section>
-      <section class="section section--mist"><div class="container contact-channel"><div><p class="eyebrow">02 / CHANNEL</p><h2>{page.channelTitle}</h2><p>{page.channelBody}</p></div><div class="status-pill"><i aria-hidden="true"></i>{page.channelStatus}</div></div></section>
+      <section class="section section--mist"><div class="container contact-channel"><div><p class="eyebrow">{lang === 'ko' ? '02 / 공식 문의' : '02 / CHANNEL'}</p><h2>{page.channelTitle}</h2><p>{page.channelBody}</p></div><div class="status-pill"><i aria-hidden="true"></i>{page.channelStatus}</div></div></section>
     </>
   )}
 </BaseLayout>

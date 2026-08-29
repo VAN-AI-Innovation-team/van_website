@@ -3,6 +3,8 @@ import { basePath } from '../data/conference.js'
 
 const { edition, href } = Astro.props
 const cover = edition.archive.cover
+const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+const showStatus = visibleStatuses.has(edition.publicationStatus)
 ---
 
 <article class="conference-archive-card">
@@ -21,7 +23,7 @@ const cover = edition.archive.cover
   <div class="conference-archive-card__content">
     <div class="conference-archive-card__meta">
       <span>VAN CONFERENCE</span>
-      <small>{edition.statusLabel}</small>
+      {showStatus && <small>{edition.statusLabel}</small>}
     </div>
     <h2>{edition.archive.title}</h2>
     <p>{edition.archive.summary}</p>

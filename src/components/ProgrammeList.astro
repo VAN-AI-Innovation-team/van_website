@@ -1,12 +1,9 @@
 ---
 const {
   sessions = [],
-  developmentLabel = 'In development',
+  directionLabel = 'Programme direction',
   speakersLabel = 'Speakers',
 } = Astro.props
-
-const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
-const isPublished = (status) => visibleStatuses.has(status)
 ---
 
 <ol class="programme-list">
@@ -14,12 +11,9 @@ const isPublished = (status) => visibleStatuses.has(status)
     <li>
       <span class="programme-list__index">{String(index + 1).padStart(2, '0')}</span>
       <div class="programme-list__time">
-        {session.time ? (
-          <>
-            <time datetime={session.startAt || undefined}>{session.time}</time>
-            {!isPublished(session.status) && <small>{developmentLabel}</small>}
-          </>
-        ) : <small>{developmentLabel}</small>}
+        {session.time
+          ? <time datetime={session.startAt || undefined}>{session.time}</time>
+          : <small>{directionLabel}</small>}
       </div>
       <div class="programme-list__content">
         <h3>{session.title}</h3>
@@ -30,7 +24,7 @@ const isPublished = (status) => visibleStatuses.has(status)
       </div>
     </li>
   )) : (
-    <li class="programme-list__empty"><strong>{developmentLabel}</strong></li>
+    <li class="programme-list__empty" aria-hidden="true"></li>
   )}
 </ol>
 
