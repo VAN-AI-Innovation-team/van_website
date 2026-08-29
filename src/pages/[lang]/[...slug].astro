@@ -129,7 +129,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
 
       <section class="section section--paper">
         <div class="container statement-grid">
-          <p class="section-number">{lang === 'ko' ? 'I / 컨퍼런스 소개' : 'I / ABOUT THE CONFERENCE'}</p>
+          <p class="section-number">{lang === 'ko' ? '컨퍼런스 소개' : 'ABOUT THE CONFERENCE'}</p>
           <div>
             <h2>{page.statementTitle}</h2>
             <p class="section-lead">{page.statementBody}</p>
@@ -141,7 +141,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--mist home-preview" aria-labelledby="home-preview-title">
         <div class="container section-heading section-heading--paper">
           <div>
-            <p class="eyebrow">II / {currentConferenceYear} {lang === 'ko' ? '미리보기' : 'PREVIEW'}</p>
+            <p class="eyebrow">{currentConferenceYear} {lang === 'ko' ? '미리보기' : 'PREVIEW'}</p>
             <h2 id="home-preview-title">{page.previewTitle}</h2>
           </div>
           <p>{page.previewLead}</p>
@@ -162,11 +162,11 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
             </div>
             <h3>{page.programmePreviewTitle}</h3>
             <p>{page.programmePreviewBody}</p>
-            <ol class="home-programme-list">
-              {currentProgrammeItems.slice(0, 4).map((item, index) => (
-                <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.title}</strong></li>
+            <ul class="home-programme-list">
+              {currentProgrammeItems.slice(0, 4).map((item) => (
+                <li><strong>{item.title}</strong></li>
               ))}
-            </ol>
+            </ul>
           </article>}
         </div>
       </section>
@@ -174,15 +174,14 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--ink">
         <div class="container section-heading">
           <div>
-            <p class="eyebrow">{lang === 'ko' ? 'III / 운영 흐름' : 'III / ORGANIZING FLOW'}</p>
+            <p class="eyebrow">{lang === 'ko' ? '운영 흐름' : 'ORGANIZING FLOW'}</p>
             <h2>{page.tracksTitle}</h2>
           </div>
           <p>{page.tracksLead}</p>
         </div>
         <div class="container track-grid">
-          {page.tracks.map(([number, name, body]) => (
+          {page.tracks.map(([name, body]) => (
             <a class="track-card" href={link('departments')}>
-              <span class="track-number">{number}</span>
               <h3>{name}</h3>
               <p>{body}</p>
               <span class="card-mark" aria-hidden="true">↗</span>
@@ -194,15 +193,14 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--paper home-updates">
         <div class="container section-heading section-heading--paper">
           <div>
-            <p class="eyebrow">{lang === 'ko' ? 'IV / 현재 안내와 협력' : 'IV / CURRENT & PARTNERSHIP'}</p>
+            <p class="eyebrow">{lang === 'ko' ? '현재 안내와 협력' : 'CURRENT & PARTNERSHIP'}</p>
             <h2>{page.updatesTitle}</h2>
           </div>
           <p>{page.updatesLead}</p>
         </div>
         <div class="container update-list">
-          {homeUpdates.map(([category, title, body, target], index) => (
+          {homeUpdates.map(([category, title, body, target]) => (
             <a href={link(target)}>
-              <span class="update-index">{String(index + 1).padStart(2, '0')}</span>
               <span class="update-category">{category}</span>
               <span class="update-copy"><strong>{title}</strong><small>{body}</small></span>
               <span class="update-arrow" aria-hidden="true">↗</span>
@@ -223,7 +221,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--accent">
         <div class="container bridge">
           <div>
-            <p class="eyebrow">{lang === 'ko' ? 'V / 협력 안내' : 'V / PARTNERSHIP INFORMATION'}</p>
+            <p class="eyebrow">{lang === 'ko' ? '협력 안내' : 'PARTNERSHIP INFORMATION'}</p>
             <h2>{page.bridgeTitle}</h2>
             <p>{page.bridgeBody}</p>
           </div>
@@ -255,8 +253,8 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container">
           <div class="section-heading"><div><p class="eyebrow">{lang === 'ko' ? '프로그램 형식' : 'FORMAT'}</p><h2>{page.frameworkTitle}</h2></div></div>
           <div class="framework-grid">
-            {page.framework.map(([title, body], index) => (
-              <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{body}</p></article>
+            {page.framework.map(([title, body]) => (
+              <article><h3>{title}</h3><p>{body}</p></article>
             ))}
           </div>
         </div>
@@ -395,13 +393,11 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--paper">
         <div class="container about-purpose-grid">
           <article>
-            <span>01</span>
             <p class="eyebrow">{lang === 'ko' ? '단체 소개' : 'ORGANIZATION'}</p>
             <h2>{page.purposeTitle}</h2>
             <p>{page.purposeBody}</p>
           </article>
           <article>
-            <span>02</span>
             <p class="eyebrow">{lang === 'ko' ? '형성 배경' : 'ORIGIN'}</p>
             <h2>{page.agendaTitle}</h2>
             <p>{page.agendaBody}</p>
@@ -417,8 +413,8 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
           <p>{page.historyLead}</p>
         </div>
         <div class="container about-history-grid">
-          {page.history.map(([number, title, body]) => (
-            <article><span>{number}</span><h3>{title}</h3><p>{body}</p></article>
+          {page.history.map(([title, body]) => (
+            <article><h3>{title}</h3><p>{body}</p></article>
           ))}
         </div>
       </section>
@@ -426,7 +422,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container"><p class="section-number">{lang === 'ko' ? '단체 철학' : 'OUR PRINCIPLES'}</p><h2 class="wide-title">{page.principlesTitle}</h2>
           <p class="section-lead about-principles-lead">{page.principlesLead}</p>
           <div class="principle-grid">
-            {page.principles.map(([number, title, body]) => <article><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
+            {page.principles.map(([title, body]) => <article><h3>{title}</h3><p>{body}</p></article>)}
           </div>
         </div>
       </section>
@@ -457,12 +453,11 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--paper">
         <div class="container">
-          <p class="section-number">{lang === 'ko' ? 'I / 운영 기능' : 'I / ORGANIZING FUNCTIONS'}</p>
+          <p class="section-number">{lang === 'ko' ? '운영 기능' : 'ORGANIZING FUNCTIONS'}</p>
           <h2 class="wide-title">{page.unitsTitle}</h2>
           <div class="department-grid">
-            {page.units.map(([number, title, body, tags]) => (
+            {page.units.map(([title, body, tags]) => (
               <article>
-                <span class="department-number">{number}</span>
                 <h3>{title}</h3>
                 <p>{body}</p>
                 <ul>{tags.map((tag) => <li>{tag}</li>)}</ul>
@@ -473,7 +468,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--mist">
         <div class="container information-status">
-          <p class="eyebrow">{lang === 'ko' ? 'II / 운영 안내' : 'II / INFORMATION'}</p>
+          <p class="eyebrow">{lang === 'ko' ? '운영 안내' : 'INFORMATION'}</p>
           <div class="information-status__content">
             <h2>{page.statusTitle}</h2>
             <p>{page.statusBody}</p>
@@ -489,15 +484,15 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container page-hero-grid"><div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div><p class="page-lead">{page.lead}</p></div>
       </section>
       <section class="section section--paper">
-        <div class="container"><p class="section-number">{lang === 'ko' ? '01 / 참여 방식' : '01 / PATHS'}</p><h2 class="wide-title">{page.pathsTitle}</h2>
+        <div class="container"><p class="section-number">{lang === 'ko' ? '참여 방식' : 'PATHS'}</p><h2 class="wide-title">{page.pathsTitle}</h2>
           <div class="join-grid">
-            {page.paths.map(([title, body, status], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p>{status && <small>{status}</small>}</article>)}
+            {page.paths.map(([title, body, status]) => <article><h3>{title}</h3><p>{body}</p>{status && <small>{status}</small>}</article>)}
           </div>
         </div>
       </section>
       <section class="section section--ink">
-        <div class="container process-wrap"><div><p class="eyebrow">{lang === 'ko' ? '02 / 참가 절차' : '02 / PROCESS'}</p><h2>{page.processTitle}</h2><p>{page.notice}</p></div>
-          <ol class="process-list">{page.process.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ol>
+        <div class="container process-wrap"><div><p class="eyebrow">{lang === 'ko' ? '참가 절차' : 'PROCESS'}</p><h2>{page.processTitle}</h2><p>{page.notice}</p></div>
+          <ol class="process-list">{page.process.map((item) => <li>{item}</li>)}</ol>
         </div>
       </section>
     </>
@@ -509,8 +504,8 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container page-hero-grid"><div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div><p class="page-lead">{page.lead}</p></div>
       </section>
       <section class="section section--paper">
-        <div class="container"><p class="section-number">{lang === 'ko' ? '01 / 협력 방식' : '01 / COLLABORATE'}</p><h2 class="wide-title">{page.typesTitle}</h2>
-          <div class="partnership-grid">{page.types.map(([title, body], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
+        <div class="container"><p class="section-number">{lang === 'ko' ? '협력 방식' : 'COLLABORATE'}</p><h2 class="wide-title">{page.typesTitle}</h2>
+          <div class="partnership-grid">{page.types.map(([title, body]) => <article><h3>{title}</h3><p>{body}</p></article>)}</div>
         </div>
       </section>
       <section class="section section--accent"><div class="container partner-cta"><div><p class="eyebrow">{lang === 'ko' ? '협력 문의' : 'PARTNERSHIP INQUIRIES'}</p><h2>{page.ctaTitle}</h2><p>{page.ctaBody}</p></div><a class="button button--dark" href={link('contact')}>{copy.common.partnership}<span aria-hidden="true">↗</span></a></div></section>
@@ -649,9 +644,9 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         <div class="container page-hero-grid"><div><p class="eyebrow eyebrow--accent">{page.eyebrow}</p><h1>{page.title}</h1></div><p class="page-lead">{page.lead}</p></div>
       </section>
       <section class="section section--paper">
-        <div class="container"><p class="section-number">{lang === 'ko' ? '01 / 문의 유형' : '01 / INQUIRIES'}</p><h2 class="wide-title">{page.topicsTitle}</h2><div class="contact-grid">{page.topics.map(([title, body], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div>
+        <div class="container"><p class="section-number">{lang === 'ko' ? '문의 유형' : 'INQUIRIES'}</p><h2 class="wide-title">{page.topicsTitle}</h2><div class="contact-grid">{page.topics.map(([title, body]) => <article><h3>{title}</h3><p>{body}</p></article>)}</div></div>
       </section>
-      <section class="section section--mist"><div class="container contact-channel"><div><p class="eyebrow">{lang === 'ko' ? '02 / 공식 문의' : '02 / CHANNEL'}</p><h2>{page.channelTitle}</h2><p>{page.channelBody}</p></div><div class="status-pill"><i aria-hidden="true"></i>{page.channelStatus}</div></div></section>
+      <section class="section section--mist"><div class="container contact-channel"><div><p class="eyebrow">{lang === 'ko' ? '공식 문의' : 'CHANNEL'}</p><h2>{page.channelTitle}</h2><p>{page.channelBody}</p></div><div class="status-pill"><i aria-hidden="true"></i>{page.channelStatus}</div></div></section>
     </>
   )}
 </BaseLayout>

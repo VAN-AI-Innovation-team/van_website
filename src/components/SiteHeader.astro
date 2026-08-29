@@ -46,13 +46,12 @@ const languageLabel = otherLang === 'ko' ? 'KO' : 'EN'
           <span>VERITAS ACADEMIAE NEXUS</span>
           <a href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a>
         </div>
-        {navItems.map(({ key, slug }, index) => (
+        {navItems.map(({ key, slug }) => (
           <a
             class="mobile-menu-link"
             href={basePath(routePath(lang, slug))}
             aria-current={currentKey === key ? 'page' : undefined}
           >
-            <span>{String(index + 1).padStart(2, '0')}</span>
             {copy.nav[key]}
           </a>
         ))}

@@ -38,12 +38,12 @@ export const conferenceEditions = [
           ],
         },
         overview: {
-          eyebrow: '01 / 행사 소개',
+          eyebrow: '행사 소개',
           title: '대격변 속에서 다시 묻는 혁신',
           body: 'VAN Conference 2026은 빠르게 바뀌는 기술과 사회 환경 속에서 청년 세대가 마주한 질문을 함께 탐색하는 연례 컨퍼런스입니다. 학계·산업계·공공 영역의 관점과 경험을 연결하고, 확정된 내용부터 이 페이지에 투명하게 반영합니다.',
         },
         speakers: {
-          eyebrow: '02 / 연사',
+          eyebrow: '연사',
           title: '주요 연사',
           lead: '공식 참여와 공개가 확인된 연사를 사진, 소속, 직함, 소개와 참여 세션과 함께 안내합니다.',
           empty: '연사 정보는 기획팀 확정 후 공개합니다.',
@@ -70,7 +70,7 @@ export const conferenceEditions = [
           ],
         },
         programme: {
-          eyebrow: '03 / 프로그램',
+          eyebrow: '프로그램',
           title: '프로그램 구성',
           lead: '아래 항목은 프로그램 기획 방향이며 최종 세션명, 시간과 연사는 확정 전입니다. 확정된 내용부터 동일한 일정 구조에 반영합니다.',
           items: [
@@ -117,21 +117,21 @@ export const conferenceEditions = [
           ],
         },
         venue: {
-          eyebrow: '04 / 장소',
+          eyebrow: '장소',
           title: '행사 장소 안내',
           lead: '공식 장소와 접근 정보는 기획팀 확인 후 공개합니다.',
           detail: '장소가 확정되면 주소, 대중교통, 입장 동선과 접근성 정보를 이 영역에 안내합니다.',
           status: 'development',
         },
         partners: {
-          eyebrow: '05 / 파트너',
+          eyebrow: '파트너',
           title: '파트너와 후원사',
           lead: '공식 협력 기관만 확인 후 로고와 함께 공개합니다.',
           empty: '현재 공개 가능한 파트너·후원사 정보가 없습니다. 참여와 로고 공개가 확정된 기관부터 안내합니다.',
           items: [],
         },
         faq: {
-          eyebrow: '06 / 자주 묻는 질문',
+          eyebrow: '자주 묻는 질문',
           title: '자주 묻는 질문',
           lead: '현재 공개된 정보와 앞으로 이 페이지에 추가될 내용을 안내합니다.',
           items: [
@@ -164,7 +164,7 @@ export const conferenceEditions = [
           linkLabel: '참가 안내 보기',
         },
         highlights: {
-          eyebrow: '07 / 행사 기록',
+          eyebrow: '행사 기록',
           title: '행사 기록은 이곳에 이어집니다',
           body: '행사 종료 후 공개가 확인된 현장 사진, 영상, 세션 요약과 주요 결과를 같은 연도 페이지에 추가합니다.',
           status: 'development',
@@ -223,12 +223,12 @@ export const conferenceEditions = [
           ],
         },
         overview: {
-          eyebrow: '01 / OVERVIEW',
+          eyebrow: 'OVERVIEW',
           title: 'Questioning innovation in an age of upheaval',
           body: 'VAN Conference 2026 is an annual forum for exploring the questions facing a generation amid rapid technological and social change. It connects perspectives from academia, industry and public life, while publishing only information that has completed review.',
         },
         speakers: {
-          eyebrow: '02 / SPEAKERS',
+          eyebrow: 'SPEAKERS',
           title: 'Featured speakers',
           lead: 'Confirmed profiles will be published with a photo, affiliation, role, bio and session after participation and publication are approved.',
           empty: 'Speaker information will be published after confirmation.',
@@ -255,7 +255,7 @@ export const conferenceEditions = [
           ],
         },
         programme: {
-          eyebrow: '03 / PROGRAMME',
+          eyebrow: 'PROGRAMME',
           title: 'Programme',
           lead: 'The items below are programme directions. Final session titles, times and speakers are not yet confirmed and will be added to this schedule after approval.',
           items: [
@@ -302,21 +302,21 @@ export const conferenceEditions = [
           ],
         },
         venue: {
-          eyebrow: '04 / VENUE',
+          eyebrow: 'VENUE',
           title: 'Venue information',
           lead: 'The official venue and access information will be published after planning-team confirmation.',
           detail: 'Once confirmed, this section will provide the address, public transport guidance, arrival flow and accessibility information.',
           status: 'development',
         },
         partners: {
-          eyebrow: '05 / PARTNERS',
+          eyebrow: 'PARTNERS',
           title: 'Partners & sponsors',
           lead: 'Only confirmed partner organizations will be published with their approved logos.',
           empty: 'No partner or sponsor information is ready for publication. Organizations will be listed after participation and logo publication are approved.',
           items: [],
         },
         faq: {
-          eyebrow: '06 / FAQ',
+          eyebrow: 'FAQ',
           title: 'Frequently asked questions',
           lead: 'Current preparation status is shared within the information available today.',
           items: [
@@ -349,7 +349,7 @@ export const conferenceEditions = [
           linkLabel: 'View participation paths',
         },
         highlights: {
-          eyebrow: '07 / HIGHLIGHTS',
+          eyebrow: 'HIGHLIGHTS',
           title: 'The record will continue here',
           body: 'After the conference, approved photography, video, session summaries and key outcomes will be added to this permanent edition page.',
           status: 'development',
