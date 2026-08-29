@@ -30,7 +30,8 @@ const canonical = new URL(canonicalPath, Astro.site)
 const alternate = new URL(alternatePath, Astro.site)
 const xDefault = new URL(rootPath, Astro.site)
 const homeUrl = new URL(basePath('/'), Astro.site)
-const socialImage = new URL(basePath(socialImagePath), Astro.site)
+const socialImageSource = socialImagePath.startsWith('/') ? basePath(socialImagePath) : socialImagePath
+const socialImage = new URL(socialImageSource, Astro.site)
 
 const structuredData = [
   {

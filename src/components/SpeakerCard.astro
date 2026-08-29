@@ -1,4 +1,6 @@
 ---
+import { basePath } from '../data/conference.js'
+
 const {
   speaker = null,
   developmentLabel = 'In development',
@@ -6,8 +8,9 @@ const {
   sessionLabel = 'Session',
 } = Astro.props
 
-const isConfirmed = speaker?.status === 'confirmed' && speaker?.name
-const initials = isConfirmed
+const visibleStatuses = new Set(['confirmed', 'published', 'archived'])
+const isPublished = visibleStatuses.has(speaker?.status) && speaker?.name
+const initials = isPublished
   ? speaker.name
       .split(/\s+/)
       .map((part) => part[0])
@@ -15,18 +18,19 @@ const initials = isConfirmed
       .slice(0, 2)
       .toUpperCase()
   : 'VAN'
+const imageSrc = speaker?.image?.src?.startsWith('/') ? basePath(speaker.image.src) : speaker?.image?.src
 ---
 
-<article class:list={['speaker-card', { 'speaker-card--development': !isConfirmed }]}>
+<article class:list={['speaker-card', { 'speaker-card--development': !isPublished }]}>
   <div class="speaker-card__visual" aria-hidden={!speaker?.image?.src ? 'true' : undefined}>
-    {isConfirmed && speaker.image?.src
-      ? <img src={speaker.image.src} alt="" width="640" height="800" loading="lazy" />
+    {isPublished && speaker.image?.src
+      ? <img src={imageSrc} alt={speaker.image.alt || ''} width={speaker.image.width || 640} height={speaker.image.height || 800} loading="lazy" />
       : <span>{initials}</span>}
   </div>
   <div class="speaker-card__content">
-    <small>{isConfirmed ? speaker.role : speakerLabel}</small>
-    <h3>{isConfirmed ? speaker.name : speaker?.category || developmentLabel}</h3>
-    {isConfirmed ? (
+    <small>{isPublished ? speaker.role : speakerLabel}</small>
+    <h3>{isPublished ? speaker.name : speaker?.category || developmentLabel}</h3>
+    {isPublished ? (
       <>
         <p class="speaker-card__affiliation">{speaker.affiliation}</p>
         {speaker.bio && <p class="speaker-card__bio">{speaker.bio}</p>}

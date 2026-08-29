@@ -45,7 +45,7 @@ export const conferenceEditions = [
         speakers: {
           eyebrow: '02 / SPEAKERS',
           title: '주요 연사',
-          lead: '기술·산업, 사회·정치, 알럼나이 세션의 참여 연사를 협의하고 있습니다. 확정 후 사진, 소속, 직함, 소개와 참여 세션을 공개합니다.',
+          lead: '연사 정보는 개발 중입니다. 참여와 공개가 확정된 연사부터 사진, 소속, 직함, 소개와 참여 세션을 공개합니다.',
           empty: '연사 정보는 기획팀 확정 후 공개합니다.',
           sessionLabel: '참여 세션',
           items: [
@@ -53,26 +53,26 @@ export const conferenceEditions = [
               id: 'technology-industry-speaker',
               status: 'development',
               category: '기술·산업 분야',
-              developmentMessage: '기술 변화와 산업 전환을 다룰 연사를 협의 중입니다.',
+              developmentMessage: '기술·산업 분야 연사 정보는 개발 중입니다.',
             },
             {
               id: 'society-politics-speaker',
               status: 'development',
               category: '사회·정치 분야',
-              developmentMessage: '사회 구조와 정치 환경의 변화를 함께 논의할 연사를 협의 중입니다.',
+              developmentMessage: '사회·정치 분야 연사 정보는 개발 중입니다.',
             },
             {
               id: 'alumni-speaker',
               status: 'development',
               category: '알럼나이 세션',
-              developmentMessage: '세대와 분야를 잇는 알럼나이 참여자를 협의 중입니다.',
+              developmentMessage: '알럼나이 세션 연사 정보는 개발 중입니다.',
             },
           ],
         },
         programme: {
           eyebrow: '03 / PROGRAMME',
           title: '프로그램 구성',
-          lead: '세션별 시간과 연사가 확정되면 동일한 일정 구조에 순서대로 반영합니다.',
+          lead: '아래 항목은 프로그램 기획 방향이며 최종 세션명, 시간과 연사는 확정 전입니다. 확정된 내용부터 동일한 일정 구조에 반영합니다.',
           items: [
             {
               id: 'technology-innovation',
@@ -81,7 +81,7 @@ export const conferenceEditions = [
               startAt: null,
               endAt: null,
               title: '기술혁신',
-              description: '기술 변화가 산업과 사회의 기준을 어떻게 바꾸는지 살펴보는 세션입니다. 세부 주제와 연사는 협의 중입니다.',
+              description: '기술 변화와 산업·사회 전환을 다루는 세션 방향을 개발하고 있습니다.',
               speakers: [],
             },
             {
@@ -91,7 +91,7 @@ export const conferenceEditions = [
               startAt: null,
               endAt: null,
               title: '사회·정치혁신',
-              description: '사회 구조와 정치 환경의 전환 속에서 새로운 제도와 참여의 방향을 논의합니다. 세부 주제와 연사는 협의 중입니다.',
+              description: '사회 구조와 정치 환경의 전환을 다루는 세션 방향을 개발하고 있습니다.',
               speakers: [],
             },
             {
@@ -101,7 +101,7 @@ export const conferenceEditions = [
               startAt: null,
               endAt: null,
               title: '종합 디스커션',
-              description: '앞선 세션의 관점을 연결해 청년 세대가 마주한 핵심 질문을 함께 토론합니다. 진행 방식은 개발 중입니다.',
+              description: '각 세션의 관점을 연결하는 종합 토론 형식을 개발하고 있습니다.',
               speakers: [],
             },
             {
@@ -111,7 +111,7 @@ export const conferenceEditions = [
               startAt: null,
               endAt: null,
               title: '알럼나이 네트워킹 나잇',
-              description: '학계·산업계·정계 알럼나이와 청년 참가자가 교류하는 프로그램입니다. 운영 방식은 개발 중입니다.',
+              description: '서로 다른 분야와 세대의 참가자를 연결하는 네트워킹 형식을 개발하고 있습니다.',
               speakers: [],
             },
           ],
@@ -127,7 +127,7 @@ export const conferenceEditions = [
           eyebrow: '05 / PARTNERS',
           title: '파트너와 후원사',
           lead: '공식 협력 기관만 확인 후 로고와 함께 공개합니다.',
-          empty: '파트너 정보는 현재 개발 중입니다.',
+          empty: '현재 공개 가능한 파트너·후원사 정보가 없습니다. 참여와 로고 공개가 확정된 기관부터 안내합니다.',
           items: [],
         },
         faq: {
@@ -160,25 +160,41 @@ export const conferenceEditions = [
         application: {
           eyebrow: 'JOIN THE CONFERENCE',
           title: '참가 신청 준비 중',
-          body: '모집 일정과 신청 링크는 확정 후 공개합니다. APPLICATION 페이지에서 참가·연사·운영 참여 경로를 먼저 확인할 수 있습니다.',
+          body: '이 사이트를 통한 참가 신청은 아직 열리지 않았습니다. 모집 여부, 일정과 신청 링크가 확정되면 APPLICATION 페이지와 이곳에 안내합니다.',
           linkLabel: '참가 안내 보기',
         },
         highlights: {
           eyebrow: '07 / HIGHLIGHTS',
           title: '행사 기록은 이곳에 이어집니다',
-          body: '행사 종료 후 현장 사진, 영상, 세션 요약과 주요 결과를 같은 연도 페이지에 추가합니다.',
+          body: '행사 종료 후 공개가 확인된 현장 사진, 영상, 세션 요약과 주요 결과를 같은 연도 페이지에 추가합니다.',
           status: 'development',
+          items: [],
+        },
+        gallery: {
+          eyebrow: 'PHOTOS',
+          title: '현장 사진',
+          lead: '공개가 확인된 행사 사진을 연도별로 보존합니다.',
+          status: 'development',
+          items: [],
+        },
+        videos: {
+          eyebrow: 'VIDEOS',
+          title: '영상 기록',
+          lead: '공개가 확인된 세션 영상과 하이라이트 링크를 보존합니다.',
+          status: 'development',
+          items: [],
         },
         archive: {
           title: 'VAN Conference 2026',
           summary: '행사 정보는 개발 중이며, 종료 후 사진·영상·주요 기록을 같은 연도 페이지에 축적합니다.',
           linkLabel: 'VAN Conference 2026 자세히 보기',
+          cover: null,
         },
       },
       en: {
         meta: {
           title: 'VAN Conference 2026 | Official Event Page',
-          description: 'Explore the speakers, programme directions and participation status for VAN Conference 2026: The Arena of Innovation.',
+          description: 'Explore the speakers, programme directions and participation status for VAN Conference 2026: Innovation in an Age of Upheaval.',
         },
         hero: {
           eyebrow: 'VAN CONFERENCE · 2026',
@@ -187,7 +203,7 @@ export const conferenceEditions = [
         },
         theme: {
           label: '2026 THEME',
-          title: 'The Arena of Innovation · 2026',
+          title: 'Innovation in an Age of Upheaval',
           status: 'development',
         },
         facts: [
@@ -214,7 +230,7 @@ export const conferenceEditions = [
         speakers: {
           eyebrow: '02 / SPEAKERS',
           title: 'Featured speakers',
-          lead: 'Speaker discussions are underway across technology and industry, society and politics, and the alumni session. Confirmed profiles will include a photo, affiliation, role, bio and session.',
+          lead: 'Speaker information is in development. Confirmed profiles will be published with a photo, affiliation, role, bio and session after participation and publication are approved.',
           empty: 'Speaker information will be published after confirmation.',
           sessionLabel: 'Session',
           items: [
@@ -222,26 +238,26 @@ export const conferenceEditions = [
               id: 'technology-industry-speaker',
               status: 'development',
               category: 'Technology & Industry',
-              developmentMessage: 'We are in discussion with speakers on technological change and industrial transition.',
+              developmentMessage: 'Speaker information for technology and industry is in development.',
             },
             {
               id: 'society-politics-speaker',
               status: 'development',
               category: 'Society & Politics',
-              developmentMessage: 'We are in discussion with speakers on changes in social structures and political environments.',
+              developmentMessage: 'Speaker information for society and politics is in development.',
             },
             {
               id: 'alumni-speaker',
               status: 'development',
               category: 'Alumni Session',
-              developmentMessage: 'We are coordinating alumni participants who can connect generations and fields.',
+              developmentMessage: 'Speaker information for the alumni session is in development.',
             },
           ],
         },
         programme: {
           eyebrow: '03 / PROGRAMME',
           title: 'Programme',
-          lead: 'Session times and speakers will be added to this same schedule structure once confirmed.',
+          lead: 'The items below are programme directions. Final session titles, times and speakers are not yet confirmed and will be added to this schedule after approval.',
           items: [
             {
               id: 'technology-innovation',
@@ -250,7 +266,7 @@ export const conferenceEditions = [
               startAt: null,
               endAt: null,
               title: 'Technology Innovation',
-              description: 'This session explores how technological change is reshaping standards across industry and society. The detailed topic and speakers are under discussion.',
+              description: 'A session direction on technological change and industrial and social transition is in development.',
               speakers: [],
             },
             {
@@ -260,7 +276,7 @@ export const conferenceEditions = [
               startAt: null,
               endAt: null,
               title: 'Social & Political Innovation',
-              description: 'This session examines new directions for institutions and participation amid shifts in social structures and political environments. Details are under discussion.',
+              description: 'A session direction on changes in social structures and political environments is in development.',
               speakers: [],
             },
             {
@@ -270,7 +286,7 @@ export const conferenceEditions = [
               startAt: null,
               endAt: null,
               title: 'Plenary Discussion',
-              description: 'A shared discussion connects perspectives from the preceding sessions around the defining questions facing a new generation. The format is in development.',
+              description: 'A plenary format connecting perspectives from each session is in development.',
               speakers: [],
             },
             {
@@ -280,7 +296,7 @@ export const conferenceEditions = [
               startAt: null,
               endAt: null,
               title: 'Alumni Networking Night',
-              description: 'A networking programme connecting alumni across academia, industry and public life with emerging participants. The operating format is in development.',
+              description: 'A networking format connecting participants across fields and generations is in development.',
               speakers: [],
             },
           ],
@@ -296,7 +312,7 @@ export const conferenceEditions = [
           eyebrow: '05 / PARTNERS',
           title: 'Partners & sponsors',
           lead: 'Only confirmed partner organizations will be published with their approved logos.',
-          empty: 'Partner information is currently in development.',
+          empty: 'No partner or sponsor information is ready for publication. Organizations will be listed after participation and logo publication are approved.',
           items: [],
         },
         faq: {
@@ -329,19 +345,35 @@ export const conferenceEditions = [
         application: {
           eyebrow: 'JOIN THE CONFERENCE',
           title: 'Applications are in preparation',
-          body: 'Application dates and links will be published after confirmation. The APPLICATION page already outlines the paths for attending, speaking and joining the organizing team.',
+          body: 'Applications through this site are not open yet. Availability, dates and links will be published here and on the APPLICATION page after confirmation.',
           linkLabel: 'View participation paths',
         },
         highlights: {
           eyebrow: '07 / HIGHLIGHTS',
           title: 'The record will continue here',
-          body: 'After the conference, photography, video, session summaries and key outcomes will be added to this permanent edition page.',
+          body: 'After the conference, approved photography, video, session summaries and key outcomes will be added to this permanent edition page.',
           status: 'development',
+          items: [],
+        },
+        gallery: {
+          eyebrow: 'PHOTOS',
+          title: 'Event photography',
+          lead: 'Approved event photography will be preserved by edition.',
+          status: 'development',
+          items: [],
+        },
+        videos: {
+          eyebrow: 'VIDEOS',
+          title: 'Video archive',
+          lead: 'Approved session recordings and highlight links will be preserved here.',
+          status: 'development',
+          items: [],
         },
         archive: {
           title: 'VAN Conference 2026',
           summary: 'Event information is in development. Photos, videos and highlights will remain on this year page after the conference.',
           linkLabel: 'View VAN Conference 2026',
+          cover: null,
         },
       },
     },
