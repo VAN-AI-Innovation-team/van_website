@@ -56,7 +56,7 @@ export const content = {
       departments: ['Organizing Team | VAN Conference', '기획·대외협력·홍보·운영으로 이어지는 VAN Conference의 운영 기능을 소개합니다.'],
       application: ['Application | VAN Conference', 'VAN Conference 참가, 발표, 운영 참여와 리크루팅 정보를 확인합니다.'],
       partners: ['Partners | VAN Conference', 'VAN Conference 공동 개최, 후원, 기관 초청 및 협력 방식을 안내합니다.'],
-      archive: ['Archive | VAN Conference', 'VAN의 컨퍼런스, 포럼, 뉴스, 인사이트와 미디어 콘텐츠를 검색하고 분류별로 확인합니다.'],
+      archive: ['Archive | VAN Conference', 'SKY Zeitgeist 2025와 VAN Renaissance 2025의 행사 설명과 현장 사진을 확인합니다.'],
       contact: ['Contact | VAN Conference', '공동 컨퍼런스, 포럼, 후원, 연사 초청 및 협력 문의를 안내합니다.'],
     },
     home: {
@@ -171,8 +171,8 @@ export const content = {
     },
     archive: {
       eyebrow: 'VAN ARCHIVE',
-      title: '기록을 모으고,\n다음 대화를 이어갑니다.',
-      lead: '컨퍼런스와 포럼, 뉴스, 인사이트, 미디어 콘텐츠를 한곳에서 검색하고 살펴볼 수 있습니다.',
+      title: '2025년의 만남을,\n다음 대화로 이어갑니다.',
+      lead: 'SKY Zeitgeist와 VAN Renaissance의 행사 설명과 현장 사진을 연도별 기록으로 보존합니다.',
     },
     contact: {
       eyebrow: 'CONTACT',
@@ -230,7 +230,7 @@ export const content = {
       departments: ['Organizing Team | VAN Conference', 'Explore the planning, partnerships, communications and operations behind VAN Conference.'],
       application: ['Application | VAN Conference', 'Find ways to attend, speak, or join the team behind VAN Conference.'],
       partners: ['Partners | VAN Conference', 'Explore co-hosting, sponsorship, invitation and content partnerships.'],
-      archive: ['Archive | VAN Conference', 'Search and browse VAN conferences, forums, news, insights and media by category.'],
+      archive: ['Archive | VAN Conference', 'Explore event records and photography from SKY Zeitgeist 2025 and VAN Renaissance 2025.'],
       contact: ['Contact | VAN Conference', 'Contact VAN Conference about co-hosting, sponsorship, invitations and collaboration.'],
     },
     home: {
@@ -345,8 +345,8 @@ export const content = {
     },
     archive: {
       eyebrow: 'VAN ARCHIVE',
-      title: 'Collect the record.\nContinue the conversation.',
-      lead: 'Search and explore VAN conferences, forums, news, insights and media in one place.',
+      title: 'Preserve the encounters.\nContinue the conversation.',
+      lead: 'Explore the programme context and event photography from SKY Zeitgeist and VAN Renaissance in 2025.',
     },
     contact: {
       eyebrow: 'CONTACT',
