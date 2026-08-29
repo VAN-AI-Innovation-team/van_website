@@ -6,10 +6,9 @@ const {
 ---
 
 <div class="faq-list">
-  {items.length > 0 ? items.map((item, index) => (
+  {items.length > 0 ? items.map((item) => (
     <details>
       <summary>
-        <span>{String(index + 1).padStart(2, '0')}</span>
         <strong>{item.question}</strong>
         <i aria-hidden="true">+</i>
       </summary>
@@ -32,7 +31,7 @@ const {
 
   .faq-list summary {
     display: grid;
-    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    grid-template-columns: minmax(0, 1fr) 44px;
     min-height: 76px;
     padding: 1rem 0;
     align-items: center;
@@ -43,12 +42,6 @@ const {
 
   .faq-list summary::-webkit-details-marker {
     display: none;
-  }
-
-  .faq-list summary > span {
-    color: #617788;
-    font-size: 0.68rem;
-    font-weight: 760;
   }
 
   .faq-list summary strong {
@@ -74,7 +67,7 @@ const {
   }
 
   .faq-list details > div {
-    padding: 0 44px 1.5rem 60px;
+    padding: 0 60px 1.5rem 0;
   }
 
   .faq-list details p,
@@ -88,16 +81,8 @@ const {
   }
 
   @media (max-width: 520px) {
-    .faq-list summary {
-      grid-template-columns: minmax(0, 1fr) 44px;
-    }
-
-    .faq-list summary > span {
-      display: none;
-    }
-
     .faq-list details > div {
-      padding-left: 0;
+      padding-right: 0;
     }
   }
 </style>
