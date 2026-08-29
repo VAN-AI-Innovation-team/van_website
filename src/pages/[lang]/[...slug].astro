@@ -40,6 +40,12 @@ const navKey = route.navKey || pageKey
 const link = (target) => basePath(routePath(lang, target))
 const conferenceSummaries = getConferenceEditionSummaries(lang)
 const currentConference = conferenceSummaries.find((edition) => edition.publicationStatus !== 'archived') || conferenceSummaries[0]
+const currentFactValue = (id) => {
+  const fact = currentConference?.facts.find((item) => item.id === id)
+  return fact?.status === 'confirmed' && fact.value
+    ? fact.value
+    : currentConference?.statusLabel || copy.common.pending
+}
 const homeUpdates = currentConference
   ? [
       ['CONFERENCE', currentConference.archive.title, currentConference.archive.summary, `conference/${currentConference.slug}`],
@@ -62,36 +68,65 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
 >
   {pageKey === 'home' && (
     <>
-      <section class="van-hero">
+      <section class="van-hero" style={`--conference-hero-image: url(${basePath('/conference-hero.jpg')})`}>
         <div class="van-hero-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         <div class="container van-hero-inner">
           <div class="van-emblem" aria-label="VAN, Veritas Academiae Nexus">
-            <span class="van-emblem-kicker">ACADEMIC NETWORK</span>
-            <strong>VAN</strong>
-            <span class="van-emblem-motto">VERITAS · ACADEMIAE · NEXUS</span>
+            <span class="van-emblem-kicker">CURRENT EDITION</span>
+            <strong>{currentConference?.year || 'VAN'}</strong>
+            <span class="van-emblem-motto">VAN CONFERENCE</span>
           </div>
           <div class="van-hero-copy">
             <p class="eyebrow eyebrow--accent">{page.eyebrow}</p>
             <h1>{page.title}</h1>
             <p class="hero-lead">{page.lead}</p>
+            {currentConference?.theme && (
+              <p class="current-theme">
+                <span>{currentConference.theme.label}</span>
+                <strong>{currentConference.theme.title}</strong>
+                <small>{currentConference.statusLabel}</small>
+              </p>
+            )}
             <div class="button-row">
-              <a class="button button--accent" href={link('about')}>{lang === 'ko' ? 'VAN 소개 보기' : 'Discover VAN'}<span aria-hidden="true">↗</span></a>
-              <a class="button button--ghost" href={link(currentConference ? `conference/${currentConference.slug}` : 'conference')}>{copy.common.details}</a>
+              <a class="button button--accent" href={link(currentConference ? `conference/${currentConference.slug}` : 'conference')}>{copy.common.details}<span aria-hidden="true">↗</span></a>
+              <a class="button button--ghost" href={link('application')}>{copy.common.apply}</a>
             </div>
             <p class="hero-note"><span aria-hidden="true"></span>{page.note}</p>
           </div>
         </div>
-        <div class="container hero-index" aria-label={lang === 'ko' ? 'VAN 주요 정보' : 'VAN overview'}>
-          <div><span>IDENTITY</span><strong>ACADEMIC NETWORK</strong></div>
-          <div><span>ACTIVITY</span><strong>RESEARCH · FORUM</strong></div>
-          <div><span>NEXT EDITION</span><strong>CONFERENCE {currentConference?.year || '—'}</strong></div>
-          <div><span>LANGUAGE</span><strong>KO · EN</strong></div>
+        <div class="container hero-index" aria-label={lang === 'ko' ? '현재 컨퍼런스 주요 정보' : 'Current conference overview'}>
+          <div><span>EDITION</span><strong>{currentConference?.year || '—'}</strong></div>
+          <div><span>STATUS</span><strong>{currentConference?.statusLabel || copy.common.pending}</strong></div>
+          <div><span>DATE</span><strong>{currentFactValue('date')}</strong></div>
+          <div><span>VENUE</span><strong>{currentFactValue('venue')}</strong></div>
         </div>
       </section>
 
+      {currentConference?.stats && (
+        <section class="conference-stat-strip" aria-labelledby="conference-stats-title">
+          <div class="container conference-stat-heading">
+            <div>
+              <p class="eyebrow">CONFERENCE 2026</p>
+              <h2 id="conference-stats-title">{currentConference.stats.title}</h2>
+            </div>
+            <p>{currentConference.stats.lead}</p>
+          </div>
+          <dl class="container conference-stat-grid">
+            {currentConference.stats.items.map((item) => (
+              <div>
+                <dt>{item.label}</dt>
+                <dd>{item.status === 'confirmed' && item.value
+                  ? item.value
+                  : getConferenceStatusLabel(lang, item.status)}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
+
       <section class="section section--paper">
         <div class="container statement-grid">
-          <p class="section-number">I / ABOUT VAN</p>
+          <p class="section-number">I / ABOUT THE CONFERENCE</p>
           <div>
             <h2>{page.statementTitle}</h2>
             <p class="section-lead">{page.statementBody}</p>
@@ -100,10 +135,45 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         </div>
       </section>
 
+      <section class="section section--mist home-preview" aria-labelledby="home-preview-title">
+        <div class="container section-heading section-heading--paper">
+          <div>
+            <p class="eyebrow">II / 2026 PREVIEW</p>
+            <h2 id="home-preview-title">{page.previewTitle}</h2>
+          </div>
+          <p>{page.previewLead}</p>
+        </div>
+        <div class="container home-preview-grid">
+          <article class="home-preview-card home-preview-card--speaker">
+            <div class="home-preview-card__header">
+              <span>SPEAKERS</span>
+              <small>{currentConference?.statusLabel || copy.common.pending}</small>
+            </div>
+            <div class="home-preview-speaker-mark" aria-hidden="true"><span>VAN</span><b>?</b></div>
+            <h3>{page.speakerPreviewTitle}</h3>
+            <p>{page.speakerPreviewBody}</p>
+            <a class="text-link text-link--dark" href={link(currentConference ? `conference/${currentConference.slug}` : 'conference')}>{copy.common.details}<span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="home-preview-card home-preview-card--programme">
+            <div class="home-preview-card__header">
+              <span>PROGRAMME</span>
+              <small>{currentConference?.statusLabel || copy.common.pending}</small>
+            </div>
+            <h3>{page.programmePreviewTitle}</h3>
+            <p>{page.programmePreviewBody}</p>
+            <ol class="home-programme-list">
+              {currentConference?.programme.items.slice(0, 4).map((item, index) => (
+                <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.title}</strong><small>{getConferenceStatusLabel(lang, item.status)}</small></li>
+              ))}
+            </ol>
+          </article>
+        </div>
+      </section>
+
       <section class="section section--ink">
         <div class="container section-heading">
           <div>
-            <p class="eyebrow">II / DEPARTMENTS</p>
+            <p class="eyebrow">III / ORGANIZING FLOW</p>
             <h2>{page.tracksTitle}</h2>
           </div>
           <p>{page.tracksLead}</p>
@@ -123,7 +193,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       <section class="section section--paper home-updates">
         <div class="container section-heading section-heading--paper">
           <div>
-            <p class="eyebrow">III / NEWS & ARCHIVE</p>
+            <p class="eyebrow">IV / CURRENT & YEAR-ROUND</p>
             <h2>{page.updatesTitle}</h2>
           </div>
           <p>{page.updatesLead}</p>
@@ -138,12 +208,21 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
             </a>
           ))}
         </div>
+        <div class="container home-highlight">
+          <div>
+            <span>ARCHIVE</span>
+            <small>{page.highlightStatus}</small>
+          </div>
+          <h3>{page.highlightTitle}</h3>
+          <p>{page.highlightBody}</p>
+          <a class="text-link text-link--dark" href={link('archive')}>{lang === 'ko' ? '연도별 기록 보기' : 'Explore the yearly archive'}<span aria-hidden="true">↗</span></a>
+        </div>
       </section>
 
       <section class="section section--accent">
         <div class="container bridge">
           <div>
-            <p class="eyebrow">IV / YEAR-ROUND PARTNERSHIP</p>
+            <p class="eyebrow">V / YEAR-ROUND PARTNERSHIP</p>
             <h2>{page.bridgeTitle}</h2>
             <p>{page.bridgeBody}</p>
           </div>
@@ -284,14 +363,41 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
         </div>
       </section>
       <section class="section section--paper">
+        <div class="container about-purpose-grid">
+          <article>
+            <span>01</span>
+            <p class="eyebrow">PURPOSE</p>
+            <h2>{page.purposeTitle}</h2>
+            <p>{page.purposeBody}</p>
+          </article>
+          <article>
+            <span>02</span>
+            <p class="eyebrow">CONNECTION</p>
+            <h2>{page.agendaTitle}</h2>
+            <p>{page.agendaBody}</p>
+          </article>
+        </div>
+      </section>
+      <section class="section section--paper">
         <div class="container"><p class="section-number">HOW WE WORK</p><h2 class="wide-title">{page.principlesTitle}</h2>
           <div class="principle-grid">
             {page.principles.map(([number, title, body]) => <article><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
           </div>
         </div>
       </section>
+      <section class="section section--mist">
+        <div class="container section-heading section-heading--paper">
+          <div><p class="eyebrow">WHO MEETS HERE</p><h2>{page.audiencesTitle}</h2></div>
+          <p>{page.audiencesLead}</p>
+        </div>
+        <div class="container audience-grid">
+          {page.audiences.map(([category, title, body]) => (
+            <article><span>{category}</span><h3>{title}</h3><p>{body}</p></article>
+          ))}
+        </div>
+      </section>
       <section class="section section--accent">
-        <div class="container manifesto"><p class="eyebrow">THE VAN CYCLE</p><h2>{page.modelTitle}</h2><p>{page.modelBody}</p></div>
+        <div class="container manifesto"><p class="eyebrow">THE CONFERENCE CYCLE</p><h2>{page.modelTitle}</h2><p>{page.modelBody}</p></div>
       </section>
     </>
   )}
@@ -306,7 +412,7 @@ const formatArchiveDate = (date) => lang === 'ko' ? date.replaceAll('-', '.') : 
       </section>
       <section class="section section--paper">
         <div class="container">
-          <p class="section-number">I / ORGANIZATION</p>
+          <p class="section-number">I / ORGANIZING FUNCTIONS</p>
           <h2 class="wide-title">{page.unitsTitle}</h2>
           <div class="department-grid">
             {page.units.map(([number, title, body, tags]) => (
