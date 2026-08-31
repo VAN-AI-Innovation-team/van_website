@@ -1,59 +1,35 @@
 ---
-import { basePath, content, navItems, routePath } from '../data/conference.js'
+import { basePath, content, homeSectionPath, navItems, routePath } from '../data/site.js'
 
 const { lang, currentKey, currentSlug } = Astro.props
 const copy = content[lang]
 const otherLang = lang === 'ko' ? 'en' : 'ko'
 const languageLabel = otherLang === 'ko' ? 'KO' : 'EN'
+const hrefFor = (item) => item.slug ? basePath(routePath(lang, item.slug)) : homeSectionPath(lang, item.section)
 ---
 
 <header class="site-header">
   <a class="skip-link" href="#main-content">{copy.skip}</a>
   <div class="header-inner">
-    <a class="brand" href={basePath(routePath(lang))} aria-label={lang === 'ko' ? 'VAN 홈' : 'VAN home'}>
-      <span class="brand-mark" aria-hidden="true"><i></i></span>
-      <span class="brand-name">VAN</span>
-      <span class="brand-type">VERITAS ACADEMIAE NEXUS</span>
+    <a class="brand" href={basePath(routePath(lang))} aria-label="VAN home">
+      <img src={basePath('/assets/logo_dark.png')} alt="" width="190" height="68" />
+      <span>VERITAS ACADEMIAE NEXUS</span>
     </a>
 
-    <nav class="desktop-nav" aria-label={lang === 'ko' ? '주요 탐색' : 'Primary navigation'}>
-      {navItems.map(({ key, slug }) => (
-        <a
-          href={basePath(routePath(lang, slug))}
-          aria-current={currentKey === key ? 'page' : undefined}
-        >
-          {copy.nav[key]}
-        </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {navItems.map((item) => (
+        <a href={hrefFor(item)} aria-current={currentKey === item.key ? 'page' : undefined}>{copy.nav[item.key]}</a>
       ))}
     </nav>
 
-    <div class="header-actions">
-      <a class="language-link" href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>
-        {languageLabel}
-      </a>
-      <a class="header-cta" href={basePath(routePath(lang, 'contact'))}>
-        {lang === 'ko' ? '문의 안내' : 'CONTACT INFO'}
-      </a>
-    </div>
+    <a class="language-link" href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a>
 
     <details class="mobile-menu">
-      <summary aria-label={copy.menu}>
-        <span>{copy.menu}</span>
-        <i aria-hidden="true"></i>
-      </summary>
-      <nav aria-label={lang === 'ko' ? '모바일 탐색' : 'Mobile navigation'}>
-        <div class="mobile-menu-meta">
-          <span>VERITAS ACADEMIAE NEXUS</span>
-          <a href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a>
-        </div>
-        {navItems.map(({ key, slug }) => (
-          <a
-            class="mobile-menu-link"
-            href={basePath(routePath(lang, slug))}
-            aria-current={currentKey === key ? 'page' : undefined}
-          >
-            {copy.nav[key]}
-          </a>
+      <summary aria-label={copy.menu}><span>{copy.menu}</span><i aria-hidden="true"></i></summary>
+      <nav aria-label="Mobile navigation">
+        <div class="mobile-menu__top"><span>VERITAS ACADEMIAE NEXUS</span><a href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a></div>
+        {navItems.map((item, index) => (
+          <a href={hrefFor(item)} aria-current={currentKey === item.key ? 'page' : undefined}><span>{String(index + 1).padStart(2, '0')}</span>{copy.nav[item.key]}</a>
         ))}
       </nav>
     </details>
