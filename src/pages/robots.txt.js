@@ -1,4 +1,4 @@
-import { basePath } from '../data/conference.js'
+import { basePath } from '../data/site.js'
 
 export const prerender = true
 
