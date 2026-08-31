@@ -1,88 +1,48 @@
-# VAN 공식 홈페이지 기획팀 전달 가이드
+# VAN 공식 홈페이지 운영 전달 가이드
 
-## 1. 화면만 확인하기
+## 현재 정보 구조
 
-설치 없이 아래 링크를 열면 됩니다.
+- `/ko/`, `/en/`: 공식 단체 홈페이지
+- `/ko/archive/`, `/en/archive/`: 활동 기록
+- Archive 하위: 전달받은 활동 자료의 한국어·영어 상세 기록
 
-- 한국어 홈: https://van-website-kappa.vercel.app/ko/
-- 영어 홈: https://van-website-kappa.vercel.app/en/
-- 부서·활동 영역: https://van-website-kappa.vercel.app/ko/departments/
-- 2026 행사 상세: https://van-website-kappa.vercel.app/ko/conference/2026/
+HOME은 다음 순서를 유지합니다.
 
-위 링크는 `main` 기준 운영 화면입니다. 배포 전 변경 사항은 GitHub의 `dev` 브랜치에서 먼저 검토합니다.
+1. VAN 공식 Hero
+2. 단체 연혁 및 소개
+3. Featured Endorsement
+4. 대표단 소개
+5. 자문위원회
+6. 최근 활동 및 성과
+7. 향후 활동 계획
+8. 대표 연례 사업 — VAN Conference 2026
+9. 단체 철학
+10. 후원 안내
+11. 연락처
 
-## 2. 기획안 반영 내용
+VAN Conference 2026은 HOME 안의 대표 연례 사업 섹션입니다. 별도 콘퍼런스 홈페이지 또는 상세 라우트를 만들지 않습니다.
 
-- 참고 시안의 짙은 네이비 정체성은 유지하면서 장식과 세리프 사용을 줄인 심플한 디자인 반영
-- VAN 소개와 정체성을 HOME에 가장 크게 배치하고 최신 컨퍼런스로 연결
-- HOME, ABOUT, DEPARTMENTS, CONFERENCE, ARCHIVE, CONTACT 중심 내비게이션 구성
-- APPLICATION과 PARTNERS는 관련 화면의 CTA와 푸터에서 계속 접근 가능
-- 컨퍼런스별 영구 상세 URL 제공
-- 연도별 사진·영상·하이라이트를 같은 영구 상세 URL에 누적할 수 있는 구조 제공
-- 종료된 Conference를 Archive에 자동으로 추가할 수 있는 구조 제공
-- 모든 페이지를 한국어와 영어의 별도 URL로 생성
-- PC, 태블릿, 휴대폰 반응형 적용
-- 휴대폰 전용 메뉴 적용
-- 검색 로봇이 JavaScript 없이 읽을 수 있는 정적 HTML 생성
-- 페이지별 기본 SEO와 sitemap, robots.txt, 구조화 데이터 적용
+## 콘텐츠 수정 위치
 
-## 3. 아직 기획 확정이 필요한 내용
+- HOME·조직·콘퍼런스·후원·연락처: `src/data/site.js`
+- Archive 활동 기록: `src/data/activityArchive.js`
+- 화면 구성: `src/pages/[lang]/[...slug].astro`
+- 공통 SEO: `src/layouts/BaseLayout.astro`
+- 디자인: `src/styles/global.css`
 
-아래 정보는 전달받지 못했으므로 웹사이트에 임의 값을 넣지 않고 모두 `개발 중`으로 표시했습니다.
+## 운영 원칙
 
-- VAN Conference 2026 정확한 행사명 또는 공식 슬로건
-- 날짜와 시간
-- 장소 및 온·오프라인 운영 여부
-- 주최·주관·후원 기관
-- 공식 부서명과 부서별 담당자
-- 실제 소식·기사 원문과 대표 이미지
-- 세부 프로그램과 연사
-- 참가 신청 오픈일과 신청 URL
-- 발표자·운영진 모집 일정과 지원 URL
-- 공식 문의 이메일 또는 문의 폼
-- 파트너 로고와 노출 순서
-- 행사 사진·영상 공개 가능 여부와 출처·대체 텍스트
-- 정확한 공식 도메인과 HTTPS 주소
+- 인물 이름·직책·소속·경력은 전달 자료에 있는 정보만 사용합니다.
+- 신청 링크, 파트너 정보, 추가 연사, 연사 경력, 세부 프로그램을 임의로 만들지 않습니다.
+- 새 인물 상세 페이지를 만들지 않습니다.
+- 대표 활동 세 개는 HOME에 우선 노출하고 나머지 활동은 Archive에 기록합니다.
+- 한국어 수정 시 영어 페이지의 동일 항목도 함께 갱신합니다.
+- 일정·장소·후원 계좌·연락처 변경은 운영 책임자의 확인 후 반영합니다.
 
-확정된 공통 문구는 `src/data/conference.js`에서 수정하고, 연도별 행사·연사·프로그램·파트너·FAQ·사진·영상·하이라이트는 `src/data/conferenceEditions.js`에서 수정합니다.
-
-## 4. 직접 실행하기
+## 검사
 
 ```bash
-git clone https://github.com/VAN-AI-Innovation/van_website.git
-cd van_website
-npm ci
-npm run dev
+npm run check
 ```
 
-브라우저에서 `http://localhost:4321/ko/`를 엽니다.
-
-휴대폰과 컴퓨터가 같은 Wi-Fi에 연결되어 있다면 아래 명령을 실행합니다.
-
-```bash
-npm run dev:share
-```
-
-터미널의 `Network` 주소 뒤에 `/ko/`를 붙여 휴대폰 브라우저에서 엽니다.
-
-## 5. GitHub에서 문구 수정하기
-
-1. 공통 페이지 문구는 `src/data/conference.js`, 연도별 Conference 정보는 `src/data/conferenceEditions.js`를 엽니다.
-2. 연필 아이콘을 누릅니다.
-3. `localized.ko`는 한국어, `localized.en`은 영어 행사 정보입니다.
-4. 확정되지 않은 값은 `status: 'development'`, `value: null` 상태로 유지합니다.
-5. 수정 후 별도 브랜치를 만들고 Pull Request를 요청합니다.
-6. `main`에 병합되면 자동 검사와 배포가 실행됩니다.
-
-## 6. 새 컨퍼런스 추가 원칙
-
-2027 행사를 추가할 때 2026 페이지를 덮어쓰지 않습니다. `src/data/conferenceEditions.js`의 `conferenceEditions` 배열에 2027 객체를 추가하면 새 영구 URL이 생성되고 기존 2026 URL과 기록은 그대로 보존됩니다.
-
-HOME의 현재 연도와 Conference 미리보기도 가장 최신의 종료 전 행사로 자동 변경됩니다. 행사가 끝난 뒤 `publicationStatus`를 `archived`로 바꾸면 연도별 Conference 카드가 Archive 화면에도 나타납니다. 사진·영상·하이라이트는 공개가 확인된 자료만 해당 연도 객체의 `gallery.items`, `videos.items`, `highlights.items`에 추가합니다.
-
-예시:
-
-- `/ko/conference/2026/`
-- `/ko/conference/2027/`
-- `/en/conference/2026/`
-- `/en/conference/2027/`
+검사가 통과하면 `dist/`에 정적 HTML이 생성됩니다.

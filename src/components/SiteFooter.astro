@@ -1,26 +1,25 @@
 ---
-import { basePath, content, routePath } from '../data/conference.js'
+import { basePath, content, homeSectionPath, routePath } from '../data/site.js'
 
 const { lang } = Astro.props
 const copy = content[lang]
 ---
 
 <footer class="site-footer">
-  <div class="footer-orbit" aria-hidden="true"><span>VAN</span></div>
   <div class="footer-inner">
-    <div>
-      <p class="footer-kicker">VERITAS · ACADEMIAE · NEXUS</p>
-      <p class="footer-line">{copy.footer.line}</p>
+    <div class="footer-brand">
+      <img src={basePath('/assets/logo_white_hd.png')} alt="VAN" width="360" height="113" loading="lazy" />
+      <p>{copy.footer.line}</p>
     </div>
-    <nav aria-label={lang === 'ko' ? '하단 탐색' : 'Footer navigation'}>
-      <a href={basePath(routePath(lang, 'about'))}>{copy.nav.about}</a>
-      <a href={basePath(routePath(lang, 'departments'))}>{copy.nav.departments}</a>
+    <nav aria-label="Footer navigation">
+      <a href={homeSectionPath(lang, 'about')}>{copy.nav.about}</a>
+      <a href={homeSectionPath(lang, 'activities')}>{copy.nav.activities}</a>
       <a href={basePath(routePath(lang, 'archive'))}>{copy.nav.archive}</a>
-      <a href={basePath(routePath(lang, 'contact'))}>{copy.nav.contact}</a>
+      <a href={homeSectionPath(lang, 'contact')}>{copy.nav.contact}</a>
     </nav>
   </div>
   <div class="footer-bottom">
     <span>© {new Date().getFullYear()} {copy.footer.copyright}</span>
-    <span>{copy.footer.domain}</span>
+    <span>EST. SEOUL · YONSEI · KOREA</span>
   </div>
 </footer>
