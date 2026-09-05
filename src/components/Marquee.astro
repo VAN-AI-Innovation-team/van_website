@@ -1,0 +1,28 @@
+---
+/**
+ * 섹션 사이를 잇는 무한 티커.
+ *
+ * 트랙에 같은 그룹을 두 번 넣고 -50%까지 이동시켜 이음매 없이 순환시킨다.
+ * 두 번째 그룹은 장식 복제이므로 aria-hidden으로 스크린리더에서 제외한다.
+ * 마우스를 올리면 정지해서 문구를 읽을 수 있다.
+ */
+const { items = [], dark = false, display = false, reverse = false } = Astro.props
+---
+
+<div
+  class:list={['ticker', { 'ticker--dark': dark, 'ticker--display': display, 'ticker--reverse': reverse }]}
+  aria-hidden="true"
+>
+  <div class="ticker__track">
+    {[0, 1].map(() => (
+      <div class="ticker__group">
+        {items.map((item) => (
+          <>
+            <span>{item}</span>
+            <i></i>
+          </>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

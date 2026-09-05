@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions'
 import SiteFooter from '../components/SiteFooter.astro'
 import SiteHeader from '../components/SiteHeader.astro'
 import { basePath, content, routePath } from '../data/site.js'
@@ -99,10 +100,13 @@ if (pageKey === 'home') {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap"
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll('<', '\\u003c')}></script>
+
+    {/* 페이지 간 이동을 새로고침 없이 부드럽게 이어준다. 미지원 브라우저는 일반 이동으로 동작. */}
+    <ClientRouter />
 
     {/*
       스크롤 리빌 대상은 `.js-ready`가 붙었을 때만 감춰진다.

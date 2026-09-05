@@ -27,3 +27,6 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# 배포 없이 열어보는 단일 HTML 미리보기 산출물
+preview
