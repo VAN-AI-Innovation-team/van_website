@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import Marquee from '../../components/Marquee.astro'
 import { archiveCategories, archiveItems, archiveLabels } from '../../data/activityArchive.js'
 import { basePath, content, homeSections, languages, routeBySlug, routeEntries, routePath } from '../../data/site.js'
 
@@ -23,6 +24,18 @@ const asset = (path) => basePath(path)
 
 // 우측 스크롤스파이 레일 — HOME 섹션 순서를 그대로 따르고 라벨은 내비게이션과 공유한다.
 const railItems = homeSections
+
+// 히어로 금빛 입자. 고정 좌표 — 난수를 쓰면 빌드마다 산출물 diff가 흔들린다.
+const heroParticles = [
+  { x: 8, y: 78, size: 3, duration: 16, delay: 0 },
+  { x: 19, y: 92, size: 2, duration: 19, delay: 2.1 },
+  { x: 33, y: 70, size: 4, duration: 14, delay: 4.6 },
+  { x: 47, y: 88, size: 2, duration: 18, delay: 1.4 },
+  { x: 58, y: 74, size: 3, duration: 15, delay: 6.2 },
+  { x: 72, y: 90, size: 2, duration: 20, delay: 3.0 },
+  { x: 84, y: 68, size: 4, duration: 13, delay: 5.1 },
+  { x: 94, y: 86, size: 2, duration: 17, delay: 7.4 },
+]
 ---
 
 <BaseLayout lang={lang} pageKey={pageKey} slug={slug} title={title} description={description}>
@@ -41,11 +54,16 @@ const railItems = homeSections
         <div class="official-hero__veil" aria-hidden="true"></div>
         <div class="official-hero__aurora" aria-hidden="true"></div>
         <div class="official-hero__frame" aria-hidden="true"></div>
+        <div class="hero-particles" aria-hidden="true">
+          {heroParticles.map((p) => (
+            <i style={`--px:${p.x}%; --py:${p.y}%; --ps:${p.size}px; --pd:${p.duration}s; --pl:${p.delay}s`}></i>
+          ))}
+        </div>
         <div class="container official-hero__content">
           <p class="official-hero__kicker">{page.hero.kicker}</p>
           <img class="official-hero__logo" src={asset(page.hero.logoWhite)} alt="VAN · Veritas Academiae Nexus" width="880" height="276" />
           <div class="official-hero__rule" aria-hidden="true"><i></i><span>◆</span><i></i></div>
-          <h1>{page.hero.title}</h1>
+          <h1 data-split>{page.hero.title}</h1>
           <p class="official-hero__label">{page.hero.label}</p>
           <p class="official-hero__lead">{page.hero.lead}</p>
           <ul class="official-hero__schools">
@@ -60,7 +78,7 @@ const railItems = homeSections
           <header class="section-intro section-intro--sticky" data-reveal="up">
             <span class="section-number">{page.about.number}</span>
             <p>{page.about.subtitle}</p>
-            <h2>{page.about.title}</h2>
+            <h2 data-split>{page.about.title}</h2>
           </header>
           <div class="prose-stack" data-reveal-group>
             {page.about.paragraphs.map((paragraph, index) => (
@@ -70,12 +88,14 @@ const railItems = homeSections
         </div>
       </section>
 
-      <section id="people" class="home-section home-section--ink">
+      <Marquee items={copy.ticker} />
+
+      <section id="people" class="home-section home-section--ink" data-spotlight>
         <div class="container">
           <header class="section-intro section-intro--light" data-reveal="up">
             <span class="section-number">{page.endorsements.number}</span>
             <p>{page.endorsements.subtitle}</p>
-            <h2>{page.endorsements.title}</h2>
+            <h2 data-split>{page.endorsements.title}</h2>
           </header>
           <div class="endorsement-grid" data-reveal-group>
             {page.endorsements.items.map((item, index) => (
@@ -96,11 +116,11 @@ const railItems = homeSections
           <header class="section-intro" data-reveal="up">
             <span class="section-number">{page.leaders.number}</span>
             <p>{page.leaders.subtitle}</p>
-            <h2>{page.leaders.title}</h2>
+            <h2 data-split>{page.leaders.title}</h2>
           </header>
           <div class="leader-grid" data-reveal-group>
             {page.leaders.items.map((item, index) => (
-              <article data-reveal="rise" class:list={['profile-card', { 'profile-card--primary': index === 0 }]}>
+              <article data-reveal="rise" data-tilt="3" class:list={['profile-card', { 'profile-card--primary': index === 0 }]}>
                 {item.image && <img class="profile-card__portrait" src={asset(item.image)} alt={item.name} width="560" height="720" loading="lazy" />}
                 <div class="profile-card__body">
                   <p class="profile-card__role">{item.role}</p>
@@ -119,7 +139,7 @@ const railItems = homeSections
           <header class="section-intro" data-reveal="up">
             <span class="section-number">{page.advisory.number}</span>
             <p>{page.advisory.subtitle}</p>
-            <h2>{page.advisory.title}</h2>
+            <h2 data-split>{page.advisory.title}</h2>
           </header>
           <p class="section-lead section-lead--wide" data-reveal="up">{page.advisory.intro}</p>
           <div class="advisor-grid" data-reveal-group>
@@ -146,23 +166,23 @@ const railItems = homeSections
         </div>
       </section>
 
-      <section id="activities" class="home-section home-section--ink activity-section">
+      <section id="activities" class="home-section home-section--ink activity-section" data-spotlight>
         <div class="container">
           <header class="section-intro section-intro--light" data-reveal="up">
             <span class="section-number">{page.activities.number}</span>
             <p>{page.activities.subtitle}</p>
-            <h2>{page.activities.title}</h2>
+            <h2 data-split>{page.activities.title}</h2>
           </header>
           <p class="section-lead section-lead--light" data-reveal="up">{page.activities.intro}</p>
           <div class="activity-grid" data-reveal-group>
             {page.activities.items.map((item, index) => (
-              <article class="activity-card" data-reveal="rise">
+              <article class="activity-card" data-reveal="rise" data-tilt="5">
                 <div class="activity-card__media"><img src={asset(item.image)} alt={item.alt} loading="lazy" /></div>
                 <div class="activity-card__body"><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
               </article>
             ))}
           </div>
-          <a class="inline-link inline-link--light" href={archiveLink} data-reveal="up">{copy.common.archive}<span aria-hidden="true">→</span></a>
+          <a class="inline-link inline-link--light" href={archiveLink} data-reveal="up" data-magnetic="8">{copy.common.archive}<span aria-hidden="true">→</span></a>
         </div>
       </section>
 
@@ -171,7 +191,7 @@ const railItems = homeSections
           <header class="section-intro" data-reveal="up">
             <span class="section-number">{page.future.number}</span>
             <p>{page.future.subtitle}</p>
-            <h2>{page.future.title}</h2>
+            <h2 data-split>{page.future.title}</h2>
           </header>
           <div class="roadmap-grid" data-reveal-group>
             {page.future.items.map((item) => (
@@ -181,11 +201,13 @@ const railItems = homeSections
         </div>
       </section>
 
-      <section id="conference" class="conference-spotlight">
+      <Marquee items={copy.ticker} />
+
+      <section id="conference" class="conference-spotlight" data-spotlight>
         <div class="container conference-spotlight__grid">
           <div class="conference-spotlight__intro" data-reveal="left">
             <p class="eyebrow">{page.conference.eyebrow}</p>
-            <h2>{page.conference.title}</h2>
+            <h2 data-split>{page.conference.title}</h2>
             <p class="conference-title-en">{page.conference.englishTitle}</p>
             <p>{page.conference.description}</p>
             <dl>
@@ -210,7 +232,8 @@ const railItems = homeSections
           <div data-reveal="left">
             <span class="section-number">{page.philosophy.number}</span>
             <p class="eyebrow">VERITAS · ACADEMIAE · NEXUS</p>
-            <h2>{page.philosophy.title}</h2>
+            <h2 data-split>{page.philosophy.title}</h2>
+            <p class="ornament" aria-hidden="true"><i></i><span>◆</span><i></i></p>
             <p>{page.philosophy.body}</p>
           </div>
           <figure data-reveal="wipe"><img src={asset(page.philosophy.image)} alt={page.philosophy.alt} loading="lazy" /></figure>
@@ -223,7 +246,7 @@ const railItems = homeSections
             <p class="eyebrow">{page.support.subtitle}</p>
             <h2>{page.support.title}</h2>
             <p>{page.support.description}</p>
-            <a class="inline-link" href={basePath(routePath(lang, 'support'))}>{copy.common.supportDetails}<span aria-hidden="true">→</span></a>
+            <a class="inline-link" href={basePath(routePath(lang, 'support'))} data-magnetic="8">{copy.common.supportDetails}<span aria-hidden="true">→</span></a>
           </div>
           <article class="donation-card" data-reveal="right" data-spotlight data-tilt="5">
             <div class="donation-card__top"><span>DONATION ACCOUNT</span><i aria-hidden="true"></i></div>
@@ -252,7 +275,7 @@ const railItems = homeSections
   {pageKey === 'archive' && (
     <>
       <section class="archive-hero">
-        <div class="container"><p class="eyebrow">{page.eyebrow}</p><h1>{page.title}</h1><p>{page.lead}</p></div>
+        <div class="container"><p class="eyebrow">{page.eyebrow}</p><h1 data-split>{page.title}</h1><p>{page.lead}</p></div>
       </section>
       <section class="home-section home-section--paper">
         <div class="container archive-browser" data-archive-browser>
