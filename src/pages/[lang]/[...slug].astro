@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { archiveCategories, archiveItems, archiveLabels } from '../../data/activityArchive.js'
-import { basePath, content, languages, routeBySlug, routeEntries, routePath } from '../../data/site.js'
+import { basePath, content, languages, navItems, routeBySlug, routeEntries, routePath } from '../../data/site.js'
 
 export function getStaticPaths() {
   return languages.flatMap((lang) => routeEntries.map(({ slug }) => ({
@@ -20,13 +20,26 @@ const archiveCopy = archiveLabels[lang]
 const archivePosts = archiveItems[lang]
 const archiveLink = basePath(routePath(lang, 'archive'))
 const asset = (path) => basePath(path)
+
+// 우측 스크롤스파이 레일 — 상단 내비게이션의 섹션 항목과 동일한 순서·라벨을 쓴다.
+const railItems = navItems.filter((item) => item.section)
 ---
 
 <BaseLayout lang={lang} pageKey={pageKey} slug={slug} title={title} description={description}>
   {pageKey === 'home' && (
     <>
-      <section class="official-hero" style={`--hero-image: url('${asset(page.hero.hero)}')`}>
+      <nav class="section-rail" data-section-rail hidden aria-label={copy.common.sectionRail}>
+        {railItems.map((item) => (
+          <a href={`#${item.section}`} data-rail-target={item.section}>
+            <span>{copy.nav[item.key]}</span><i aria-hidden="true"></i>
+          </a>
+        ))}
+      </nav>
+
+      <section class="official-hero" data-parallax style={`--hero-image: url('${asset(page.hero.hero)}')`}>
+        <div class="official-hero__media" aria-hidden="true"></div>
         <div class="official-hero__veil" aria-hidden="true"></div>
+        <div class="official-hero__aurora" aria-hidden="true"></div>
         <div class="official-hero__frame" aria-hidden="true"></div>
         <div class="container official-hero__content">
           <p class="official-hero__kicker">{page.hero.kicker}</p>
@@ -39,32 +52,34 @@ const asset = (path) => basePath(path)
             {page.hero.schools.map((school) => <li>{school}</li>)}
           </ul>
         </div>
-        <a class="official-hero__scroll" href="#about">SCROLL <span aria-hidden="true">↓</span></a>
+        <a class="official-hero__scroll" href="#about"><span>SCROLL</span><i aria-hidden="true"></i></a>
       </section>
 
       <section id="about" class="home-section home-section--paper">
         <div class="container editorial-layout">
-          <header class="section-intro section-intro--sticky">
+          <header class="section-intro section-intro--sticky" data-reveal="up">
             <span class="section-number">{page.about.number}</span>
             <p>{page.about.subtitle}</p>
             <h2>{page.about.title}</h2>
           </header>
-          <div class="prose-stack">
-            {page.about.paragraphs.map((paragraph, index) => <p class:list={{ 'prose-lead': index === 0 }}>{paragraph}</p>)}
+          <div class="prose-stack" data-reveal-group>
+            {page.about.paragraphs.map((paragraph, index) => (
+              <p data-reveal="up" class:list={{ 'prose-lead': index === 0 }}>{paragraph}</p>
+            ))}
           </div>
         </div>
       </section>
 
       <section id="people" class="home-section home-section--ink">
         <div class="container">
-          <header class="section-intro section-intro--light">
+          <header class="section-intro section-intro--light" data-reveal="up">
             <span class="section-number">{page.endorsements.number}</span>
             <p>{page.endorsements.subtitle}</p>
             <h2>{page.endorsements.title}</h2>
           </header>
-          <div class="endorsement-grid">
+          <div class="endorsement-grid" data-reveal-group>
             {page.endorsements.items.map((item, index) => (
-              <article class:list={['endorsement-card', { 'endorsement-card--featured': index === 0 }]}>
+              <article data-reveal="rise" data-spotlight class:list={['endorsement-card', { 'endorsement-card--featured': index === 0 }]}>
                 <div class="person-chip">
                   <img src={asset(item.image)} alt="" width="120" height="120" loading="lazy" />
                   <div><strong>{item.name}</strong><span>{item.role}</span></div>
@@ -78,14 +93,14 @@ const asset = (path) => basePath(path)
 
       <section id="leadership" class="home-section home-section--paper">
         <div class="container">
-          <header class="section-intro">
+          <header class="section-intro" data-reveal="up">
             <span class="section-number">{page.leaders.number}</span>
             <p>{page.leaders.subtitle}</p>
             <h2>{page.leaders.title}</h2>
           </header>
-          <div class="leader-grid">
+          <div class="leader-grid" data-reveal-group>
             {page.leaders.items.map((item, index) => (
-              <article class:list={['profile-card', { 'profile-card--primary': index === 0 }]}>
+              <article data-reveal="rise" class:list={['profile-card', { 'profile-card--primary': index === 0 }]}>
                 {item.image && <img class="profile-card__portrait" src={asset(item.image)} alt={item.name} width="560" height="720" loading="lazy" />}
                 <div class="profile-card__body">
                   <p class="profile-card__role">{item.role}</p>
@@ -101,15 +116,15 @@ const asset = (path) => basePath(path)
 
       <section id="advisory" class="home-section home-section--mist">
         <div class="container">
-          <header class="section-intro">
+          <header class="section-intro" data-reveal="up">
             <span class="section-number">{page.advisory.number}</span>
             <p>{page.advisory.subtitle}</p>
             <h2>{page.advisory.title}</h2>
           </header>
-          <p class="section-lead section-lead--wide">{page.advisory.intro}</p>
-          <div class="advisor-grid">
+          <p class="section-lead section-lead--wide" data-reveal="up">{page.advisory.intro}</p>
+          <div class="advisor-grid" data-reveal-group>
             {page.advisory.items.map((item) => (
-              <article class="advisor-card">
+              <article class="advisor-card" data-reveal="rise">
                 {item.image ? <img src={asset(item.image)} alt="" width="150" height="150" loading="lazy" /> : <span class="advisor-card__monogram" aria-hidden="true">VAN</span>}
                 <div>
                   <p>{item.role}</p>
@@ -120,42 +135,47 @@ const asset = (path) => basePath(path)
               </article>
             ))}
           </div>
-          <div class="advisor-gallery">
-            {page.advisory.gallery.map((item) => <img src={asset(item.image)} alt={item.alt} loading="lazy" />)}
+          <div class="advisor-gallery" data-reveal-group>
+            {page.advisory.gallery.map((item) => (
+              <figure data-reveal="wipe">
+                <img src={asset(item.image)} alt="" loading="lazy" />
+                <figcaption>{item.alt}</figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
 
       <section id="activities" class="home-section home-section--ink activity-section">
         <div class="container">
-          <header class="section-intro section-intro--light">
+          <header class="section-intro section-intro--light" data-reveal="up">
             <span class="section-number">{page.activities.number}</span>
             <p>{page.activities.subtitle}</p>
             <h2>{page.activities.title}</h2>
           </header>
-          <p class="section-lead section-lead--light">{page.activities.intro}</p>
-          <div class="activity-grid">
+          <p class="section-lead section-lead--light" data-reveal="up">{page.activities.intro}</p>
+          <div class="activity-grid" data-reveal-group>
             {page.activities.items.map((item, index) => (
-              <article class="activity-card">
+              <article class="activity-card" data-reveal="rise">
                 <div class="activity-card__media"><img src={asset(item.image)} alt={item.alt} loading="lazy" /></div>
                 <div class="activity-card__body"><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
               </article>
             ))}
           </div>
-          <a class="inline-link inline-link--light" href={archiveLink}>{copy.common.archive}<span aria-hidden="true">→</span></a>
+          <a class="inline-link inline-link--light" href={archiveLink} data-reveal="up">{copy.common.archive}<span aria-hidden="true">→</span></a>
         </div>
       </section>
 
       <section id="future" class="home-section home-section--paper">
         <div class="container">
-          <header class="section-intro">
+          <header class="section-intro" data-reveal="up">
             <span class="section-number">{page.future.number}</span>
             <p>{page.future.subtitle}</p>
             <h2>{page.future.title}</h2>
           </header>
-          <div class="roadmap-grid">
+          <div class="roadmap-grid" data-reveal-group>
             {page.future.items.map((item) => (
-              <article><span>{item.number}</span><h3>{item.title}</h3><ul>{item.items.map((detail) => <li>{detail}</li>)}</ul></article>
+              <article data-reveal="fade"><span>{item.number}</span><h3>{item.title}</h3><ul>{item.items.map((detail) => <li>{detail}</li>)}</ul></article>
             ))}
           </div>
         </div>
@@ -163,7 +183,7 @@ const asset = (path) => basePath(path)
 
       <section id="conference" class="conference-spotlight">
         <div class="container conference-spotlight__grid">
-          <div class="conference-spotlight__intro">
+          <div class="conference-spotlight__intro" data-reveal="left">
             <p class="eyebrow">{page.conference.eyebrow}</p>
             <h2>{page.conference.title}</h2>
             <p class="conference-title-en">{page.conference.englishTitle}</p>
@@ -173,11 +193,13 @@ const asset = (path) => basePath(path)
             </dl>
           </div>
           <div class="conference-spotlight__details">
-            <ol class="conference-program">
-              {page.conference.program.map((item, index) => <li><span>0{index + 1}</span>{item}</li>)}
+            <ol class="conference-program" data-reveal-group>
+              {page.conference.program.map((item, index) => <li data-reveal="up"><span>0{index + 1}</span>{item}</li>)}
             </ol>
-            <div class="session-stack">
-              {page.conference.sessions.map((session) => <article><h3>{session.title}</h3><ul>{session.people.map((person) => <li>{person}</li>)}</ul></article>)}
+            <div class="session-stack" data-reveal-group>
+              {page.conference.sessions.map((session) => (
+                <article data-reveal="right"><h3>{session.title}</h3><ul>{session.people.map((person) => <li>{person}</li>)}</ul></article>
+              ))}
             </div>
           </div>
         </div>
@@ -185,24 +207,24 @@ const asset = (path) => basePath(path)
 
       <section id="philosophy" class="philosophy-section">
         <div class="container philosophy-section__grid">
-          <div>
+          <div data-reveal="left">
             <span class="section-number">{page.philosophy.number}</span>
             <p class="eyebrow">VERITAS · ACADEMIAE · NEXUS</p>
             <h2>{page.philosophy.title}</h2>
             <p>{page.philosophy.body}</p>
           </div>
-          <figure><img src={asset(page.philosophy.image)} alt={page.philosophy.alt} loading="lazy" /></figure>
+          <figure data-reveal="wipe"><img src={asset(page.philosophy.image)} alt={page.philosophy.alt} loading="lazy" /></figure>
         </div>
       </section>
 
       <section id="support" class="home-section home-section--sand">
         <div class="container support-layout">
-          <div>
+          <div data-reveal="left">
             <p class="eyebrow">{page.support.subtitle}</p>
             <h2>{page.support.title}</h2>
             <p>{page.support.description}</p>
           </div>
-          <article class="donation-card">
+          <article class="donation-card" data-reveal="right" data-spotlight data-tilt="5">
             <div class="donation-card__top"><span>DONATION ACCOUNT</span><i aria-hidden="true"></i></div>
             <dl>
               <div><dt>BANK</dt><dd>{page.support.bank}</dd></div>
@@ -216,29 +238,13 @@ const asset = (path) => basePath(path)
 
       <section id="contact" class="contact-section">
         <div class="container contact-section__grid">
-          <div><p class="eyebrow">{page.contact.subtitle}</p><h2>{page.contact.title}</h2></div>
-          <div class="contact-list">
-            <a href={page.contact.instagramUrl} target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><strong>{page.contact.instagram}</strong></a>
-            <div><span>PHONE</span><strong>{page.contact.phone}</strong><small>{page.contact.manager}</small></div>
+          <div data-reveal="left"><p class="eyebrow">{page.contact.subtitle}</p><h2>{page.contact.title}</h2></div>
+          <div class="contact-list" data-reveal-group>
+            <a href={page.contact.instagramUrl} target="_blank" rel="noopener noreferrer" data-reveal="fade"><span>INSTAGRAM</span><strong>{page.contact.instagram}</strong></a>
+            <div data-reveal="fade"><span>PHONE</span><strong>{page.contact.phone}</strong><small>{page.contact.manager}</small></div>
           </div>
         </div>
       </section>
-
-      <script>
-        document.querySelectorAll('[data-copy-account]').forEach((button) => {
-          button.addEventListener('click', async () => {
-            if (!(button instanceof HTMLButtonElement)) return
-            const account = button.dataset.copyAccount || ''
-            try {
-              await navigator.clipboard.writeText(account)
-              button.textContent = button.dataset.copiedLabel || 'Copied'
-              window.setTimeout(() => { button.textContent = button.dataset.copyLabel || 'Copy' }, 1600)
-            } catch {
-              button.textContent = account
-            }
-          })
-        })
-      </script>
     </>
   )}
 
@@ -249,17 +255,22 @@ const asset = (path) => basePath(path)
       </section>
       <section class="home-section home-section--paper">
         <div class="container archive-browser" data-archive-browser>
-          <div class="archive-toolbar">
-            <label><span>{archiveCopy.searchLabel}</span><input type="search" placeholder={archiveCopy.searchPlaceholder} data-archive-search /></label>
+          <div class="archive-toolbar" data-reveal="up">
+            <label><span>{archiveCopy.searchLabel}</span><input type="search" placeholder={archiveCopy.searchPlaceholder} data-archive-search-input /></label>
             <div><span>{archiveCopy.filterLabel}</span><div class="archive-filters" role="group" aria-label={archiveCopy.filterLabel}>
               <button type="button" data-archive-filter="ALL" aria-pressed="true">{archiveCopy.all}</button>
               {archiveCategories.map((category) => <button type="button" data-archive-filter={category} aria-pressed="false">{category}</button>)}
             </div></div>
           </div>
-          <p class="archive-result-count"><strong data-archive-count>{archivePosts.length}</strong> {archiveCopy.results}</p>
-          <div class="archive-list">
+          <p class="archive-result-count" aria-live="polite"><strong data-archive-count>{archivePosts.length}</strong> {archiveCopy.results}</p>
+          <div class="archive-list" data-reveal-group>
             {archivePosts.map((item) => (
-              <article data-archive-card data-archive-category={item.category} data-archive-search={`${item.category} ${item.title} ${item.excerpt}`.toLocaleLowerCase()}>
+              <article
+                data-archive-card
+                data-reveal="up"
+                data-archive-category={item.category}
+                data-archive-haystack={`${item.category} ${item.title} ${item.excerpt}`.toLocaleLowerCase()}
+              >
                 {item.cover ? <img src={asset(item.cover)} alt={item.coverAlt} loading="lazy" /> : <div class="archive-list__mark" aria-hidden="true">VAN</div>}
                 <div><p><span>{item.category}</span><small>{archiveCopy.record}</small></p><h2>{item.title}</h2><p>{item.excerpt}</p><a href={basePath(routePath(lang, `archive/${item.slug}`))}>{archiveCopy.read}<span aria-hidden="true">→</span></a></div>
               </article>
@@ -268,32 +279,6 @@ const asset = (path) => basePath(path)
           <p class="archive-empty" data-archive-empty hidden>{archiveCopy.empty}</p>
         </div>
       </section>
-      <script>
-        const root = document.querySelector('[data-archive-browser]')
-        if (root instanceof HTMLElement) {
-          const input = root.querySelector('[data-archive-search]')
-          const cards = [...root.querySelectorAll('[data-archive-card]')]
-          const buttons = [...root.querySelectorAll('[data-archive-filter]')]
-          const count = root.querySelector('[data-archive-count]')
-          const empty = root.querySelector('[data-archive-empty]')
-          let category = 'ALL'
-          const apply = () => {
-            const query = input instanceof HTMLInputElement ? input.value.trim().toLocaleLowerCase() : ''
-            let visible = 0
-            cards.forEach((card) => {
-              if (!(card instanceof HTMLElement)) return
-              const show = (category === 'ALL' || card.dataset.archiveCategory === category) && (!query || (card.dataset.archiveSearch || '').includes(query))
-              card.hidden = !show
-              if (show) visible += 1
-            })
-            buttons.forEach((button) => button instanceof HTMLButtonElement && button.setAttribute('aria-pressed', String(button.dataset.archiveFilter === category)))
-            if (count) count.textContent = String(visible)
-            if (empty instanceof HTMLElement) empty.hidden = visible !== 0
-          }
-          buttons.forEach((button) => button.addEventListener('click', () => { if (button instanceof HTMLButtonElement) { category = button.dataset.archiveFilter || 'ALL'; apply() } }))
-          if (input instanceof HTMLInputElement) input.addEventListener('input', apply)
-        }
-      </script>
     </>
   )}
 </BaseLayout>
