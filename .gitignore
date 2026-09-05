@@ -27,3 +27,6 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# 배포 없이 페이지를 확인하기 위한 단일 HTML 미리보기 산출물
+preview
