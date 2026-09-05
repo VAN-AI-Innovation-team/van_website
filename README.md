@@ -36,6 +36,35 @@ npm run check
 
 `npm run check`는 코드 검사 후 정적 사이트를 `dist/`에 생성합니다.
 
+## 배포
+
+프로덕션은 Vercel(`https://www.veritasvan.org`)입니다.
+
+Vercel의 GitHub 연동이 이 저장소를 구독하지 않아, `main`에 푸시해도 배포가 자동으로 일어나지 않습니다. 조직에 Vercel GitHub App은 설치되어 있으나 접근 저장소 목록에 이 저장소가 없고, 지금까지는 수동 배포로 운영돼 왔습니다. 저장소 커밋에 Vercel 체크가 한 건도 없는 것으로 확인됩니다.
+
+해결 방법은 두 가지입니다.
+
+**A. Vercel 연동을 복구한다 (근본 해결)**
+
+Vercel → 프로젝트 → Settings → Git → Connect Git Repository에서 `VAN-AI-Innovation/van_website`를 연결하고 Production Branch를 `main`으로 지정합니다. 이 과정에서 GitHub App의 저장소 접근 권한도 함께 부여됩니다.
+
+**B. GitHub Actions가 Vercel로 밀어넣는다 (`.github/workflows/deploy.yml`)**
+
+A를 고치지 않아도 동작합니다. 아래 시크릿 중 하나만 등록하면 `main` 푸시마다 자동 배포됩니다. 둘 다 없으면 워크플로는 아무것도 하지 않고 성공으로 끝나므로 CI를 깨지 않습니다.
+
+| 시크릿 | 개수 | 발급 위치 |
+| --- | --- | --- |
+| `VERCEL_DEPLOY_HOOK_URL` | 1개 (권장) | Vercel → 프로젝트 → Settings → Git → Deploy Hooks (브랜치 `main`) |
+| `VERCEL_TOKEN` + `VERCEL_ORG_ID` + `VERCEL_PROJECT_ID` | 3개 | 토큰은 Account Settings → Tokens, ID는 프로젝트 Settings → General 또는 `npx vercel link` 후 `.vercel/project.json` |
+
+등록 위치는 저장소 Settings → Secrets and variables → Actions입니다. 등록 후 Actions 탭에서 `Deploy to Vercel` 워크플로를 수동 실행(Run workflow)하면 즉시 배포됩니다.
+
+배포 반영 확인:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' https://www.veritasvan.org/ko/apply/
+```
+
 ## 콘텐츠 위치
 
 - 단체·조직·HOME 콘텐츠: `src/data/site.js`
