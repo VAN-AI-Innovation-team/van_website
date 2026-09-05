@@ -34,14 +34,28 @@ const mime = {
   '.webp': 'image/webp',
 }
 
-const targets = [
-  { name: '1-홈.html', from: 'ko/index.html', label: 'HOME · /ko/' },
-  { name: '2-26-2지원.html', from: 'ko/apply/index.html', label: '26-2 지원 · /ko/apply/' },
-  { name: '3-후원안내.html', from: 'ko/support/index.html', label: '후원 안내 · /ko/support/' },
-  { name: '4-활동기록.html', from: 'ko/archive/index.html', label: '활동 기록 · /ko/archive/' },
-  { name: '5-활동기록-상세.html', from: 'ko/archive/academic-networking/index.html', label: '활동 기록 상세' },
-  { name: '6-EN-home.html', from: 'en/index.html', label: 'HOME (English) · /en/' },
+// 팔레트 3종 × 페이지. theme이 비면 기본(포레스트 & 코퍼).
+const themes = [
+  { key: '', label: '옵시디언 & 제이드 (기본)', dir: '옵시디언제이드-기본' },
+  { key: 'forest', label: '포레스트 & 코퍼 (변주)', dir: '변주-포레스트코퍼' },
+  { key: 'oxblood', label: '옥스블러드 & 브론즈 (변주)', dir: '변주-옥스블러드브론즈' },
 ]
+
+const pages = [
+  { name: '1-홈.html', from: 'ko/index.html', label: 'HOME' },
+  { name: '2-26-2지원.html', from: 'ko/apply/index.html', label: '26-2 지원' },
+  { name: '3-후원안내.html', from: 'ko/support/index.html', label: '후원 안내' },
+  { name: '4-활동기록.html', from: 'ko/archive/index.html', label: '활동 기록' },
+  { name: '5-활동기록-상세.html', from: 'ko/archive/academic-networking/index.html', label: '활동 기록 상세' },
+  { name: '6-EN-home.html', from: 'en/index.html', label: 'HOME (English)' },
+]
+
+const targets = themes.flatMap((theme) => pages.map((page) => ({
+  name: `${theme.dir}/${page.name}`,
+  from: page.from,
+  label: `${page.label} · ${theme.label}`,
+  theme: theme.key,
+})))
 
 const cache = new Map()
 
@@ -99,7 +113,12 @@ for (const target of targets) {
   // 5) 내부 링크는 file:// 에서 열 수 없으므로 비활성화한다.
   html = html.replace(/href="\/(?:ko|en)\/[^"]*"/g, 'href="#" data-preview-disabled="true"')
 
-  // 6) 미리보기 배너
+  // 6) 팔레트 전환 — <html data-theme="..."> 주입
+  if (target.theme) {
+    html = html.replace(/<html([^>]*)>/, `<html$1 data-theme="${target.theme}">`)
+  }
+
+  // 7) 미리보기 배너
   const banner = `
 <div style="position:fixed;z-index:9999;top:0;left:0;right:0;padding:9px 16px;
   background:#c4a15b;color:#071320;font:600 13px/1.5 'Noto Sans KR',system-ui,sans-serif;
@@ -109,11 +128,13 @@ for (const target of targets) {
 <div style="height:38px"></div>`
   html = html.replace(/(<body[^>]*>)/, `$1${banner}`)
 
-  await writeFile(resolve(outDir, target.name), html, 'utf8')
+  const outPath = resolve(outDir, target.name)
+  await mkdir(dirname(outPath), { recursive: true })
+  await writeFile(outPath, html, 'utf8')
 
   const kb = Math.round(Buffer.byteLength(html) / 1024)
   const leftover = (html.match(/(?:src|href)="\/(?:_astro|assets|archive|qr|favicon)[^"]*"/g) || []).length
-  console.log(`  ${target.name.padEnd(24)} ${String(kb).padStart(6)} KB   남은 절대경로 ${leftover}건`)
+  console.log(`  ${target.name.padEnd(34)} ${String(kb).padStart(6)} KB   남은 절대경로 ${leftover}건`)
 }
 
 console.log(`\npreview/ 에 ${targets.length}개 파일을 만들었습니다.`)

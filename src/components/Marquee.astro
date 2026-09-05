@@ -6,10 +6,13 @@
  * 두 번째 그룹은 장식 복제이므로 aria-hidden으로 스크린리더에서 제외한다.
  * 마우스를 올리면 정지해서 문구를 읽을 수 있다.
  */
-const { items = [], dark = false } = Astro.props
+const { items = [], dark = false, display = false, reverse = false } = Astro.props
 ---
 
-<div class:list={['ticker', { 'ticker--dark': dark }]} aria-hidden="true">
+<div
+  class:list={['ticker', { 'ticker--dark': dark, 'ticker--display': display, 'ticker--reverse': reverse }]}
+  aria-hidden="true"
+>
   <div class="ticker__track">
     {[0, 1].map(() => (
       <div class="ticker__group">

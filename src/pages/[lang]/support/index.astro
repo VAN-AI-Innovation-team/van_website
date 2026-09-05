@@ -22,9 +22,12 @@ const [title, description] = copy.meta.support
 
   <section class="home-section home-section--paper">
     <div class="container">
-      <header class="section-intro" data-reveal="up">
-        <span class="section-number">{page.usageNumber}</span>
-        <p>{page.usageSubtitle}</p>
+      <header class="section-intro" data-ghost={page.usageNumber} data-reveal="up">
+        <div class="section-intro__band">
+          <span class="section-number">{page.usageNumber}</span>
+          <p>{page.usageSubtitle}</p>
+          <i aria-hidden="true"></i>
+        </div>
         <h2 data-split>{page.usageTitle}</h2>
       </header>
       <div class="info-grid" data-reveal-group>
@@ -39,7 +42,7 @@ const [title, description] = copy.meta.support
     </div>
   </section>
 
-  <Marquee items={copy.ticker} />
+  <Marquee items={copy.ticker} display />
 
   <section class="home-section home-section--sand">
     <div class="container support-layout">
