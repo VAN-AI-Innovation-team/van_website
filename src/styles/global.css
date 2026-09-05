@@ -570,27 +570,22 @@ p { text-wrap: pretty; }
   transform-origin: left;
 }
 
+/*
+  히어로 제목에는 그라데이션 텍스트(background-clip: text)를 쓰지 않는다.
+  제목을 단어 단위로 쪼개면 자식 .split-word가 overflow: hidden으로
+  클리핑 문맥을 만드는데, 그러면 각 자식이 부모의 text-clip 배경을
+  자기 원점에서 다시 샘플링해 글자가 겹쳐 그려진다. 레이아웃은 정상이고
+  페인트만 깨지므로 발견이 늦다. 단어 등장 연출을 택하고 단색 + 글로우로 간다.
+*/
 .official-hero h1 {
   margin: 0;
-  color: #fff;
+  color: #fffdf8;
   font-family: var(--serif);
   font-size: clamp(38px, 6vw, 74px);
   font-weight: 500;
   letter-spacing: 0.05em;
   line-height: 1.04;
-  animation: van-enter 1000ms var(--ease-out) 300ms both;
-}
-
-/* background-clip: text를 지원할 때만 그라데이션 + 광택 스윕을 적용한다. */
-@supports ((background-clip: text) or (-webkit-background-clip: text)) {
-  .official-hero h1 {
-    background: linear-gradient(100deg, #fff 12%, var(--gold-light) 46%, #fff 78%);
-    background-clip: text;
-    background-size: 220% 100%;
-    animation: van-enter 1000ms var(--ease-out) 300ms both, van-shimmer 7s linear 1400ms infinite;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+  text-shadow: 0 0 38px rgba(230, 209, 160, .28), 0 14px 40px rgba(0, 0, 0, .45);
 }
 
 .official-hero__label {
@@ -2062,6 +2057,321 @@ p { text-wrap: pretty; }
   .apply-cta { padding: 40px 22px; }
   .cta-button { justify-content: center; width: 100%; padding: 16px 24px; font-size: 15px; }
   .cta-link { height: 32px; margin-left: 8px; padding: 0 12px; font-size: 11.5px; }
+  .ticker { padding: 15px 0; }
+  .ticker__group { gap: 28px; padding-right: 28px; }
+  .ticker__group span { font-size: 12.5px; letter-spacing: .2em; }
+  .ornament i { max-width: 90px; }
+  body::after { opacity: .22; }
+}
+
+/* 10-2. 쇼케이스 모션 · 질감 ------------------------------------------- */
+
+/* 애니메이션 가능한 커스텀 속성 — 그라데이션 각도를 부드럽게 돌린다. */
+@property --sweep-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 100deg;
+}
+
+/* 10-2-1. 필름 그레인 — 편집물 특유의 질감을 얇게 얹는다. */
+body::after {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  content: '';
+  mix-blend-mode: soft-light;
+  opacity: .35;
+  pointer-events: none;
+}
+
+/* 10-2-2. 제목 단어 단위 등장 */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.split-word > span {
+  display: inline-block;
+  transition:
+    translate 820ms var(--ease-out),
+    opacity 820ms var(--ease-out),
+    rotate 820ms var(--ease-out);
+  transition-delay: calc(var(--word-index, 0) * 46ms);
+}
+
+/*
+  숨기는 조건은 "리빌 컨테이너 안에 있고 그 컨테이너가 아직 리빌되지 않았을 때"뿐이다.
+  `[data-split]:not(.is-revealed)`처럼 분할 대상 자신을 조건에 넣으면,
+  .is-revealed는 부모(.section-intro)에 붙으므로 h2가 영구히 opacity: 0에 갇힌다.
+*/
+.js-ready [data-reveal]:not(.is-revealed) .split-word > span {
+  opacity: 0;
+  rotate: 2.4deg;
+  translate: 0 105%;
+}
+
+/* 리빌 컨테이너 밖에 있는 히어로 제목은 자체 진입 애니메이션으로 처리한다. */
+.official-hero h1 .split-word > span,
+.page-hero h1 .split-word > span,
+.archive-hero h1 .split-word > span {
+  animation: van-word-rise 1000ms var(--ease-out) both;
+  animation-delay: calc(320ms + var(--word-index, 0) * 60ms);
+  transition: none;
+}
+
+@keyframes van-word-rise {
+  from { opacity: 0; rotate: 3deg; translate: 0 108%; }
+  to { opacity: 1; rotate: 0deg; translate: 0 0; }
+}
+
+/* 10-2-3. 내비게이션 슬라이딩 인디케이터 */
+.nav-indicator {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  width: var(--indicator-w, 0);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(var(--indicator-x, 0));
+  transition: transform 420ms var(--ease-out), width 420ms var(--ease-out), opacity 300ms var(--ease-out);
+}
+
+.nav-indicator.is-visible { opacity: 1; }
+.desktop-nav { position: relative; }
+
+/* 인디케이터가 켜지면 개별 밑줄은 숨겨 이중선을 막는다. */
+.desktop-nav:has(.nav-indicator.is-visible) a::after { opacity: 0; }
+
+/* 10-2-4. 마그네틱 요소 */
+[data-magnetic] {
+  transition: translate 320ms var(--ease-out);
+  translate: var(--magnet-x, 0) var(--magnet-y, 0);
+}
+
+/* 10-2-5. 무한 티커 — 섹션 사이를 잇는 장식 띠 */
+.ticker {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+  border-block: 1px solid var(--line);
+  background: var(--paper-strong);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  user-select: none;
+}
+
+.ticker--dark {
+  border-block-color: var(--white-line);
+  background: var(--ink);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  animation: van-ticker 38s linear infinite;
+}
+
+.ticker:hover .ticker__track { animation-play-state: paused; }
+
+.ticker__group {
+  display: flex;
+  align-items: center;
+  gap: 42px;
+  padding-right: 42px;
+}
+
+.ticker__group span {
+  color: var(--gold-ink);
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .28em;
+  white-space: nowrap;
+}
+
+.ticker--dark .ticker__group span { color: var(--gold-light); }
+
+.ticker__group i {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 auto;
+  rotate: 45deg;
+  background: var(--gold);
+}
+
+@keyframes van-ticker {
+  from { translate: 0 0; }
+  to { translate: -50% 0; }
+}
+
+/* 10-2-6. 장식 구분선 — 리빌 시 좌우로 그려진다 */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0;
+  color: var(--gold);
+}
+
+.ornament i {
+  height: 1px;
+  flex: 1;
+  max-width: 240px;
+  background: linear-gradient(90deg, transparent, currentColor);
+  scale: 0 1;
+  transform-origin: right;
+  transition: scale 900ms var(--ease-out);
+}
+
+.ornament i:last-child {
+  background: linear-gradient(90deg, currentColor, transparent);
+  transform-origin: left;
+}
+
+.ornament span { font-size: 9px; rotate: 45deg; }
+
+.is-revealed .ornament i { scale: 1 1; }
+.js-ready [data-reveal]:not(.is-revealed) .ornament i { scale: 0 1; }
+
+/* 10-2-7. 히어로 금빛 입자 */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-particles i {
+  position: absolute;
+  top: var(--py);
+  left: var(--px);
+  width: var(--ps, 3px);
+  height: var(--ps, 3px);
+  border-radius: 50%;
+  background: var(--gold-light);
+  box-shadow: 0 0 12px 2px rgba(230, 209, 160, .55);
+  opacity: 0;
+  animation: van-particle var(--pd, 14s) ease-in-out var(--pl, 0s) infinite;
+}
+
+@keyframes van-particle {
+  0% { opacity: 0; translate: 0 20px; }
+  18% { opacity: .85; }
+  70% { opacity: .5; }
+  100% { opacity: 0; translate: 0 -120px; }
+}
+
+/* 10-2-8. 섹션 광원 — 어두운 섹션에서 커서를 따라오는 은은한 빛 */
+[data-spotlight].home-section--ink::before,
+[data-spotlight].conference-spotlight::after,
+[data-spotlight].philosophy-section::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: radial-gradient(circle 520px at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(196, 161, 91, .1), transparent 65%);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 600ms var(--ease-out);
+}
+
+[data-spotlight].is-lit::before,
+[data-spotlight].conference-spotlight.is-lit::after { opacity: 1; }
+
+.home-section--ink { position: relative; }
+.home-section--ink > .container { position: relative; z-index: 1; }
+
+/* 10-2-9. 카드 3D 틸트 공통 */
+.activity-card,
+.info-card,
+.profile-card,
+.endorsement-card {
+  transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+}
+
+.activity-card:hover { transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-10px); }
+.info-card:hover { transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-6px); }
+.profile-card:hover { transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-8px); }
+.endorsement-card:hover { transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-6px); }
+
+/* 10-2-10. 골드 스윕 테두리 — 주요 카드 위를 빛이 훑고 지나간다 */
+.donation-card,
+.apply-cta {
+  --sweep-angle: 100deg;
+}
+
+.donation-card:hover,
+.apply-cta:hover {
+  animation: van-sweep 2.6s linear infinite;
+}
+
+@keyframes van-sweep {
+  to { --sweep-angle: 460deg; }
+}
+
+.donation-card::before,
+.apply-cta::before {
+  background:
+    radial-gradient(circle 320px at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(230, 209, 160, .18), transparent 68%),
+    linear-gradient(var(--sweep-angle), transparent 42%, rgba(230, 209, 160, .1) 50%, transparent 58%);
+}
+
+/* 10-2-11. 네이티브 스크롤 연동 애니메이션 (지원 브라우저 한정) */
+@supports (animation-timeline: scroll()) {
+  /* 진행 바를 스크롤 타임라인에 직접 연결 → JS 스크롤 계산 불필요 */
+  .scroll-progress::after {
+    animation: van-progress linear;
+    animation-timeline: scroll(root block);
+    transform: none;
+    transform-origin: left;
+  }
+
+  @keyframes van-progress {
+    from { scale: 0 1; }
+    to { scale: 1 1; }
+  }
+}
+
+@supports (animation-timeline: view()) {
+  /* 큰 이미지가 뷰포트를 지나가는 동안 천천히 확대 */
+  .philosophy-section figure img,
+  .archive-article-cover img {
+    animation: van-view-zoom linear both;
+    animation-range: entry 0% exit 100%;
+    animation-timeline: view();
+  }
+
+  @keyframes van-view-zoom {
+    from { scale: 1; }
+    to { scale: 1.1; }
+  }
+
+  /* 로드맵 카드의 금색 상단선이 스크롤에 맞춰 그려진다 */
+  .roadmap-grid article::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), rgba(196, 161, 91, 0));
+    content: '';
+    animation: van-line-draw linear both;
+    animation-range: entry 10% cover 40%;
+    animation-timeline: view();
+    transform-origin: left;
+  }
+
+  @keyframes van-line-draw {
+    from { scale: 0 1; }
+    to { scale: 1 1; }
+  }
 }
 
 /* 11. 접근성 ----------------------------------------------------------- */
@@ -2096,4 +2406,22 @@ p { text-wrap: pretty; }
   .official-hero__media::before { animation: none; }
   .official-hero h1 { animation: van-enter .01ms both; }
   .js-ready [data-reveal] { clip-path: none; opacity: 1; scale: none; translate: none; }
+
+  /* 쇼케이스 모션 일괄 정지 */
+  .ticker__track { animation: none; }
+  .hero-particles, .nav-indicator, .official-hero__aurora, .page-hero__aurora { display: none; }
+  .ornament i { scale: 1 1; }
+  [data-magnetic] { translate: none; }
+
+  .split-word > span,
+  .official-hero h1 .split-word > span,
+  .page-hero h1 .split-word > span,
+  .archive-hero h1 .split-word > span {
+    animation: none;
+    opacity: 1;
+    rotate: none;
+    translate: none;
+  }
+
+  .donation-card:hover, .apply-cta:hover { animation: none; }
 }

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro'
 import PageHero from '../../../components/PageHero.astro'
+import Marquee from '../../../components/Marquee.astro'
 import { applyPage, hasRecruitmentDetails, recruitment } from '../../../data/pages.js'
 import { basePath, content, languages, routePath } from '../../../data/site.js'
 
@@ -33,7 +34,7 @@ const processSteps = recruitment.process[lang]
       <header class="section-intro" data-reveal="up">
         <span class="section-number">{page.overviewNumber}</span>
         <p>{page.overviewSubtitle}</p>
-        <h2>{page.overviewTitle}</h2>
+        <h2 data-split>{page.overviewTitle}</h2>
       </header>
 
       {hasDetails ? (
@@ -57,37 +58,39 @@ const processSteps = recruitment.process[lang]
     </div>
   </section>
 
-  <section class="home-section home-section--ink activity-section">
+  <section class="home-section home-section--ink activity-section" data-spotlight>
     <div class="container">
       <header class="section-intro section-intro--light" data-reveal="up">
         <span class="section-number">{page.workNumber}</span>
         <p>{page.workSubtitle}</p>
-        <h2>{page.workTitle}</h2>
+        <h2 data-split>{page.workTitle}</h2>
       </header>
       <p class="section-lead section-lead--light" data-reveal="up">{page.workLead}</p>
       <div class="activity-grid" data-reveal-group>
         {activities.map((item, index) => (
-          <article class="activity-card" data-reveal="rise">
+          <article class="activity-card" data-reveal="rise" data-tilt="5">
             <div class="activity-card__media"><img src={asset(item.image)} alt={item.alt} loading="lazy" /></div>
             <div class="activity-card__body"><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
           </article>
         ))}
       </div>
-      <a class="inline-link inline-link--light" href={basePath(routePath(lang, 'archive'))} data-reveal="up">{page.archiveLink}<span aria-hidden="true">→</span></a>
+      <a class="inline-link inline-link--light" href={basePath(routePath(lang, 'archive'))} data-reveal="up" data-magnetic="8">{page.archiveLink}<span aria-hidden="true">→</span></a>
     </div>
   </section>
+
+  <Marquee items={copy.ticker} />
 
   <section class="home-section home-section--mist">
     <div class="container">
       <header class="section-intro" data-reveal="up">
         <span class="section-number">{page.orgNumber}</span>
         <p>{page.orgSubtitle}</p>
-        <h2>{page.orgTitle}</h2>
+        <h2 data-split>{page.orgTitle}</h2>
       </header>
       <p class="section-lead section-lead--wide" data-reveal="up">{page.orgLead}</p>
       <div class="info-grid info-grid--trio" data-reveal-group>
         {page.orgPoints.map((item, index) => (
-          <article class="info-card" data-reveal="rise">
+          <article class="info-card" data-reveal="rise" data-tilt="4">
             <span class="info-card__index">{String(index + 1).padStart(2, '0')}</span>
             <h3>{item.title}</h3>
             <p>{item.body}</p>
@@ -101,9 +104,10 @@ const processSteps = recruitment.process[lang]
     <div class="container apply-cta" data-reveal="up" data-spotlight>
       <span class="section-number">{page.ctaNumber}</span>
       <p class="eyebrow">{page.ctaSubtitle}</p>
-      <h2>{page.ctaTitle}</h2>
+      <h2 data-split>{page.ctaTitle}</h2>
+      <p class="ornament" aria-hidden="true"><i></i><span>◆</span><i></i></p>
       {recruitment.applyUrl
-        ? <a class="cta-button" href={recruitment.applyUrl} target="_blank" rel="noopener noreferrer">{page.ctaButton}<span aria-hidden="true">→</span></a>
+        ? <a class="cta-button" data-magnetic="12" href={recruitment.applyUrl} target="_blank" rel="noopener noreferrer">{page.ctaButton}<span aria-hidden="true">→</span></a>
         : <p class="notice notice--inline">{page.ctaFallback}</p>}
       <div class="apply-cta__channels">
         <a class="button-link" href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">{contact.instagram}<span aria-hidden="true">→</span></a>

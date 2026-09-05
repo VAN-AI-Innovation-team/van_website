@@ -68,6 +68,7 @@ export const content = {
       sectionRail: '섹션 바로 이동',
       supportDetails: '후원 안내 자세히 보기',
     },
+    ticker: ['VERITAS', 'ACADEMIAE', 'NEXUS', '서울대학교', '연세대학교', '고려대학교', 'EST. SEOUL'],
     home: {
       hero: {
         kicker: 'EST. SEOUL · YONSEI · KOREA',
@@ -181,6 +182,7 @@ export const content = {
       sectionRail: 'Jump to section',
       supportDetails: 'See the full donation guide',
     },
+    ticker: ['VERITAS', 'ACADEMIAE', 'NEXUS', 'SEOUL NATIONAL', 'YONSEI', 'KOREA UNIVERSITY', 'EST. SEOUL'],
     home: {
       hero: {
         kicker: 'EST. SEOUL · YONSEI · KOREA', title: 'Veritas · Academiae · Nexus', label: 'Academic Federation VAN',
