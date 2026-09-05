@@ -6,13 +6,18 @@ VAN(Veritas Academiae Nexus)의 단체 소개, 조직, 활동, 향후 계획, �
 
 - 한국어 `/ko/` 및 영어 `/en/` 정적 페이지
 - HOME: 공식 Hero, 단체 연혁, 추천사, 대표단, 자문위원회, 대표 활동 3개, 향후 활동 계획, VAN Conference 2026 요약, 단체 철학, 후원, 연락처
+- 후원 안내 `/{lang}/support/`: 후원금 사용처, 후원 계좌, 문의 채널
+- 26-2 리크루팅 `/{lang}/apply/`: 모집 개요, 활동 소개, 조직 구조, 지원 안내
+- 두 페이지로 바로 이동하는 QR 코드 (`public/qr/`, 문서는 `docs/QR_CODES.md`)
 - Archive: HOME에 우선 노출하지 않은 활동 기록과 상세 페이지
 - 공통 Header/Footer, 모바일 메뉴, 반응형 레이아웃
 - 페이지별 title, description, canonical, hreflang, Open Graph
 - Organization, WebSite, Breadcrumb 구조화 데이터
 - 정적 `robots.txt`, `sitemap.xml`, 404 페이지
 
-별도의 콘퍼런스 전용 홈페이지·상세 라우트, 신청 페이지, 파트너 페이지, 인물 상세 페이지는 만들지 않습니다. 콘퍼런스는 HOME의 대표 연례 사업 섹션으로만 제공합니다.
+별도의 콘퍼런스 전용 홈페이지·상세 라우트, 파트너 페이지, 인물 상세 페이지는 만들지 않습니다. 콘퍼런스는 HOME의 대표 연례 사업 섹션으로만 제공합니다.
+
+후원과 26-2 리크루팅은 QR로 직접 배포해야 해서 전용 라우트를 두었습니다. 서브 도메인 대신 사이트 내 고정 경로를 쓰며, 경로에 기수를 넣지 않아 이미 인쇄한 QR이 다음 기수에도 유효합니다.
 
 ## 로컬 실행
 
@@ -34,9 +39,13 @@ npm run check
 ## 콘텐츠 위치
 
 - 단체·조직·HOME 콘텐츠: `src/data/site.js`
+- 후원·지원 페이지 콘텐츠와 26-2 모집 정보: `src/data/pages.js`
 - Archive 활동 기록: `src/data/activityArchive.js`
 - HOME·Archive 화면: `src/pages/[lang]/[...slug].astro`
+- 후원 페이지: `src/pages/[lang]/support/index.astro`
+- 지원 페이지: `src/pages/[lang]/apply/index.astro`
 - Archive 상세: `src/pages/[lang]/archive/[slug].astro`
+- QR 생성 스크립트: `scripts/generate-qr.mjs` (`npm run qr`)
 - 공통 레이아웃·SEO: `src/layouts/BaseLayout.astro`
 - Header/Footer: `src/components/`
 - 반응형 스타일·모션: `src/styles/global.css`

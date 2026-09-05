@@ -1,11 +1,11 @@
-import { basePath, languages, routeEntries, routePath } from '../data/site.js'
+import { basePath, languages, routePath, siteRoutes } from '../data/site.js'
 import { archiveItems } from '../data/activityArchive.js'
 
 export const prerender = true
 
 export function GET({ site }) {
   const routeSlugs = [
-    ...routeEntries.map(({ slug }) => slug),
+    ...siteRoutes.map(({ slug }) => slug),
     ...archiveItems.ko.map(({ slug }) => `archive/${slug}`),
   ]
   const urls = languages.flatMap((language) => routeSlugs.map((slug) => {
