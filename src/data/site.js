@@ -37,7 +37,15 @@ export const content = {
       home: ['VAN | Veritas Academiae Nexus', '서울대학교·연세대학교·고려대학교를 중심으로 형성된 서울권 대학 학회들의 총연합체 VAN 공식 홈페이지입니다.'],
       archive: ['VAN 활동 자료 | Archive', 'VAN의 학술·정책·공론장·미디어 활동 기록을 모아 보는 공식 자료실입니다.'],
     },
-    common: { archive: '전체 활동 기록 보기', details: '자세히 보기', copy: '계좌번호 복사', copied: '복사됨' },
+    common: {
+      archive: '전체 활동 기록 보기',
+      details: '자세히 보기',
+      copy: '계좌번호 복사',
+      copied: '복사됨',
+      readingProgress: '페이지 읽기 진행률',
+      toTop: '맨 위로 이동',
+      sectionRail: '섹션 바로 이동',
+    },
     home: {
       hero: {
         kicker: 'EST. SEOUL · YONSEI · KOREA',
@@ -139,7 +147,15 @@ export const content = {
       home: ['VAN | Veritas Academiae Nexus', 'The official website of VAN, a federation of university academic societies centered on Seoul National, Yonsei and Korea University.'],
       archive: ['VAN Activity Archive', 'Official records of VAN academic, policy, civic-discourse and media activities.'],
     },
-    common: { archive: 'Explore all activity records', details: 'Read more', copy: 'Copy account number', copied: 'Copied' },
+    common: {
+      archive: 'Explore all activity records',
+      details: 'Read more',
+      copy: 'Copy account number',
+      copied: 'Copied',
+      readingProgress: 'Reading progress',
+      toTop: 'Back to top',
+      sectionRail: 'Jump to section',
+    },
     home: {
       hero: {
         kicker: 'EST. SEOUL · YONSEI · KOREA', title: 'Veritas · Academiae · Nexus', label: 'Academic Federation VAN',

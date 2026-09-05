@@ -18,7 +18,11 @@ const hrefFor = (item) => item.slug ? basePath(routePath(lang, item.slug)) : hom
 
     <nav class="desktop-nav" aria-label="Primary navigation">
       {navItems.map((item) => (
-        <a href={hrefFor(item)} aria-current={currentKey === item.key ? 'page' : undefined}>{copy.nav[item.key]}</a>
+        <a
+          href={hrefFor(item)}
+          data-nav-section={currentKey === 'home' && item.section ? item.section : undefined}
+          aria-current={currentKey === item.key ? 'page' : undefined}
+        >{copy.nav[item.key]}</a>
       ))}
     </nav>
 

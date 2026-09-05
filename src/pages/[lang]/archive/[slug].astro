@@ -32,13 +32,19 @@ const asset = (path) => basePath(path)
     </header>
     <section class="home-section home-section--paper">
       <div class="container archive-article-layout">
-        {post.cover && <figure class="archive-article-cover"><img src={asset(post.cover)} alt={post.coverAlt} /></figure>}
-        <div class="archive-article-body">{post.body.map((paragraph) => <p>{paragraph}</p>)}</div>
-        {post.gallery && <div class="archive-article-gallery">{post.gallery.map((item) => <img src={asset(item.image)} alt={item.alt} loading="lazy" />)}</div>}
+        {post.cover && <figure class="archive-article-cover" data-reveal="wipe"><img src={asset(post.cover)} alt={post.coverAlt} /></figure>}
+        <div class="archive-article-body" data-reveal-group>
+          {post.body.map((paragraph) => <p data-reveal="up">{paragraph}</p>)}
+        </div>
+        {post.gallery && (
+          <div class="archive-article-gallery" data-reveal-group>
+            {post.gallery.map((item) => <img data-reveal="wipe" src={asset(item.image)} alt={item.alt} loading="lazy" />)}
+          </div>
+        )}
       </div>
     </section>
     <section class="archive-next">
-      <div class="container"><p class="eyebrow">VAN ARCHIVE</p><h2>{labels.related}</h2><a class="button-link" href={archiveLink}>{labels.back}<span aria-hidden="true">→</span></a></div>
+      <div class="container" data-reveal="up"><p class="eyebrow">VAN ARCHIVE</p><h2>{labels.related}</h2><a class="button-link" href={archiveLink}>{labels.back}<span aria-hidden="true">→</span></a></div>
     </section>
   </article>
 </BaseLayout>

@@ -39,7 +39,20 @@ npm run check
 - Archive 상세: `src/pages/[lang]/archive/[slug].astro`
 - 공통 레이아웃·SEO: `src/layouts/BaseLayout.astro`
 - Header/Footer: `src/components/`
-- 반응형 스타일: `src/styles/global.css`
+- 반응형 스타일·모션: `src/styles/global.css`
+- 인터랙션 스크립트: `src/scripts/interactions.js`
 - 이미지 자산: `public/assets/`
+
+## 인터랙션 레이어
+
+`src/scripts/interactions.js`가 스크롤 리빌, 스크롤 진행 표시, 헤더 축소, 섹션 스크롤스파이(상단 내비게이션 + 우측 레일), 히어로 패럴랙스, 포인터 스포트라이트·틸트, 모바일 메뉴, 계좌 복사 피드백, Archive 검색·필터를 담당합니다.
+
+세 가지 규칙을 지킵니다.
+
+- 콘텐츠는 JS 없이도 항상 보입니다. 리빌 대상은 `html.js-ready`가 붙었을 때만 감춰지며, 스크립트가 3초 안에 부팅되지 않으면 해당 클래스를 스스로 해제합니다.
+- `prefers-reduced-motion: reduce`에서는 모든 모션을 끄고 최종 상태로 즉시 확정합니다.
+- 스크롤·포인터 핸들러는 `requestAnimationFrame`으로 묶어 프레임당 한 번만 실행합니다.
+
+리빌은 `transform` 대신 독립 속성 `translate`/`scale`을 사용합니다. 호버에서 쓰는 `transform`과 서로 덮어쓰지 않고 합성되기 때문입니다.
 
 콘텐츠와 이미지의 기준은 전달받은 `VAN 단체 소개.html` 및 동봉 `assets/`이며, 확인되지 않은 사실·경력·신청 링크·파트너 정보를 임의로 추가하지 않습니다.
