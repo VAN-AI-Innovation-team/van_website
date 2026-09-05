@@ -36,9 +36,9 @@ const mime = {
 
 // 팔레트 3종 × 페이지. theme이 비면 기본(포레스트 & 코퍼).
 const themes = [
-  { key: '', label: 'A 포레스트 & 코퍼', dir: 'A-포레스트코퍼' },
-  { key: 'jade', label: 'B 옵시디언 & 제이드', dir: 'B-옵시디언제이드' },
-  { key: 'oxblood', label: 'C 옥스블러드 & 브론즈', dir: 'C-옥스블러드브론즈' },
+  { key: '', label: '옵시디언 & 제이드 (기본)', dir: '옵시디언제이드-기본' },
+  { key: 'forest', label: '포레스트 & 코퍼 (변주)', dir: '변주-포레스트코퍼' },
+  { key: 'oxblood', label: '옥스블러드 & 브론즈 (변주)', dir: '변주-옥스블러드브론즈' },
 ]
 
 const pages = [
@@ -46,6 +46,8 @@ const pages = [
   { name: '2-26-2지원.html', from: 'ko/apply/index.html', label: '26-2 지원' },
   { name: '3-후원안내.html', from: 'ko/support/index.html', label: '후원 안내' },
   { name: '4-활동기록.html', from: 'ko/archive/index.html', label: '활동 기록' },
+  { name: '5-활동기록-상세.html', from: 'ko/archive/academic-networking/index.html', label: '활동 기록 상세' },
+  { name: '6-EN-home.html', from: 'en/index.html', label: 'HOME (English)' },
 ]
 
 const targets = themes.flatMap((theme) => pages.map((page) => ({

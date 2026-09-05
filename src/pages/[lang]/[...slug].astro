@@ -60,24 +60,55 @@ const heroParticles = [
           ))}
         </div>
         <div class="container official-hero__content">
-          <p class="official-hero__kicker">{page.hero.kicker}</p>
-          <img class="official-hero__logo" src={asset(page.hero.logoWhite)} alt="VAN · Veritas Academiae Nexus" width="880" height="276" />
-          <div class="official-hero__rule" aria-hidden="true"><i></i><span>◆</span><i></i></div>
-          <h1 data-split>{page.hero.title}</h1>
-          <p class="official-hero__label">{page.hero.label}</p>
-          <p class="official-hero__lead">{page.hero.lead}</p>
-          <ul class="official-hero__schools">
-            {page.hero.schools.map((school) => <li>{school}</li>)}
-          </ul>
+          <div class="official-hero__lede">
+            <p class="official-hero__kicker">{page.hero.kicker}</p>
+            <img class="official-hero__logo" src={asset(page.hero.logoWhite)} alt="VAN · Veritas Academiae Nexus" width="880" height="276" />
+            <h1 data-split>{page.hero.title}</h1>
+            <p class="official-hero__label">{page.hero.label}</p>
+            <p class="official-hero__lead">{page.hero.lead}</p>
+          </div>
+          <div class="official-hero__meta">
+            <ul class="official-hero__schools">
+              {page.hero.schools.map((school) => <li>{school}</li>)}
+            </ul>
+          </div>
         </div>
         <a class="official-hero__scroll" href="#about"><span>SCROLL</span><i aria-hidden="true"></i></a>
       </section>
 
+<section id="activities" class="home-section home-section--ink activity-section" data-spotlight>
+        <div class="container">
+          <header class="section-intro section-intro--light" data-ghost={page.activities.number} data-reveal="up">
+            <div class="section-intro__band">
+              <span class="section-number">{page.activities.number}</span>
+              <p>{page.activities.subtitle}</p>
+              <i aria-hidden="true"></i>
+            </div>
+            <h2 data-split>{page.activities.title}</h2>
+          </header>
+          <p class="section-lead section-lead--light" data-reveal="up">{page.activities.intro}</p>
+          <div class="activity-grid" data-reveal-group>
+            {page.activities.items.map((item, index) => (
+              <article class="activity-card" data-reveal="rise" data-tilt="5">
+                <div class="activity-card__media"><img src={asset(item.image)} alt={item.alt} loading="lazy" /></div>
+                <div class="activity-card__body" data-index={`0${index + 1}`}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
+              </article>
+            ))}
+          </div>
+          <a class="inline-link inline-link--light" href={archiveLink} data-reveal="up" data-magnetic="8">{copy.common.archive}<span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <Marquee items={copy.ticker} />
+
       <section id="about" class="home-section home-section--paper">
         <div class="container editorial-layout">
           <header class="section-intro section-intro--sticky" data-ghost={page.about.number} data-reveal="up">
-            <span class="section-number">{page.about.number}</span>
-            <p>{page.about.subtitle}</p>
+            <div class="section-intro__band">
+              <span class="section-number">{page.about.number}</span>
+              <p>{page.about.subtitle}</p>
+              <i aria-hidden="true"></i>
+            </div>
             <h2 data-split>{page.about.title}</h2>
           </header>
           <ol class="timeline" data-reveal="fade" data-reveal-group>
@@ -91,34 +122,40 @@ const heroParticles = [
         </div>
       </section>
 
-      <Marquee items={copy.ticker} />
-
-      <section id="people" class="home-section home-section--ink" data-spotlight>
-        <div class="container">
-          <header class="section-intro section-intro--light" data-ghost={page.endorsements.number} data-reveal="up">
-            <span class="section-number">{page.endorsements.number}</span>
-            <p>{page.endorsements.subtitle}</p>
-            <h2 data-split>{page.endorsements.title}</h2>
-          </header>
-          <div class="endorsement-grid" data-reveal-group>
-            {page.endorsements.items.map((item, index) => (
-              <article data-reveal="rise" data-spotlight class:list={['endorsement-card', { 'endorsement-card--featured': index === 0 }]}>
-                <div class="person-chip">
-                  <img src={asset(item.image)} alt="" width="120" height="120" loading="lazy" />
-                  <div><strong>{item.name}</strong><span>{item.role}</span></div>
-                </div>
-                <blockquote><span aria-hidden="true">“</span>{item.quote}</blockquote>
-              </article>
-            ))}
+      <section id="conference" class="conference-spotlight" data-spotlight>
+        <div class="container conference-spotlight__grid">
+          <div class="conference-spotlight__intro" data-reveal="left">
+            <p class="eyebrow">{page.conference.eyebrow}</p>
+            <h2 data-split>{page.conference.title}</h2>
+            <p class="conference-title-en">{page.conference.englishTitle}</p>
+            <p>{page.conference.description}</p>
+            <dl>
+              {page.conference.facts.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
+            </dl>
+          </div>
+          <div class="conference-spotlight__details">
+            <ol class="conference-program" data-reveal-group>
+              {page.conference.program.map((item, index) => <li data-reveal="up"><span>0{index + 1}</span>{item}</li>)}
+            </ol>
+            <div class="session-stack" data-reveal-group>
+              {page.conference.sessions.map((session) => (
+                <article data-reveal="right"><h3>{session.title}</h3><ul>{session.people.map((person) => <li>{person}</li>)}</ul></article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
+      <Marquee items={copy.ticker} display />
+
       <section id="leadership" class="home-section home-section--paper">
         <div class="container">
           <header class="section-intro" data-ghost={page.leaders.number} data-reveal="up">
-            <span class="section-number">{page.leaders.number}</span>
-            <p>{page.leaders.subtitle}</p>
+            <div class="section-intro__band">
+              <span class="section-number">{page.leaders.number}</span>
+              <p>{page.leaders.subtitle}</p>
+              <i aria-hidden="true"></i>
+            </div>
             <h2 data-split>{page.leaders.title}</h2>
           </header>
           <div class="leader-grid" data-reveal-group>
@@ -140,8 +177,11 @@ const heroParticles = [
       <section id="advisory" class="home-section home-section--mist">
         <div class="container">
           <header class="section-intro" data-ghost={page.advisory.number} data-reveal="up">
-            <span class="section-number">{page.advisory.number}</span>
-            <p>{page.advisory.subtitle}</p>
+            <div class="section-intro__band">
+              <span class="section-number">{page.advisory.number}</span>
+              <p>{page.advisory.subtitle}</p>
+              <i aria-hidden="true"></i>
+            </div>
             <h2 data-split>{page.advisory.title}</h2>
           </header>
           <p class="section-lead section-lead--wide" data-reveal="up">{page.advisory.intro}</p>
@@ -169,33 +209,38 @@ const heroParticles = [
         </div>
       </section>
 
-      <section id="activities" class="home-section home-section--ink activity-section" data-spotlight>
+      <section id="people" class="home-section home-section--ink" data-spotlight>
         <div class="container">
-          <header class="section-intro section-intro--light section-intro--center" data-ghost={page.activities.number} data-reveal="up">
-            <span class="section-number">{page.activities.number}</span>
-            <p>{page.activities.subtitle}</p>
-            <h2 data-split>{page.activities.title}</h2>
+          <header class="section-intro section-intro--light" data-ghost={page.endorsements.number} data-reveal="up">
+            <div class="section-intro__band">
+              <span class="section-number">{page.endorsements.number}</span>
+              <p>{page.endorsements.subtitle}</p>
+              <i aria-hidden="true"></i>
+            </div>
+            <h2 data-split>{page.endorsements.title}</h2>
           </header>
-          <p class="section-lead section-lead--light" data-reveal="up">{page.activities.intro}</p>
-          <div class="activity-grid" data-reveal-group>
-            {page.activities.items.map((item, index) => (
-              <article class="activity-card" data-reveal="rise" data-tilt="5">
-                <div class="activity-card__media"><img src={asset(item.image)} alt={item.alt} loading="lazy" /></div>
-                <div class="activity-card__body" data-index={`0${index + 1}`}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
+          <div class="endorsement-grid" data-reveal-group>
+            {page.endorsements.items.map((item, index) => (
+              <article data-reveal="rise" data-spotlight class:list={['endorsement-card', { 'endorsement-card--featured': index === 0 }]}>
+                <div class="person-chip">
+                  <img src={asset(item.image)} alt="" width="120" height="120" loading="lazy" />
+                  <div><strong>{item.name}</strong><span>{item.role}</span></div>
+                </div>
+                <blockquote><span aria-hidden="true">“</span>{item.quote}</blockquote>
               </article>
             ))}
           </div>
-          <a class="inline-link inline-link--light" href={archiveLink} data-reveal="up" data-magnetic="8">{copy.common.archive}<span aria-hidden="true">→</span></a>
         </div>
       </section>
 
-      <Marquee items={copy.ticker} display />
-
       <section id="future" class="home-section home-section--paper">
         <div class="container">
-          <header class="section-intro section-intro--center" data-ghost={page.future.number} data-reveal="up">
-            <span class="section-number">{page.future.number}</span>
-            <p>{page.future.subtitle}</p>
+          <header class="section-intro" data-ghost={page.future.number} data-reveal="up">
+            <div class="section-intro__band">
+              <span class="section-number">{page.future.number}</span>
+              <p>{page.future.subtitle}</p>
+              <i aria-hidden="true"></i>
+            </div>
             <h2 data-split>{page.future.title}</h2>
           </header>
           <div class="roadmap-grid" data-reveal-group>
@@ -207,30 +252,6 @@ const heroParticles = [
       </section>
 
       <Marquee items={copy.ticker} reverse />
-
-      <section id="conference" class="conference-spotlight" data-spotlight>
-        <div class="container conference-spotlight__grid">
-          <div class="conference-spotlight__intro" data-reveal="left">
-            <p class="eyebrow">{page.conference.eyebrow}</p>
-            <h2 data-split>{page.conference.title}</h2>
-            <p class="conference-title-en">{page.conference.englishTitle}</p>
-            <p>{page.conference.description}</p>
-            <dl>
-              {page.conference.facts.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
-            </dl>
-          </div>
-          <div class="conference-spotlight__details">
-            <ol class="conference-program" data-reveal-group>
-              {page.conference.program.map((item, index) => <li data-reveal="up"><span>0{index + 1}</span>{item}</li>)}
-            </ol>
-            <div class="session-stack" data-reveal-group>
-              {page.conference.sessions.map((session) => (
-                <article data-reveal="right"><h3>{session.title}</h3><ul>{session.people.map((person) => <li>{person}</li>)}</ul></article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section id="philosophy" class="philosophy-section">
         <div class="container philosophy-section__grid">
@@ -274,6 +295,7 @@ const heroParticles = [
           </div>
         </div>
       </section>
+
     </>
   )}
 
