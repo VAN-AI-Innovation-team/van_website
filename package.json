@@ -10,7 +10,8 @@
     "dev": "astro dev",
     "dev:share": "astro dev --host 0.0.0.0",
     "build": "astro build",
-    "lint": "oxlint astro.config.mjs src/data src/pages",
+    "qr": "node scripts/generate-qr.mjs",
+    "lint": "oxlint astro.config.mjs scripts src/data src/pages",
     "preview": "astro preview",
     "check": "npm run lint && npm run build"
   },
@@ -18,6 +19,7 @@
     "astro": "7.2.6"
   },
   "devDependencies": {
-    "oxlint": "^1.75.0"
+    "oxlint": "^1.75.0",
+    "qrcode": "^1.5.4"
   }
 }

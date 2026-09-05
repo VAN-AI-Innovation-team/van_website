@@ -1,5 +1,5 @@
 ---
-import { basePath, content, homeSectionPath, navItems, routePath } from '../data/site.js'
+import { basePath, content, ctaItem, homeSectionPath, navItems, routePath } from '../data/site.js'
 
 const { lang, currentKey, currentSlug } = Astro.props
 const copy = content[lang]
@@ -18,11 +18,21 @@ const hrefFor = (item) => item.slug ? basePath(routePath(lang, item.slug)) : hom
 
     <nav class="desktop-nav" aria-label="Primary navigation">
       {navItems.map((item) => (
-        <a href={hrefFor(item)} aria-current={currentKey === item.key ? 'page' : undefined}>{copy.nav[item.key]}</a>
+        <a
+          href={hrefFor(item)}
+          data-nav-section={currentKey === 'home' && item.section ? item.section : undefined}
+          aria-current={currentKey === item.key ? 'page' : undefined}
+        >{copy.nav[item.key]}</a>
       ))}
     </nav>
 
     <a class="language-link" href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a>
+
+    <a
+      class="cta-link"
+      href={basePath(routePath(lang, ctaItem.slug))}
+      aria-current={currentKey === ctaItem.key ? 'page' : undefined}
+    >{copy.nav[ctaItem.key]}</a>
 
     <details class="mobile-menu">
       <summary aria-label={copy.menu}><span>{copy.menu}</span><i aria-hidden="true"></i></summary>

@@ -1,9 +1,19 @@
 export const languages = ['ko', 'en']
 
+/** catch-all 라우트(`[lang]/[...slug].astro`)가 생성하는 페이지. */
 export const routeEntries = [
   { key: 'home', slug: '' },
   { key: 'archive', slug: 'archive' },
 ]
+
+/** 전용 파일 라우트가 생성하는 페이지. QR로 직접 배포되는 대상이다. */
+export const standaloneRoutes = [
+  { key: 'support', slug: 'support' },
+  { key: 'apply', slug: 'apply' },
+]
+
+/** sitemap·hreflang 등 사이트 전체 라우트 목록. */
+export const siteRoutes = [...routeEntries, ...standaloneRoutes]
 
 export const routeBySlug = Object.fromEntries(routeEntries.map((route) => [route.slug, route]))
 
@@ -13,10 +23,19 @@ export const navItems = [
   { key: 'activities', section: 'activities' },
   { key: 'future', section: 'future' },
   { key: 'philosophy', section: 'philosophy' },
-  { key: 'support', section: 'support' },
+  { key: 'support', slug: 'support' },
   { key: 'archive', slug: 'archive' },
   { key: 'contact', section: 'contact' },
 ]
+
+/** 헤더 우측 강조 버튼. 리크루팅은 상시 메뉴가 아니라 캠페인성 CTA로 노출한다. */
+export const ctaItem = { key: 'apply', slug: 'apply' }
+
+/**
+ * HOME 우측 스크롤스파이 레일에 노출할 섹션.
+ * 후원은 전용 페이지로 분리했지만 HOME에도 요약 섹션이 남아 있어 레일에서는 유지한다.
+ */
+export const homeSections = ['about', 'people', 'activities', 'future', 'philosophy', 'support', 'contact']
 
 const sharedImages = {
   hero: '/assets/hero_bg.min.jpg',
@@ -31,13 +50,24 @@ export const content = {
     menu: '메뉴',
     nav: {
       home: '홈', about: '소개', people: '사람', activities: '활동', future: '계획',
-      philosophy: '철학', support: '후원', archive: '자료', contact: '연락처',
+      philosophy: '철학', support: '후원', archive: '자료', contact: '연락처', apply: '26-2 지원',
     },
     meta: {
       home: ['VAN | Veritas Academiae Nexus', '서울대학교·연세대학교·고려대학교를 중심으로 형성된 서울권 대학 학회들의 총연합체 VAN 공식 홈페이지입니다.'],
       archive: ['VAN 활동 자료 | Archive', 'VAN의 학술·정책·공론장·미디어 활동 기록을 모아 보는 공식 자료실입니다.'],
+      support: ['VAN 후원 안내 | Support', 'VAN의 학술·공익 활동과 청년 공론장 운영을 위한 후원 계좌와 입금 안내를 확인하세요.'],
+      apply: ['VAN 26-2 리크루팅 | 지원', 'VAN 26-2 리크루팅 안내입니다. 모집 대상과 지원 방법, 함께하게 되는 활동을 확인하세요.'],
     },
-    common: { archive: '전체 활동 기록 보기', details: '자세히 보기', copy: '계좌번호 복사', copied: '복사됨' },
+    common: {
+      archive: '전체 활동 기록 보기',
+      details: '자세히 보기',
+      copy: '계좌번호 복사',
+      copied: '복사됨',
+      readingProgress: '페이지 읽기 진행률',
+      toTop: '맨 위로 이동',
+      sectionRail: '섹션 바로 이동',
+      supportDetails: '후원 안내 자세히 보기',
+    },
     home: {
       hero: {
         kicker: 'EST. SEOUL · YONSEI · KOREA',
@@ -134,12 +164,23 @@ export const content = {
   },
   en: {
     languageName: 'English', skip: 'Skip to content', menu: 'Menu',
-    nav: { home: 'Home', about: 'About', people: 'People', activities: 'Work', future: 'Roadmap', philosophy: 'Principles', support: 'Support', archive: 'Archive', contact: 'Contact' },
+    nav: { home: 'Home', about: 'About', people: 'People', activities: 'Work', future: 'Roadmap', philosophy: 'Principles', support: 'Support', archive: 'Archive', contact: 'Contact', apply: 'Join 26-2' },
     meta: {
       home: ['VAN | Veritas Academiae Nexus', 'The official website of VAN, a federation of university academic societies centered on Seoul National, Yonsei and Korea University.'],
       archive: ['VAN Activity Archive', 'Official records of VAN academic, policy, civic-discourse and media activities.'],
+      support: ['Support VAN', 'Donation account and deposit guidance for VAN’s continuing academic and public-interest work.'],
+      apply: ['VAN 26-2 Recruitment', 'Recruitment information for VAN 26-2: who we are looking for, how to apply and what you will work on.'],
     },
-    common: { archive: 'Explore all activity records', details: 'Read more', copy: 'Copy account number', copied: 'Copied' },
+    common: {
+      archive: 'Explore all activity records',
+      details: 'Read more',
+      copy: 'Copy account number',
+      copied: 'Copied',
+      readingProgress: 'Reading progress',
+      toTop: 'Back to top',
+      sectionRail: 'Jump to section',
+      supportDetails: 'See the full donation guide',
+    },
     home: {
       hero: {
         kicker: 'EST. SEOUL · YONSEI · KOREA', title: 'Veritas · Academiae · Nexus', label: 'Academic Federation VAN',

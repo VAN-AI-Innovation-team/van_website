@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import PageHero from '../../../components/PageHero.astro'
+import { applyPage, hasRecruitmentDetails, recruitment } from '../../../data/pages.js'
+import { basePath, content, languages, routePath } from '../../../data/site.js'
+
+export function getStaticPaths() {
+  return languages.map((lang) => ({ params: { lang } }))
+}
+
+const lang = Astro.params.lang
+const copy = content[lang]
+const page = applyPage[lang]
+const contact = copy.home.contact
+const activities = copy.home.activities.items
+const [title, description] = copy.meta.apply
+const asset = (path) => basePath(path)
+
+// 확정된 값만 노출한다. 비어 있으면 항목 자체를 렌더링하지 않는다.
+const hasDetails = hasRecruitmentDetails(lang)
+const facts = [
+  [page.labels.period, recruitment.period[lang]],
+  [page.labels.eligibility, recruitment.eligibility[lang]],
+].filter(([, value]) => Boolean(value))
+const processSteps = recruitment.process[lang]
+---
+
+<BaseLayout lang={lang} pageKey="apply" slug="apply" title={title} description={description}>
+  <PageHero eyebrow={page.eyebrow} title={page.title} lead={page.lead} />
+
+  <section class="home-section home-section--paper">
+    <div class="container">
+      <header class="section-intro" data-reveal="up">
+        <span class="section-number">{page.overviewNumber}</span>
+        <p>{page.overviewSubtitle}</p>
+        <h2>{page.overviewTitle}</h2>
+      </header>
+
+      {hasDetails ? (
+        <div class="recruit-overview" data-reveal="up">
+          {facts.length > 0 && (
+            <dl class="fact-list">
+              {facts.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
+            </dl>
+          )}
+          {processSteps.length > 0 && (
+            <ol class="step-list" data-reveal-group>
+              {processSteps.map((step, index) => (
+                <li data-reveal="up"><span>{String(index + 1).padStart(2, '0')}</span>{step}</li>
+              ))}
+            </ol>
+          )}
+        </div>
+      ) : (
+        <p class="notice" data-reveal="up">{page.overviewPending}</p>
+      )}
+    </div>
+  </section>
+
+  <section class="home-section home-section--ink activity-section">
+    <div class="container">
+      <header class="section-intro section-intro--light" data-reveal="up">
+        <span class="section-number">{page.workNumber}</span>
+        <p>{page.workSubtitle}</p>
+        <h2>{page.workTitle}</h2>
+      </header>
+      <p class="section-lead section-lead--light" data-reveal="up">{page.workLead}</p>
+      <div class="activity-grid" data-reveal-group>
+        {activities.map((item, index) => (
+          <article class="activity-card" data-reveal="rise">
+            <div class="activity-card__media"><img src={asset(item.image)} alt={item.alt} loading="lazy" /></div>
+            <div class="activity-card__body"><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
+          </article>
+        ))}
+      </div>
+      <a class="inline-link inline-link--light" href={basePath(routePath(lang, 'archive'))} data-reveal="up">{page.archiveLink}<span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="home-section home-section--mist">
+    <div class="container">
+      <header class="section-intro" data-reveal="up">
+        <span class="section-number">{page.orgNumber}</span>
+        <p>{page.orgSubtitle}</p>
+        <h2>{page.orgTitle}</h2>
+      </header>
+      <p class="section-lead section-lead--wide" data-reveal="up">{page.orgLead}</p>
+      <div class="info-grid info-grid--trio" data-reveal-group>
+        {page.orgPoints.map((item, index) => (
+          <article class="info-card" data-reveal="rise">
+            <span class="info-card__index">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-section--sand">
+    <div class="container apply-cta" data-reveal="up" data-spotlight>
+      <span class="section-number">{page.ctaNumber}</span>
+      <p class="eyebrow">{page.ctaSubtitle}</p>
+      <h2>{page.ctaTitle}</h2>
+      {recruitment.applyUrl
+        ? <a class="cta-button" href={recruitment.applyUrl} target="_blank" rel="noopener noreferrer">{page.ctaButton}<span aria-hidden="true">→</span></a>
+        : <p class="notice notice--inline">{page.ctaFallback}</p>}
+      <div class="apply-cta__channels">
+        <a class="button-link" href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">{contact.instagram}<span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container contact-section__grid">
+      <div data-reveal="left">
+        <p class="eyebrow">CONTACT</p>
+        <h2>{page.contactTitle}</h2>
+        <p class="section-lead section-lead--light">{page.contactLead}</p>
+      </div>
+      <div class="contact-list" data-reveal-group>
+        <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" data-reveal="fade">
+          <span>INSTAGRAM</span><strong>{contact.instagram}</strong>
+        </a>
+        <div data-reveal="fade">
+          <span>PHONE</span><strong>{contact.phone}</strong><small>{contact.manager}</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

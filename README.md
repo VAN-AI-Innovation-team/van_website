@@ -6,13 +6,18 @@ VAN(Veritas Academiae Nexus)의 단체 소개, 조직, 활동, 향후 계획, �
 
 - 한국어 `/ko/` 및 영어 `/en/` 정적 페이지
 - HOME: 공식 Hero, 단체 연혁, 추천사, 대표단, 자문위원회, 대표 활동 3개, 향후 활동 계획, VAN Conference 2026 요약, 단체 철학, 후원, 연락처
+- 후원 안내 `/{lang}/support/`: 후원금 사용처, 후원 계좌, 문의 채널
+- 26-2 리크루팅 `/{lang}/apply/`: 모집 개요, 활동 소개, 조직 구조, 지원 안내
+- 두 페이지로 바로 이동하는 QR 코드 (`public/qr/`, 문서는 `docs/QR_CODES.md`)
 - Archive: HOME에 우선 노출하지 않은 활동 기록과 상세 페이지
 - 공통 Header/Footer, 모바일 메뉴, 반응형 레이아웃
 - 페이지별 title, description, canonical, hreflang, Open Graph
 - Organization, WebSite, Breadcrumb 구조화 데이터
 - 정적 `robots.txt`, `sitemap.xml`, 404 페이지
 
-별도의 콘퍼런스 전용 홈페이지·상세 라우트, 신청 페이지, 파트너 페이지, 인물 상세 페이지는 만들지 않습니다. 콘퍼런스는 HOME의 대표 연례 사업 섹션으로만 제공합니다.
+별도의 콘퍼런스 전용 홈페이지·상세 라우트, 파트너 페이지, 인물 상세 페이지는 만들지 않습니다. 콘퍼런스는 HOME의 대표 연례 사업 섹션으로만 제공합니다.
+
+후원과 26-2 리크루팅은 QR로 직접 배포해야 해서 전용 라우트를 두었습니다. 서브 도메인 대신 사이트 내 고정 경로를 쓰며, 경로에 기수를 넣지 않아 이미 인쇄한 QR이 다음 기수에도 유효합니다.
 
 ## 로컬 실행
 
@@ -34,12 +39,29 @@ npm run check
 ## 콘텐츠 위치
 
 - 단체·조직·HOME 콘텐츠: `src/data/site.js`
+- 후원·지원 페이지 콘텐츠와 26-2 모집 정보: `src/data/pages.js`
 - Archive 활동 기록: `src/data/activityArchive.js`
 - HOME·Archive 화면: `src/pages/[lang]/[...slug].astro`
+- 후원 페이지: `src/pages/[lang]/support/index.astro`
+- 지원 페이지: `src/pages/[lang]/apply/index.astro`
 - Archive 상세: `src/pages/[lang]/archive/[slug].astro`
+- QR 생성 스크립트: `scripts/generate-qr.mjs` (`npm run qr`)
 - 공통 레이아웃·SEO: `src/layouts/BaseLayout.astro`
 - Header/Footer: `src/components/`
-- 반응형 스타일: `src/styles/global.css`
+- 반응형 스타일·모션: `src/styles/global.css`
+- 인터랙션 스크립트: `src/scripts/interactions.js`
 - 이미지 자산: `public/assets/`
+
+## 인터랙션 레이어
+
+`src/scripts/interactions.js`가 스크롤 리빌, 스크롤 진행 표시, 헤더 축소, 섹션 스크롤스파이(상단 내비게이션 + 우측 레일), 히어로 패럴랙스, 포인터 스포트라이트·틸트, 모바일 메뉴, 계좌 복사 피드백, Archive 검색·필터를 담당합니다.
+
+세 가지 규칙을 지킵니다.
+
+- 콘텐츠는 JS 없이도 항상 보입니다. 리빌 대상은 `html.js-ready`가 붙었을 때만 감춰지며, 스크립트가 3초 안에 부팅되지 않으면 해당 클래스를 스스로 해제합니다.
+- `prefers-reduced-motion: reduce`에서는 모든 모션을 끄고 최종 상태로 즉시 확정합니다.
+- 스크롤·포인터 핸들러는 `requestAnimationFrame`으로 묶어 프레임당 한 번만 실행합니다.
+
+리빌은 `transform` 대신 독립 속성 `translate`/`scale`을 사용합니다. 호버에서 쓰는 `transform`과 서로 덮어쓰지 않고 합성되기 때문입니다.
 
 콘텐츠와 이미지의 기준은 전달받은 `VAN 단체 소개.html` 및 동봉 `assets/`이며, 확인되지 않은 사실·경력·신청 링크·파트너 정보를 임의로 추가하지 않습니다.

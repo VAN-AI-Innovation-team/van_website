@@ -94,13 +94,40 @@ if (pageKey === 'home') {
     <meta property="og:image" content={socialImage.href} />
     <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap"
+    />
+
     <script type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll('<', '\\u003c')}></script>
+
+    {/*
+      스크롤 리빌 대상은 `.js-ready`가 붙었을 때만 감춰진다.
+      인터랙션 스크립트가 끝내 실행되지 않으면 3초 뒤 클래스를 걷어내
+      콘텐츠가 영구히 숨는 상황을 막는다.
+    */}
+    <script is:inline>
+      document.documentElement.classList.add('js-ready')
+      window.setTimeout(function () {
+        if (!document.documentElement.classList.contains('js-booted')) {
+          document.documentElement.classList.remove('js-ready')
+        }
+      }, 3000)
+    </script>
   </head>
   <body>
+    <div class="scroll-progress" data-scroll-progress role="progressbar" aria-label={copy.common.readingProgress} aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
     <SiteHeader lang={lang} currentKey={pageKey} currentSlug={slug} />
     <main id="main-content">
       <slot />
     </main>
     <SiteFooter lang={lang} />
+    <button class="to-top" type="button" data-to-top aria-label={copy.common.toTop}><span aria-hidden="true">↑</span></button>
+    <script>
+      import '../scripts/interactions.js'
+    </script>
   </body>
 </html>
