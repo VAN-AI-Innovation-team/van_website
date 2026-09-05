@@ -38,6 +38,22 @@ export const ctaItem = { key: 'apply', slug: 'apply' }
  */
 export const homeSections = ['activities', 'about', 'people', 'future', 'philosophy', 'support', 'contact']
 
+/**
+ * 번호를 붙이는 HOME 섹션의 화면 등장 순서.
+ *
+ * 번호는 이 배열의 인덱스에서 파생됩니다. 콘텐츠 데이터에 번호를 따로 적어두면
+ * 섹션 순서를 바꿀 때 반드시 어긋나므로(실제로 활동 섹션을 맨 앞으로 옮겼을 때
+ * 05가 먼저 보였습니다) 단일 출처로 통일했습니다.
+ * 번호가 없는 섹션(콘퍼런스·후원·연락처)은 이 배열에 넣지 않습니다.
+ */
+export const numberedHomeSections = ['activities', 'about', 'leaders', 'advisory', 'endorsements', 'future', 'philosophy']
+
+/** 섹션 키의 표시 번호. 배열에 없으면 빈 문자열. */
+export function sectionNumber(key) {
+  const index = numberedHomeSections.indexOf(key)
+  return index < 0 ? '' : String(index + 1).padStart(2, '0')
+}
+
 const sharedImages = {
   hero: '/assets/hero_bg.min.jpg',
   logoWhite: '/assets/logo_white_hd.png',
@@ -80,7 +96,7 @@ export const content = {
         ...sharedImages,
       },
       about: {
-        number: '01', title: '단체 연혁 및 소개', subtitle: 'History & Introduction',
+        title: '단체 연혁 및 소개', subtitle: 'History & Introduction',
         paragraphs: [
           'VAN(Veritas Academiae Nexus)은 각 대학에 ‘총동아리연합회(총동연)’가 존재하듯, 서울대학교·연세대학교·고려대학교를 중심으로 형성된 서울권 대학 학회들의 총연합체입니다. 본 연합은 세 대학 내에서 정식 인가를 받아 오랜 전통을 이어온 학회들의 연대에서 출발하였으며, 현재는 서성한·중경외시·이건동홍 등의 대학으로 범위를 확장하며 전국 단위의 학술 네트워크로 고도화되고 있습니다.',
           '서울대·연세대·고려대를 축으로 이어져 온 학회 연합의 역사는 결코 짧지 않습니다. 그러나 기존의 연합 구조는 학생자치단체의 선거 주기와 짧은 임기에 종속되어, 경험과 네트워크, 제도적 자산을 장기적으로 축적하기 어렵다는 구조적 한계를 안고 있었습니다.',
@@ -90,7 +106,7 @@ export const content = {
         ],
       },
       endorsements: {
-        number: '02', title: 'Featured Endorsement', subtitle: '각계 인사들이 전하는 지지와 격려',
+        title: 'Featured Endorsement', subtitle: '각계 인사들이 전하는 지지와 격려',
         items: [
           { name: 'Kenneth Maxwell Nance 박사', role: '대표 상임고문', image: '/assets/p03_0_159x161.min.jpg', quote: '여러분의 방향성과 원칙, 그리고 신조가 높기에 저는 여러분께 깊은 경의를 표합니다. 세 개 대학 사이에서뿐만 아니라 전 세계에 걸쳐 협력을 구축해 나가는 여러분의 협업 수준은 참으로 존경할 만합니다. 진리·학문·연대라는 여러분의 원칙은 고귀하며, 여러분을 멀리 나아가게 할 것입니다.' },
           { name: '김성훈 교수', role: '자문위원회장', image: '/assets/p04_2_159x160.min.jpg', quote: '우리 VAN이 어떤 진영을 넘어서, 또 우리 지역을 뛰어넘어서 함께 연대하고 포용하고 협력하고 그러한 연구단체로 성장하기 바랍니다. 우리 취업의 문제 또 일자리의 문제 이런 것들을 우리 VAN의 학생들과 함께 연구하고 싶습니다.' },
@@ -100,7 +116,7 @@ export const content = {
         ],
       },
       leaders: {
-        number: '03', title: '대표단 소개', subtitle: 'The Leadership',
+        title: '대표단 소개', subtitle: 'The Leadership',
         items: [
           { role: '대표', name: '정도대', affiliation: '연세대학교', image: '/assets/jdd_portrait2.min.jpg', careers: ['서울대·연세대·고려대 학술연합체 대표', '서울대·연세대·고려대 학술연합 준비위원회 위원장', '연세대학교 JSC 사회과학학회 학회장·부학회장', '연세대학교 사회과학대 대외전략국 실무총괄', '연세대학교 총학생회 선거본부 정책국 지방선거 전담', '연세대학교 와이들 스튜디오 부장', '연세대학교 사회과학대 범부회 총무', '시사평론가(워싱턴포스트, 더페이퍼·펑베이 등)', 'Maxwell Leadership Institution 상임고문', '북극성 정치경제연구소 겸 투자회사 부대표', '국토환경뉴스 미주본부장', '국회 청년기업인 대표 라운드테이블 참여', 'WE-CAN-TALK 발달지체아동 언어학습 개발', 'POLLITE 참여형 의회 플랫폼 개발'] },
           { role: '부대표', name: '김도윤', affiliation: '고려대학교', careers: ['서울대·연세대·고려대 학술연합체 부대표·실장', '고려대학교 정치외교학과 국제정치학회 비욘드 학회장·부학회장·학술부장', '고려대학교 정치외교학과 학술자치국 국장·국원', '고려대학교 정치외교학과 운영위원회 운영위원', '고려대학교 정치외교학과 선거관리위원회 위원', '고려대학교 제6대 모의재판준비위원회 위원장·위원', '주한미국대사관 America Diplomacy House Academy 3기'] },
@@ -108,7 +124,7 @@ export const content = {
         ],
       },
       advisory: {
-        number: '04', title: '자문위원회', subtitle: 'Advisory Council',
+        title: '자문위원회', subtitle: 'Advisory Council',
         intro: '자문위원회는 외부 각 분야의 실무적 식견과 전략적 자문을 담당하는 비교수 고문단과 학문적 깊이와 이론적 기반을 제공하는 지도교수단의 이원적 구조로 구성됩니다. 자문위원회장은 두 조직을 통합·조정하며 조직 전반의 전략적 방향성과 운영의 일관성을 확보합니다.',
         items: [
           { role: '대표 상임고문', name: 'Kenneth Maxwell Nance 박사', image: '/assets/p03_0_159x161.min.jpg', careers: ['Leadership Grand Theory 창립자', 'Harvard University, HKS, PLC', 'Amazon Top 50 Fearless Leader', 'Global Defense Info. Network 개발', '미국 대통령상 4회 수상'] },
@@ -119,7 +135,7 @@ export const content = {
         gallery: [{ image: '/assets/p04_0_1172x659.min.jpg', alt: 'VAN 자문위원단 단체사진' }, { image: '/assets/p04_1_1112x597.min.jpg', alt: 'VAN 자문위원단 단체사진' }],
       },
       activities: {
-        number: '05', title: '최근 활동 및 성과', subtitle: 'Recent Activities & Achievements',
+        title: '최근 활동 및 성과', subtitle: 'Recent Activities & Achievements',
         intro: 'VAN은 학술 연구와 사회적 담론을 연결하는 다양한 프로젝트를 수행하고 있습니다.',
         items: [
           { title: 'POLLITE', summary: '자체 개발한 생성형 AI 및 클라우드 기술을 기반으로 의정활동 정보의 접근성을 높이고 시민 참여를 확장하는 정책·기술 융합 프로젝트입니다.', image: '/assets/p05_0_547x417.min.jpg', alt: '청년 기업인 라운드테이블에서 안철수 의원과 인사하는 VAN 대표' },
@@ -128,7 +144,7 @@ export const content = {
         ],
       },
       future: {
-        number: '06', title: '향후 활동 계획', subtitle: 'The Road Ahead',
+        title: '향후 활동 계획', subtitle: 'The Road Ahead',
         items: [
           { number: '01', title: '연합 학술 컨퍼런스 개최', items: ['연 1~2회 연합 학술 컨퍼런스 개최', '학계·정치권·산업계가 결합된 하이브리드 공론장 모델 구축'] },
           { number: '02', title: '국내 최상위 학술 네트워크 고도화', items: ['서울대·연세대·고려대를 중심으로 한 서울권 학회 연합 정교화', '전국 주요 대학으로 확장되는 Pan-University Academic Network 구축', '지도교수단·자문위원단·상설연구조직 기반의 지속 가능한 학술 거버넌스 확장'] },
@@ -150,7 +166,7 @@ export const content = {
         ],
       },
       philosophy: {
-        number: '07', title: '단체 철학',
+        title: '단체 철학',
         body: '대학(원)은 진리를 탐구하는 상아탑입니다. 그러나 그 진리가 학내와 학계의 담론에만 머문다면 그 가치는 절반만 실현될 뿐입니다. 진리는 사회의 복잡한 현실에 비추어질 때 공적 의미와 실천적 힘을 얻습니다. VAN은 ‘학문적 내실(內實)’과 ‘사회적 확장성(擴張性)’이라는 두 축의 균형을 조직 운영의 근본 원칙으로 삼습니다. 진리를 성실히 탐구하고, 탐구된 진리를 사회에 비추며, 연대를 통해 학계와 사회에 의미 있는 변화를 만들어 나가겠습니다.',
         image: '/assets/p18_1_1600x613.min.jpg', alt: 'VAN 실무진 내부 업무 워크숍',
       },
@@ -191,7 +207,7 @@ export const content = {
         schools: ['Seoul National University', 'Yonsei University', 'Korea University'], ...sharedImages,
       },
       about: {
-        number: '01', title: 'History & Introduction', subtitle: 'About VAN',
+        title: 'History & Introduction', subtitle: 'About VAN',
         paragraphs: [
           'VAN (Veritas Academiae Nexus) is a federation of university academic societies centered on Seoul National University, Yonsei University and Korea University. It began as an alliance of long-established, officially recognized societies at the three universities and is expanding into a nationwide academic network.',
           'Earlier inter-university alliances were constrained by short student-governance election cycles. Leadership changed frequently, interrupting the accumulation of experience, networks and institutional assets.',
@@ -201,7 +217,7 @@ export const content = {
         ],
       },
       endorsements: {
-        number: '02', title: 'Featured Endorsement', subtitle: 'Messages of support from public and academic leaders',
+        title: 'Featured Endorsement', subtitle: 'Messages of support from public and academic leaders',
         items: [
           { name: 'Dr. Kenneth Maxwell Nance', role: 'Principal Senior Adviser', image: '/assets/p03_0_159x161.min.jpg', quote: 'Your level of collaboration is admirable, not only among three universities, but in establishing collaboration around the world. Your principles of truth, scholarship and solidarity are noble and will take you far.' },
           { name: 'Professor Kim Sung-hoon', role: 'Chair, Advisory Council', image: '/assets/p04_2_159x160.min.jpg', quote: 'I hope VAN grows beyond political camps and regions into a research organization that practices solidarity, inclusion and cooperation.' },
@@ -211,7 +227,7 @@ export const content = {
         ],
       },
       leaders: {
-        number: '03', title: 'Leadership', subtitle: 'Representative Council',
+        title: 'Leadership', subtitle: 'Representative Council',
         items: [
           { role: 'Representative', name: 'Dodae Jung', affiliation: 'Yonsei University', image: '/assets/jdd_portrait2.min.jpg', careers: ['Representative, SNU–Yonsei–Korea Academic Federation', 'Chair, Academic Federation Preparatory Committee', 'President and Vice President, Yonsei JSC Social Science Society', 'Operations lead, External Strategy Bureau, Yonsei College of Social Sciences', 'Standing adviser, Maxwell Leadership Institution', 'Developer of WE-CAN-TALK language learning and the POLLITE civic platform'] },
           { role: 'Vice Representative', name: 'Doyoon Kim', affiliation: 'Korea University', careers: ['Vice Representative and Chief of Staff, Academic Federation', 'President, Vice President and Academic Director, Beyond International Politics Society', 'Director and member, Academic Self-Governance Bureau, Department of Political Science and International Relations', 'Chair, 6th Mock Trial Preparatory Committee', 'U.S. Embassy America Diplomacy House Academy, Cohort 3'] },
@@ -219,7 +235,7 @@ export const content = {
         ],
       },
       advisory: {
-        number: '04', title: 'Advisory Council', subtitle: 'Academic and Strategic Guidance',
+        title: 'Advisory Council', subtitle: 'Academic and Strategic Guidance',
         intro: 'The Advisory Council combines a professional adviser group, which contributes practical and strategic insight, with a faculty group that provides academic depth and theoretical foundations. The Council Chair coordinates both groups and maintains the organization’s strategic direction.',
         items: [
           { role: 'Principal Senior Adviser', name: 'Dr. Kenneth Maxwell Nance', image: '/assets/p03_0_159x161.min.jpg', careers: ['Founder, Leadership Grand Theory', 'Harvard University, HKS, PLC', 'Amazon Top 50 Fearless Leader', 'Developer, Global Defense Information Network', 'Four-time U.S. Presidential Award recipient'] },
@@ -230,7 +246,7 @@ export const content = {
         gallery: [{ image: '/assets/p04_0_1172x659.min.jpg', alt: 'VAN advisers and partners' }, { image: '/assets/p04_1_1112x597.min.jpg', alt: 'VAN advisers and partners' }],
       },
       activities: {
-        number: '05', title: 'Recent Activities & Achievements', subtitle: 'Connecting scholarship with public discourse',
+        title: 'Recent Activities & Achievements', subtitle: 'Connecting scholarship with public discourse',
         intro: 'VAN conducts projects that connect academic research, policy and public discourse.',
         items: [
           { title: 'POLLITE', summary: 'A policy-and-technology project using generative AI and cloud infrastructure to make legislative information more accessible and expand civic participation.', image: '/assets/p05_0_547x417.min.jpg', alt: 'VAN representative at a young entrepreneur roundtable' },
@@ -239,7 +255,7 @@ export const content = {
         ],
       },
       future: {
-        number: '06', title: 'The Road Ahead', subtitle: 'Future Activities',
+        title: 'The Road Ahead', subtitle: 'Future Activities',
         items: [
           { number: '01', title: 'Joint Academic Conferences', items: ['Hold one or two joint academic conferences each year', 'Develop a hybrid public-forum model linking academia, politics and industry'] },
           { number: '02', title: 'A Stronger Domestic Academic Network', items: ['Deepen the Seoul-area alliance centered on SNU, Yonsei and Korea University', 'Build a Pan-University Academic Network', 'Expand sustainable academic governance with faculty advisers, professional advisers and standing research teams'] },
@@ -261,7 +277,7 @@ export const content = {
         ],
       },
       philosophy: {
-        number: '07', title: 'Our Philosophy',
+        title: 'Our Philosophy',
         body: 'Universities are places for the pursuit of truth, but truth realizes only half its value if it remains within academic discussion. It gains public meaning and practical force when brought into conversation with complex social reality. VAN therefore treats academic depth and social reach as equal principles. We will pursue truth with rigor, bring what we learn into society and build meaningful change through solidarity.',
         image: '/assets/p18_1_1600x613.min.jpg', alt: 'VAN staff workshop',
       },

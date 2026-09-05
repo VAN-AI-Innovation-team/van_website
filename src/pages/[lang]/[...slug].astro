@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Marquee from '../../components/Marquee.astro'
 import { archiveCategories, archiveItems, archiveLabels } from '../../data/activityArchive.js'
-import { basePath, content, homeSections, languages, routeBySlug, routeEntries, routePath } from '../../data/site.js'
+import { basePath, content, homeSections, languages, routeBySlug, routeEntries, routePath, sectionNumber } from '../../data/site.js'
 
 export function getStaticPaths() {
   return languages.flatMap((lang) => routeEntries.map(({ slug }) => ({
@@ -78,9 +78,9 @@ const heroParticles = [
 
 <section id="activities" class="home-section home-section--ink activity-section" data-spotlight>
         <div class="container">
-          <header class="section-intro section-intro--light" data-ghost={page.activities.number} data-reveal="up">
+          <header class="section-intro section-intro--light" data-ghost={sectionNumber('activities')} data-reveal="up">
             <div class="section-intro__band">
-              <span class="section-number">{page.activities.number}</span>
+              <span class="section-number">{sectionNumber('activities')}</span>
               <p>{page.activities.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
@@ -103,9 +103,9 @@ const heroParticles = [
 
       <section id="about" class="home-section home-section--paper">
         <div class="container editorial-layout">
-          <header class="section-intro section-intro--sticky" data-ghost={page.about.number} data-reveal="up">
+          <header class="section-intro section-intro--sticky" data-ghost={sectionNumber('about')} data-reveal="up">
             <div class="section-intro__band">
-              <span class="section-number">{page.about.number}</span>
+              <span class="section-number">{sectionNumber('about')}</span>
               <p>{page.about.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
@@ -150,9 +150,9 @@ const heroParticles = [
 
       <section id="leadership" class="home-section home-section--paper">
         <div class="container">
-          <header class="section-intro" data-ghost={page.leaders.number} data-reveal="up">
+          <header class="section-intro" data-ghost={sectionNumber('leaders')} data-reveal="up">
             <div class="section-intro__band">
-              <span class="section-number">{page.leaders.number}</span>
+              <span class="section-number">{sectionNumber('leaders')}</span>
               <p>{page.leaders.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
@@ -176,9 +176,9 @@ const heroParticles = [
 
       <section id="advisory" class="home-section home-section--mist">
         <div class="container">
-          <header class="section-intro" data-ghost={page.advisory.number} data-reveal="up">
+          <header class="section-intro" data-ghost={sectionNumber('advisory')} data-reveal="up">
             <div class="section-intro__band">
-              <span class="section-number">{page.advisory.number}</span>
+              <span class="section-number">{sectionNumber('advisory')}</span>
               <p>{page.advisory.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
@@ -211,9 +211,9 @@ const heroParticles = [
 
       <section id="people" class="home-section home-section--ink" data-spotlight>
         <div class="container">
-          <header class="section-intro section-intro--light" data-ghost={page.endorsements.number} data-reveal="up">
+          <header class="section-intro section-intro--light" data-ghost={sectionNumber('endorsements')} data-reveal="up">
             <div class="section-intro__band">
-              <span class="section-number">{page.endorsements.number}</span>
+              <span class="section-number">{sectionNumber('endorsements')}</span>
               <p>{page.endorsements.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
@@ -235,9 +235,9 @@ const heroParticles = [
 
       <section id="future" class="home-section home-section--paper">
         <div class="container">
-          <header class="section-intro" data-ghost={page.future.number} data-reveal="up">
+          <header class="section-intro" data-ghost={sectionNumber('future')} data-reveal="up">
             <div class="section-intro__band">
-              <span class="section-number">{page.future.number}</span>
+              <span class="section-number">{sectionNumber('future')}</span>
               <p>{page.future.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
@@ -256,7 +256,7 @@ const heroParticles = [
       <section id="philosophy" class="philosophy-section">
         <div class="container philosophy-section__grid">
           <div data-reveal="left">
-            <span class="section-number">{page.philosophy.number}</span>
+            <span class="section-number">{sectionNumber('philosophy')}</span>
             <p class="eyebrow">VERITAS · ACADEMIAE · NEXUS</p>
             <h2 data-split>{page.philosophy.title}</h2>
             <p class="ornament" aria-hidden="true"><i></i><span>◆</span><i></i></p>
