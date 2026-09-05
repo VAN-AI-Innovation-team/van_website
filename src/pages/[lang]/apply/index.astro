@@ -31,7 +31,7 @@ const processSteps = recruitment.process[lang]
 
   <section class="home-section home-section--paper">
     <div class="container">
-      <header class="section-intro" data-reveal="up">
+      <header class="section-intro" data-ghost={page.overviewNumber} data-reveal="up">
         <span class="section-number">{page.overviewNumber}</span>
         <p>{page.overviewSubtitle}</p>
         <h2 data-split>{page.overviewTitle}</h2>
@@ -60,7 +60,7 @@ const processSteps = recruitment.process[lang]
 
   <section class="home-section home-section--ink activity-section" data-spotlight>
     <div class="container">
-      <header class="section-intro section-intro--light" data-reveal="up">
+      <header class="section-intro section-intro--light" data-ghost={page.workNumber} data-reveal="up">
         <span class="section-number">{page.workNumber}</span>
         <p>{page.workSubtitle}</p>
         <h2 data-split>{page.workTitle}</h2>
@@ -70,7 +70,7 @@ const processSteps = recruitment.process[lang]
         {activities.map((item, index) => (
           <article class="activity-card" data-reveal="rise" data-tilt="5">
             <div class="activity-card__media"><img src={asset(item.image)} alt={item.alt} loading="lazy" /></div>
-            <div class="activity-card__body"><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
+            <div class="activity-card__body" data-index={`0${index + 1}`}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
           </article>
         ))}
       </div>
@@ -78,11 +78,11 @@ const processSteps = recruitment.process[lang]
     </div>
   </section>
 
-  <Marquee items={copy.ticker} />
+  <Marquee items={copy.ticker} display />
 
   <section class="home-section home-section--mist">
     <div class="container">
-      <header class="section-intro" data-reveal="up">
+      <header class="section-intro" data-ghost={page.orgNumber} data-reveal="up">
         <span class="section-number">{page.orgNumber}</span>
         <p>{page.orgSubtitle}</p>
         <h2 data-split>{page.orgTitle}</h2>

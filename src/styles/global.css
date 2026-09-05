@@ -230,10 +230,17 @@ p { text-wrap: pretty; }
 .js-ready [data-reveal='left'] { translate: -28px 0; }
 .js-ready [data-reveal='right'] { translate: 28px 0; }
 .js-ready [data-reveal='rise'] { translate: 0 44px; scale: 0.985; }
+
+/*
+  clip-path 는 wipe 변주에만 건다.
+  모든 리빌 대상에 clip-path: inset(0) 을 주면 안 된다. inset(0) 은 no-op 이 아니라
+  요소 박스 기준으로 잘라내므로, 박스 밖으로 튀어나온 장식이 전부 사라진다.
+  (타임라인 노드 left:-50px, 섹션 헤더의 거대 고스트 숫자 등이 잘려나갔다.)
+*/
 .js-ready [data-reveal='wipe'] { clip-path: inset(0 0 100% 0); scale: 1.04; }
+.js-ready [data-reveal='wipe'].is-revealed { clip-path: inset(0 0 0 0); }
 
 .js-ready [data-reveal].is-revealed {
-  clip-path: inset(0 0 0 0);
   opacity: 1;
   scale: none;
   translate: none;
@@ -578,7 +585,7 @@ p { text-wrap: pretty; }
   inset: -20%;
   background:
     radial-gradient(38% 32% at 22% 26%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
-    radial-gradient(42% 36% at 78% 68%, color-mix(in srgb, var(--shade-600) 28.0%, transparent), transparent 72%);
+    radial-gradient(42% 36% at 78% 68%, color-mix(in srgb, var(--shade-600) 28%, transparent), transparent 72%);
   filter: blur(14px);
   animation: van-aurora 22s var(--ease-soft) infinite;
   pointer-events: none;
@@ -671,7 +678,7 @@ p { text-wrap: pretty; }
   font-weight: 500;
   letter-spacing: 0.05em;
   line-height: 1.04;
-  text-shadow: 0 0 38px color-mix(in srgb, var(--accent-soft) 28.0%, transparent), 0 14px 40px rgba(0, 0, 0, .45);
+  text-shadow: 0 0 38px color-mix(in srgb, var(--accent-soft) 28%, transparent), 0 14px 40px rgba(0, 0, 0, .45);
 }
 
 .official-hero__label {
@@ -758,8 +765,40 @@ p { text-wrap: pretty; }
 .home-section--ink { color: var(--on-dark); background: var(--shade-900); }
 .home-section--sand { background: var(--paper-warm); }
 
-.section-intro { margin-bottom: 58px; }
+/*
+  섹션 헤더에 거대한 아웃라인 숫자를 워터마크로 깐다. 원본은 모든 섹션이
+  같은 좌측 정렬 2단 분할이라 리듬이 단조로웠다. 숫자를 배경 요소로 키우고
+  일부 섹션을 중앙 정렬로 돌려 섹션마다 다른 인상을 만든다.
+*/
+.section-intro { position: relative; z-index: 0; margin-bottom: 58px; }
 .section-intro--sticky { position: sticky; top: 118px; align-self: start; }
+
+.section-intro::before {
+  position: absolute;
+  z-index: -1;
+  top: -0.34em;
+  left: -0.08em;
+  color: transparent;
+  content: attr(data-ghost);
+  font-family: var(--serif);
+  font-size: clamp(120px, 17vw, 250px);
+  font-weight: 700;
+  line-height: 1;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 26%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+.section-intro--light::before {
+  -webkit-text-stroke-color: color-mix(in srgb, var(--accent-soft) 24%, transparent);
+}
+
+/* 중앙 정렬 변주 — 고스트 숫자도 함께 가운데로 */
+.section-intro--center { display: grid; justify-items: center; text-align: center; }
+.section-intro--center::before { top: -0.3em; right: 0; left: 0; text-align: center; }
+.section-intro--center .section-number::after { display: none; }
+.section-intro--center h2::after { right: 0; left: 0; margin-inline: auto; }
+.section-intro--center .section-lead { margin-inline: auto; }
 
 .section-number {
   display: inline-flex;
@@ -981,7 +1020,10 @@ p { text-wrap: pretty; }
 .endorsement-card:hover blockquote > span { color: var(--accent-soft); transform: scale(1.25) translateY(-2px); }
 
 /* 7-2. 대표단 */
-.leader-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+/* 12열 기준 비대칭 배치. 두 번째 카드는 아래로 내려 계단을 만든다. */
+.leader-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 26px; align-items: start; }
+.leader-grid > *:nth-child(2) { grid-column: 1 / span 7; }
+.leader-grid > *:nth-child(3) { grid-column: 8 / span 5; margin-top: 56px; }
 
 .profile-card {
   overflow: hidden;
@@ -1143,7 +1185,10 @@ p { text-wrap: pretty; }
 
 /* 7-4. 활동 */
 .activity-section { background: linear-gradient(180deg, var(--shade-800) 0%, var(--shade-900) 72%); }
-.activity-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+/* 3열을 나란히 두지 않고 계단식으로 내려 편집물 리듬을 만든다. */
+.activity-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; align-items: start; }
+.activity-grid > *:nth-child(2) { margin-top: 68px; }
+.activity-grid > *:nth-child(3) { margin-top: 136px; }
 
 .activity-card {
   position: relative;
@@ -1263,12 +1308,22 @@ p { text-wrap: pretty; }
 .inline-link--light { color: #fff; }
 
 /* 7-5. 향후 계획 */
+/*
+  원본은 테두리를 공유하는 표 형태였다. 칸 크기를 다르게 준 벤토 그리드로
+  바꿔 시선 순서를 만들고, 카드마다 독립 테두리를 줘 표 느낌을 없앤다.
+*/
 .roadmap-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 18px;
 }
+
+.roadmap-grid > *:nth-child(1) { grid-column: span 2; }
+.roadmap-grid > *:nth-child(2) { grid-column: span 4; }
+.roadmap-grid > *:nth-child(3) { grid-column: span 4; }
+.roadmap-grid > *:nth-child(4) { grid-column: span 2; }
+.roadmap-grid > *:nth-child(5) { grid-column: span 3; }
+.roadmap-grid > *:nth-child(6) { grid-column: span 3; }
 
 .roadmap-grid article {
   position: relative;
@@ -1376,7 +1431,7 @@ p { text-wrap: pretty; }
 }
 
 .conference-program li:hover {
-  border-color: color-mix(in srgb, var(--accent-soft) 55.0%, transparent);
+  border-color: color-mix(in srgb, var(--accent-soft) 55%, transparent);
   background: rgba(255, 255, 255, .07);
   transform: translateY(-4px);
 }
@@ -1416,20 +1471,33 @@ p { text-wrap: pretty; }
 /* 7-7. 철학 */
 .philosophy-section {
   position: relative;
-  overflow: hidden;
+  /* hidden 은 스크롤 컨테이너를 만들어 자손의 position: sticky 를 죽인다.
+     clip 은 컨테이너를 만들지 않으므로 오로라를 자르면서 sticky 를 살린다. */
+  overflow: clip;
   padding: 134px 0;
   color: var(--on-dark);
   background: var(--shade-950);
   scroll-margin-top: 68px;
 }
 
-.philosophy-section__grid { position: relative; display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: 76px; align-items: center; }
+.philosophy-section__grid { position: relative; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: 76px; align-items: start; }
+
 
 .philosophy-section h2 { margin: 10px 0 26px; color: #fff; font-family: var(--serif-kr); font-size: clamp(33px, 3.8vw, 50px); font-weight: 600; letter-spacing: -0.012em; line-height: 1.32; }
 
 .philosophy-section p:last-child { max-width: 60ch; color: var(--on-dark-soft); font-family: var(--serif-kr); font-size: 17px; line-height: 2.04; }
 
-.philosophy-section figure { position: relative; overflow: hidden; margin: 0; border: 1px solid color-mix(in srgb, var(--accent-soft) 28.0%, transparent); border-radius: var(--radius); }
+/* 이미지를 고정해두고 글만 흐르게 — 원본의 좌우 정렬 배치와 인상이 갈린다.
+   조상 .philosophy-section 의 overflow 는 hidden 이 아니라 clip 이어야 한다.
+   hidden 은 스크롤 컨테이너를 만들어 자손의 sticky 를 죽인다. */
+.philosophy-section figure {
+  position: sticky;
+  top: 116px;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--accent-soft) 28%, transparent);
+  border-radius: var(--radius);
+}
 
 .philosophy-section figure img { width: 100%; min-height: 430px; object-fit: cover; transition: transform 1200ms var(--ease-out); }
 .philosophy-section figure:hover img { transform: scale(1.05); }
@@ -1480,7 +1548,7 @@ p { text-wrap: pretty; }
   letter-spacing: .2em;
 }
 
-.donation-card__top i { flex: 1; height: 1px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent-soft) 55.0%, transparent), transparent); }
+.donation-card__top i { flex: 1; height: 1px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent-soft) 55%, transparent), transparent); }
 
 .donation-card dl { position: relative; z-index: 1; margin: 30px 0; }
 .donation-card dl > div { display: grid; grid-template-columns: 106px 1fr; align-items: center; padding: 13px 0; }
@@ -1493,7 +1561,7 @@ p { text-wrap: pretty; }
   z-index: 2;
   overflow: hidden;
   padding: 8px 14px;
-  border: 1px solid color-mix(in srgb, var(--accent-soft) 58.0%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-soft) 58%, transparent);
   border-radius: 999px;
   color: var(--accent-soft);
   background: transparent;
@@ -2065,7 +2133,17 @@ p { text-wrap: pretty; }
   .home-section { padding: 92px 0; }
   .editorial-layout, .conference-spotlight__grid, .philosophy-section__grid, .support-layout, .contact-section__grid { grid-template-columns: 1fr; gap: 48px; }
   .section-intro--sticky { position: static; }
-  .endorsement-grid, .leader-grid, .advisor-grid, .activity-grid, .roadmap-grid { grid-template-columns: 1fr; }
+  .endorsement-grid, .advisor-grid { grid-template-columns: 1fr; }
+
+  /* 계단식 오프셋·비대칭·벤토는 좁은 화면에서 단일 열로 되돌린다. */
+  .activity-grid { grid-template-columns: 1fr; }
+  .activity-grid > *:nth-child(2), .activity-grid > *:nth-child(3) { margin-top: 0; }
+  .leader-grid { grid-template-columns: 1fr; }
+  .leader-grid > *:nth-child(2), .leader-grid > *:nth-child(3) { grid-column: auto; margin-top: 0; }
+  .roadmap-grid { grid-template-columns: 1fr; }
+  .roadmap-grid > * { grid-column: auto !important; }
+  .philosophy-section figure { position: static; }
+  .section-intro::before { font-size: clamp(96px, 24vw, 150px); }
   .endorsement-card--featured, .profile-card--primary { grid-column: auto; }
   .profile-card--primary { grid-template-columns: .8fr 1.2fr; }
   .activity-grid { gap: 18px; }
@@ -2148,6 +2226,11 @@ p { text-wrap: pretty; }
   .ticker__group span { font-size: 12.5px; letter-spacing: .2em; }
   .ornament i { max-width: 90px; }
   body::after { opacity: .22; }
+  .ticker--display { padding: 22px 0; }
+  .ticker--display .ticker__group { gap: 30px; padding-right: 30px; }
+  .ticker--display .ticker__group span { font-size: 34px; -webkit-text-stroke-width: 1px; }
+  .activity-card__body::after { font-size: 92px; bottom: -12px; }
+  .section-intro::before { font-size: 92px; top: -0.28em; }
 }
 
 /* 10-2. 쇼케이스 모션 · 질감 ------------------------------------------- */
@@ -2341,7 +2424,7 @@ body::after {
   height: var(--ps, 3px);
   border-radius: 50%;
   background: var(--accent-soft);
-  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--accent-soft) 55.0%, transparent);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--accent-soft) 55%, transparent);
   opacity: 0;
   animation: van-particle var(--pd, 14s) ease-in-out var(--pl, 0s) infinite;
 }
@@ -2460,6 +2543,197 @@ body::after {
   }
 }
 
+/* 10-3. 레이아웃 v2 — 타임라인 · 대형 티커 · 추가 호버 -------------------- */
+
+/*
+  10-3-1. 연혁 타임라인
+  원본은 긴 문단 5개를 한 덩어리로 쌓아둬서 어디까지 읽었는지 놓치기 쉬웠다.
+  좌측 레일과 노드를 주면 읽는 위치가 보이고, 문단 사이 호흡도 생긴다.
+  레일은 스크롤에 맞춰 그려진다.
+*/
+.timeline {
+  position: relative;
+  max-width: 64ch;
+  margin: 0;
+  padding: 4px 0 0 52px;
+  list-style: none;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 14px;
+  bottom: 20px;
+  left: 11px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 15%, transparent));
+  content: '';
+  scale: 1 0;
+  transform-origin: top;
+  transition: scale 1400ms var(--ease-out) 200ms;
+}
+
+.is-revealed .timeline::before,
+.timeline.is-revealed::before { scale: 1 1; }
+
+.timeline > li {
+  position: relative;
+  padding-bottom: 38px;
+}
+
+.timeline > li:last-child { padding-bottom: 0; }
+
+/*
+  노드는 의사요소가 아니라 실제 요소로 둔다. counter() + ::before 조합이
+  이 구조에서 박스를 생성하지 않는 문제가 있었고(레일만 렌더),
+  실제 요소는 렌더가 확실하고 스타일·접근성 제어도 명확하다.
+  숫자는 장식이므로 aria-hidden 으로 낭독에서 제외한다.
+*/
+.timeline__node {
+  position: absolute;
+  top: 10px;
+  left: -50px;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px var(--paper), 0 0 0 6px color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--paper-strong);
+  font-family: var(--serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  place-items: center;
+  transition: transform 420ms var(--ease-out), background 420ms var(--ease-out), box-shadow 420ms var(--ease-out);
+}
+
+
+.timeline > li:hover .timeline__node {
+  background: var(--accent-deep);
+  box-shadow: 0 0 0 5px var(--paper), 0 0 0 11px color-mix(in srgb, var(--accent) 26%, transparent);
+  transform: scale(1.18);
+}
+
+.timeline p {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--serif-kr);
+  font-size: 17.5px;
+  line-height: 2.06;
+}
+
+.timeline .prose-lead {
+  padding-left: 0;
+  border-left: 0;
+  color: var(--text-strong);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.94;
+}
+
+/*
+  10-3-2. 대형 티커 — 섹션 사이를 잇는 큰 활자 띠.
+  기존 티커가 마음에 든다고 하셔서 같은 원리로 크게 키운 변주를 추가했다.
+*/
+.ticker--display { padding: 34px 0; }
+.ticker--display .ticker__group { gap: 54px; padding-right: 54px; }
+
+.ticker--display .ticker__group span {
+  color: transparent;
+  font-size: clamp(38px, 6vw, 82px);
+  font-weight: 700;
+  letter-spacing: .04em;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 62%, transparent);
+}
+
+.ticker--display .ticker__group i { width: 9px; height: 9px; }
+.ticker--display .ticker__track { animation-duration: 52s; }
+
+/* 방향 반전 변주 */
+.ticker--reverse .ticker__track { animation-direction: reverse; }
+
+/* 10-3-3. 활동 카드 고스트 인덱스 */
+.activity-card__body { position: relative; z-index: 0; }
+
+.activity-card__body::after {
+  position: absolute;
+  z-index: -1;
+  right: 14px;
+  bottom: -18px;
+  color: transparent;
+  content: attr(data-index);
+  font-family: var(--serif);
+  font-size: 130px;
+  font-weight: 700;
+  line-height: 1;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--accent) 20%, transparent);
+  pointer-events: none;
+  transition: transform 620ms var(--ease-out), -webkit-text-stroke-color 620ms var(--ease-out);
+}
+
+.activity-card:hover .activity-card__body::after {
+  -webkit-text-stroke-color: color-mix(in srgb, var(--accent) 42%, transparent);
+  transform: translateY(-8px);
+}
+
+/* 10-3-4. 카드 그라데이션 테두리 — 호버 시 윤곽이 그려진다 */
+.info-card::after,
+.activity-card::after,
+.roadmap-grid article::before {
+  border-radius: inherit;
+}
+
+.info-card,
+.activity-card { position: relative; }
+
+.info-card::after,
+.activity-card::after {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent), transparent 42%, transparent 58%, var(--accent-soft));
+  content: '';
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 520ms var(--ease-out);
+}
+
+.info-card:hover::after,
+.activity-card:hover::after { opacity: 1; }
+
+/* 10-3-5. 이미지 호버 마스크 리빌 */
+.advisor-gallery figure img,
+.archive-list article > img {
+  clip-path: inset(0 0 0 0);
+  transition: transform 900ms var(--ease-out), clip-path 900ms var(--ease-out);
+}
+
+.advisor-gallery figure:hover img { clip-path: inset(2% 2% 2% 2%); }
+
+/* 10-3-6. 링크 화살표 모프 */
+.inline-link span,
+.button-link span,
+.cta-button span {
+  display: inline-block;
+  transition: transform 420ms var(--ease-out), letter-spacing 420ms var(--ease-out);
+}
+
+.inline-link:hover span { letter-spacing: .1em; }
+
+/* 10-3-7. 연락처 항목 호버 시 자간 확장 */
+.contact-list > a:hover span { letter-spacing: .24em; }
+.contact-list span { transition: letter-spacing 420ms var(--ease-out); }
+
+/* 10-4. 레이아웃 v2 반응형 — 기본 규칙보다 뒤에 와야 적용된다 --------------- */
+
+@media (max-width: 640px) {
+  .timeline { padding-left: 40px; }
+  .timeline__node { left: -40px; width: 24px; height: 24px; font-size: 10px; }
+  .timeline p { font-size: 16.5px; line-height: 1.96; }
+  .timeline .prose-lead { font-size: 17.5px; }
+}
+
 /* 11. 접근성 ----------------------------------------------------------- */
 
 :where(a, button, input, summary, [tabindex]):focus-visible {
@@ -2510,4 +2784,5 @@ body::after {
   }
 
   .donation-card:hover, .apply-cta:hover { animation: none; }
+  .timeline::before { scale: 1 1; }
 }

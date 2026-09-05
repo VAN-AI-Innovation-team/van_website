@@ -75,16 +75,19 @@ const heroParticles = [
 
       <section id="about" class="home-section home-section--paper">
         <div class="container editorial-layout">
-          <header class="section-intro section-intro--sticky" data-reveal="up">
+          <header class="section-intro section-intro--sticky" data-ghost={page.about.number} data-reveal="up">
             <span class="section-number">{page.about.number}</span>
             <p>{page.about.subtitle}</p>
             <h2 data-split>{page.about.title}</h2>
           </header>
-          <div class="prose-stack" data-reveal-group>
+          <ol class="timeline" data-reveal="fade" data-reveal-group>
             {page.about.paragraphs.map((paragraph, index) => (
-              <p data-reveal="up" class:list={{ 'prose-lead': index === 0 }}>{paragraph}</p>
+              <li data-reveal="up">
+                <span class="timeline__node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <p class:list={{ 'prose-lead': index === 0 }}>{paragraph}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
@@ -92,7 +95,7 @@ const heroParticles = [
 
       <section id="people" class="home-section home-section--ink" data-spotlight>
         <div class="container">
-          <header class="section-intro section-intro--light" data-reveal="up">
+          <header class="section-intro section-intro--light" data-ghost={page.endorsements.number} data-reveal="up">
             <span class="section-number">{page.endorsements.number}</span>
             <p>{page.endorsements.subtitle}</p>
             <h2 data-split>{page.endorsements.title}</h2>
@@ -113,7 +116,7 @@ const heroParticles = [
 
       <section id="leadership" class="home-section home-section--paper">
         <div class="container">
-          <header class="section-intro" data-reveal="up">
+          <header class="section-intro" data-ghost={page.leaders.number} data-reveal="up">
             <span class="section-number">{page.leaders.number}</span>
             <p>{page.leaders.subtitle}</p>
             <h2 data-split>{page.leaders.title}</h2>
@@ -136,7 +139,7 @@ const heroParticles = [
 
       <section id="advisory" class="home-section home-section--mist">
         <div class="container">
-          <header class="section-intro" data-reveal="up">
+          <header class="section-intro" data-ghost={page.advisory.number} data-reveal="up">
             <span class="section-number">{page.advisory.number}</span>
             <p>{page.advisory.subtitle}</p>
             <h2 data-split>{page.advisory.title}</h2>
@@ -168,7 +171,7 @@ const heroParticles = [
 
       <section id="activities" class="home-section home-section--ink activity-section" data-spotlight>
         <div class="container">
-          <header class="section-intro section-intro--light" data-reveal="up">
+          <header class="section-intro section-intro--light section-intro--center" data-ghost={page.activities.number} data-reveal="up">
             <span class="section-number">{page.activities.number}</span>
             <p>{page.activities.subtitle}</p>
             <h2 data-split>{page.activities.title}</h2>
@@ -178,7 +181,7 @@ const heroParticles = [
             {page.activities.items.map((item, index) => (
               <article class="activity-card" data-reveal="rise" data-tilt="5">
                 <div class="activity-card__media"><img src={asset(item.image)} alt={item.alt} loading="lazy" /></div>
-                <div class="activity-card__body"><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
+                <div class="activity-card__body" data-index={`0${index + 1}`}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.summary}</p></div>
               </article>
             ))}
           </div>
@@ -186,9 +189,11 @@ const heroParticles = [
         </div>
       </section>
 
+      <Marquee items={copy.ticker} display />
+
       <section id="future" class="home-section home-section--paper">
         <div class="container">
-          <header class="section-intro" data-reveal="up">
+          <header class="section-intro section-intro--center" data-ghost={page.future.number} data-reveal="up">
             <span class="section-number">{page.future.number}</span>
             <p>{page.future.subtitle}</p>
             <h2 data-split>{page.future.title}</h2>
@@ -201,7 +206,7 @@ const heroParticles = [
         </div>
       </section>
 
-      <Marquee items={copy.ticker} />
+      <Marquee items={copy.ticker} reverse />
 
       <section id="conference" class="conference-spotlight" data-spotlight>
         <div class="container conference-spotlight__grid">
