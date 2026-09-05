@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import PageHero from '../../../components/PageHero.astro'
+import { supportPage } from '../../../data/pages.js'
+import { basePath, content, languages, routePath } from '../../../data/site.js'
+
+export function getStaticPaths() {
+  return languages.map((lang) => ({ params: { lang } }))
+}
+
+const lang = Astro.params.lang
+const copy = content[lang]
+const page = supportPage[lang]
+const support = copy.home.support
+const contact = copy.home.contact
+const [title, description] = copy.meta.support
+---
+
+<BaseLayout lang={lang} pageKey="support" slug="support" title={title} description={description}>
+  <PageHero eyebrow={page.eyebrow} title={page.title} lead={page.lead} />
+
+  <section class="home-section home-section--paper">
+    <div class="container">
+      <header class="section-intro" data-reveal="up">
+        <span class="section-number">{page.usageNumber}</span>
+        <p>{page.usageSubtitle}</p>
+        <h2>{page.usageTitle}</h2>
+      </header>
+      <div class="info-grid" data-reveal-group>
+        {page.usage.map((item, index) => (
+          <article class="info-card" data-reveal="rise">
+            <span class="info-card__index">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-section--sand">
+    <div class="container support-layout">
+      <div data-reveal="left">
+        <span class="section-number">{page.accountNumber}</span>
+        <p class="eyebrow">{page.accountSubtitle}</p>
+        <h2>{page.accountTitle}</h2>
+        <p>{page.accountLead}</p>
+        <a class="inline-link" href={basePath(routePath(lang))}>{page.homeLink}<span aria-hidden="true">→</span></a>
+      </div>
+      <article class="donation-card" data-reveal="right" data-spotlight data-tilt="5">
+        <div class="donation-card__top"><span>DONATION ACCOUNT</span><i aria-hidden="true"></i></div>
+        <dl>
+          <div><dt>BANK</dt><dd>{support.bank}</dd></div>
+          <div>
+            <dt>ACCOUNT</dt>
+            <dd>
+              <strong>{support.account}</strong>
+              <button type="button" data-copy-account={support.account} data-copy-label={copy.common.copy} data-copied-label={copy.common.copied}>{copy.common.copy}</button>
+            </dd>
+          </div>
+          <div><dt>HOLDER</dt><dd>{support.holder}</dd></div>
+        </dl>
+        <div class="donation-card__guide">
+          <p>{support.guide}</p>
+          <span>{support.example}</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container contact-section__grid">
+      <div data-reveal="left">
+        <span class="section-number">{page.contactNumber}</span>
+        <p class="eyebrow">{page.contactSubtitle}</p>
+        <h2>{page.contactTitle}</h2>
+        <p class="section-lead section-lead--light">{page.contactLead}</p>
+      </div>
+      <div class="contact-list" data-reveal-group>
+        <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" data-reveal="fade">
+          <span>INSTAGRAM</span><strong>{contact.instagram}</strong>
+        </a>
+        <div data-reveal="fade">
+          <span>PHONE</span><strong>{contact.phone}</strong><small>{contact.manager}</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

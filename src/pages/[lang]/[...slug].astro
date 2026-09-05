@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { archiveCategories, archiveItems, archiveLabels } from '../../data/activityArchive.js'
-import { basePath, content, languages, navItems, routeBySlug, routeEntries, routePath } from '../../data/site.js'
+import { basePath, content, homeSections, languages, routeBySlug, routeEntries, routePath } from '../../data/site.js'
 
 export function getStaticPaths() {
   return languages.flatMap((lang) => routeEntries.map(({ slug }) => ({
@@ -21,17 +21,17 @@ const archivePosts = archiveItems[lang]
 const archiveLink = basePath(routePath(lang, 'archive'))
 const asset = (path) => basePath(path)
 
-// 우측 스크롤스파이 레일 — 상단 내비게이션의 섹션 항목과 동일한 순서·라벨을 쓴다.
-const railItems = navItems.filter((item) => item.section)
+// 우측 스크롤스파이 레일 — HOME 섹션 순서를 그대로 따르고 라벨은 내비게이션과 공유한다.
+const railItems = homeSections
 ---
 
 <BaseLayout lang={lang} pageKey={pageKey} slug={slug} title={title} description={description}>
   {pageKey === 'home' && (
     <>
       <nav class="section-rail" data-section-rail hidden aria-label={copy.common.sectionRail}>
-        {railItems.map((item) => (
-          <a href={`#${item.section}`} data-rail-target={item.section}>
-            <span>{copy.nav[item.key]}</span><i aria-hidden="true"></i>
+        {railItems.map((section) => (
+          <a href={`#${section}`} data-rail-target={section}>
+            <span>{copy.nav[section]}</span><i aria-hidden="true"></i>
           </a>
         ))}
       </nav>
@@ -223,6 +223,7 @@ const railItems = navItems.filter((item) => item.section)
             <p class="eyebrow">{page.support.subtitle}</p>
             <h2>{page.support.title}</h2>
             <p>{page.support.description}</p>
+            <a class="inline-link" href={basePath(routePath(lang, 'support'))}>{copy.common.supportDetails}<span aria-hidden="true">→</span></a>
           </div>
           <article class="donation-card" data-reveal="right" data-spotlight data-tilt="5">
             <div class="donation-card__top"><span>DONATION ACCOUNT</span><i aria-hidden="true"></i></div>

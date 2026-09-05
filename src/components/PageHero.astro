@@ -1,0 +1,14 @@
+---
+/** 서브 페이지 공통 히어로. HOME의 풀스크린 히어로보다 낮고 조용한 변주. */
+const { eyebrow, title, lead } = Astro.props
+---
+
+<header class="page-hero">
+  <div class="page-hero__aurora" aria-hidden="true"></div>
+  <div class="container page-hero__content">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    {lead && <p class="page-hero__lead">{lead}</p>}
+    <div class="page-hero__rule" aria-hidden="true"><i></i><span>◆</span></div>
+  </div>
+</header>
