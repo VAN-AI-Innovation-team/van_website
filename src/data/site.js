@@ -123,7 +123,7 @@ export const content = {
         items: [
           { role: '대표', name: '정도대', affiliation: '연세대학교', image: '/assets/jdd_portrait2.min.jpg', careers: ['태성종합개발 부장', '국토환경뉴스 본부장', '시사평론가 · The Washington Post, The Paper 등', '북극성 정치경제연구소 겸 투자회사 부대표', 'Maxwell Leadership Institution 상임고문', 'ADONIS 교육사업체 공동대표', '서울대·연세대·고려대 사회과학 학회연 준비위원회 위원장', '연세대학교 JSC 사회과학학회 학회장 · 부학회장', '연세대학교 정치외교학과 학부 조교', '연세대학교 사회과학대 대외전략국 실무총괄', '연세대학교 총학생회 선거본부 정책국(지방선거 전담)', '연세대학교 와이들 스튜디오 부장', '연세대학교 사회과학대 범부회 총무', '청년기업인 대표 국회 라운드테이블 참여', 'WE-CAN-TALK(발달지체아동 언어학습) 개발', 'POLLITE(참여형 의회 플랫폼) 개발'] },
           { role: '부대표', name: '유수경', affiliation: '고려대학교', careers: ['고려대학교 스페인·라틴아메리카 연구소 협력', '라틴아메리카 경영전략 연구회 REÁL 부학회장', '고려대학교 총학생회 교육국원', '고려대학교 정치외교학과 학술자치국원', '고려대학교 정치외교학과 회칙개정특별위원회 위원', 'UNDP Ambassador', 'LATAM 커뮤니티 웹 개발(InBody 산학협력)'] },
-          { role: '실장', name: '유진아', affiliation: '이화여자대학교', careers: ['Weerawong C&P 로펌 근무', 'Yuen Law LLC 로펌 근무', 'TUMUN · MUICMUN · THAIMUN 의장', 'Yale MUN WHO 대표단', 'Singapore MUN Press', '유엔 총회(UNGA) 제1위원회 국가대표단', '한국 PTPI 운영진', '이화여대 PTPI 운영진'] },
+          { role: '기획조정실 실장', name: '유진아', affiliation: '이화여자대학교', careers: ['Weerawong C&P 로펌 근무', 'Yuen Law LLC 로펌 근무', 'TUMUN · MUICMUN · THAIMUN 의장', 'Yale MUN WHO 대표단', 'Singapore MUN Press', '유엔 총회(UNGA) 제1위원회 국가대표단', '한국 PTPI 운영진', '이화여대 PTPI 운영진'] },
         ],
       },
       advisory: {
@@ -191,7 +191,7 @@ export const content = {
         bank: '토스뱅크', account: '1002-3139-5718', holder: '정영일 · VAN 교류진흥부 제1차장',
         guide: '입금자명은 가급적 “성함+VAN후원” 형식으로 기재해주시기 바랍니다.', example: '예시 · 홍길동VAN후원',
       },
-      contact: { title: '연락처', subtitle: '연락처', instagram: '@veritas_van', instagramUrl: 'https://instagram.com/veritas_van', phone: '010-2685-9069', manager: '비서실 소속 수석비서관 정시언' },
+      contact: { title: '연락처', subtitle: '연락처', instagram: '@veritas_van', instagramUrl: 'https://instagram.com/veritas_van', phone: '010-3702-3101', manager: '기획조정실 실장 유진아' },
     },
     archive: { eyebrow: 'VAN ARCHIVE', title: '활동 기록', lead: 'HOME에 소개한 대표 활동 외 VAN의 학술·정책·공론장·미디어 활동을 기록합니다.' },
     footer: { line: '학문적 내실과 사회적 확장성의 균형을 추구합니다.', copyright: 'VAN · Veritas Academiae Nexus. All rights reserved.' },
@@ -250,7 +250,7 @@ export const content = {
         items: [
           { role: 'Representative', name: 'Dodae Jung', affiliation: 'Yonsei University', image: '/assets/jdd_portrait2.min.jpg', careers: ['Director, Taesung Development', 'Bureau chief, Kukto Environment News', 'Political commentator for The Washington Post and The Paper', 'Vice representative, Polaris Institute of Political Economy', 'Standing adviser, Maxwell Leadership Institution', 'Co-founder, ADONIS education venture', 'Chair, SNU–Yonsei–Korea Social Science Federation Preparatory Committee', 'President and Vice President, Yonsei JSC Social Science Society', 'Operations lead, External Strategy Bureau, Yonsei College of Social Sciences', 'Developer of WE-CAN-TALK language learning and the POLLITE civic platform'] },
           { role: 'Vice Representative', name: 'Sookyung Yoo', affiliation: 'Korea University', careers: ['Partner, Institute of Spanish and Latin American Studies, Korea University', 'Vice President, REÁL Latin America Management Strategy Society', 'Education Bureau, Korea University Student Council', 'Academic Self-Governance Bureau, Department of Political Science and International Relations', 'Member, Special Committee on Charter Revision', 'UNDP Ambassador', 'LATAM community web development (industry project with InBody)'] },
-          { role: 'Chief of Staff', name: 'Jina Yu', affiliation: 'Ewha Womans University', careers: ['Weerawong C&P', 'Yuen Law LLC', 'Chair of TUMUN, MUICMUN and THAIMUN', 'Yale MUN WHO delegation', 'Singapore MUN Press', 'National delegation, First Committee, UN General Assembly', 'Organising team, PTPI Korea', 'Organising team, PTPI Ewha'] },
+          { role: 'Chief, Planning and Coordination Office', name: 'Jina Yu', affiliation: 'Ewha Womans University', careers: ['Weerawong C&P', 'Yuen Law LLC', 'Chair of TUMUN, MUICMUN and THAIMUN', 'Yale MUN WHO delegation', 'Singapore MUN Press', 'National delegation, First Committee, UN General Assembly', 'Organising team, PTPI Korea', 'Organising team, PTPI Ewha'] },
         ],
       },
       advisory: {
@@ -318,7 +318,7 @@ export const content = {
         bank: 'Toss Bank', account: '1002-3139-5718', holder: 'Young-il Jung · First Deputy Director, External Relations',
         guide: 'When possible, use “Your Name + VAN” as the depositor name.', example: 'Example · HongGildongVAN',
       },
-      contact: { title: 'Contact', subtitle: 'Official Channels', instagram: '@veritas_van', instagramUrl: 'https://instagram.com/veritas_van', phone: '010-2685-9069', manager: 'Jeong Si-eon · Senior Secretary, Secretariat' },
+      contact: { title: 'Contact', subtitle: 'Official Channels', instagram: '@veritas_van', instagramUrl: 'https://instagram.com/veritas_van', phone: '010-3702-3101', manager: 'Jina Yu · Chief of the Planning and Coordination Office' },
     },
     archive: { eyebrow: 'VAN ARCHIVE', title: 'Activity Records', lead: 'Official records of VAN projects beyond the three representative activities shown on HOME.' },
     footer: { line: 'Balancing academic depth with social reach.', copyright: 'VAN · Veritas Academiae Nexus. All rights reserved.' },
