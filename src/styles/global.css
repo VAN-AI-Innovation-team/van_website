@@ -2930,6 +2930,65 @@ body::after {
 
 .terms-block li::before { position: absolute; left: 0; color: var(--accent); content: '—'; }
 
+/* 링커리어 모집 공고 링크. 주소를 그대로 노출해 누를 수 있는 링크임을 분명히 한다. */
+.posting-block { margin-top: 30px; }
+
+.posting-block__note {
+  margin: 0 0 12px;
+  color: var(--text-soft);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.posting-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 24px;
+  border: 1px solid color-mix(in srgb, var(--accent) 46%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: var(--text-strong);
+  text-decoration: none;
+  transition: border-color 420ms var(--ease-out), background-color 420ms var(--ease-out), transform 420ms var(--ease-out);
+}
+
+.posting-card:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  transform: translateY(-2px);
+}
+
+.posting-card__text { display: grid; gap: 5px; min-width: 0; }
+
+.posting-card__text strong {
+  font-family: var(--kr-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+.posting-card__url {
+  overflow-wrap: anywhere;
+  color: var(--accent-deep);
+  font-family: var(--display);
+  font-size: 13px;
+  letter-spacing: .02em;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.posting-card__arrow {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 18px;
+  transition: transform 420ms var(--ease-out);
+}
+
+.posting-card:hover .posting-card__arrow { transform: translateX(6px); }
+
 @media (max-width: 900px) {
   .dept-card { grid-template-columns: 44px minmax(0, 1fr); }
   .dept-card__meta { grid-column: 2; grid-template-columns: repeat(2, minmax(0, 1fr)); }
