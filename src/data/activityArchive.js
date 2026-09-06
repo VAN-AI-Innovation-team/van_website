@@ -1,4 +1,4 @@
-export const archiveCategories = ['FORUM', 'POLICY', 'MEDIA', 'NETWORK']
+export const archiveCategories = ['ACADEMIA', 'TECH', 'FINANCE', 'EDUCATION', 'POLICY', 'MEDIA', 'FORUM', 'NETWORK']
 
 export const archiveLabels = {
   ko: {
@@ -29,6 +29,83 @@ export const archiveLabels = {
 
 export const archiveItems = {
   ko: [
+    {
+      slug: 'essay-anthology-on-the-line',
+      category: 'ACADEMIA',
+      title: '공동 저서 『선 위에 선 우리들』 발간',
+      excerpt: 'VAN 상설연구조직이 청년 세대의 언어로 오늘의 사회적 쟁점을 기록한 사회비평 에세이집입니다.',
+      body: [
+        'VAN 상설연구조직은 청년들이 오늘의 한국 사회에 던지는 불편하지만 필요한 질문을 담은 사회비평 에세이집 『선 위에 선 우리들』을 출간했습니다. 모두가 문제를 느끼면서도 선뜻 말하지 못했던 사회적 쟁점들을 청년 세대의 경험과 언어로 기록한 공동 저서입니다.',
+        '본 도서는 특정한 결론이나 정답을 제시하기보다, 서로 다른 배경을 지닌 청년 필진이 각자의 경험과 문제의식을 바탕으로 오늘의 사회를 다시 질문하는 방식으로 구성했습니다. 개인의 일상에서 출발한 고민을 사회 구조와 연결함으로써, 청년을 사회 문제의 수동적 관찰자가 아닌 적극적인 발화자이자 비평의 주체로 조명했습니다.',
+        '구성은 존재의 선, 경쟁의 선, 갈등의 선, 관계의 선, 공동체의 선 다섯 개 부로 나뉩니다. 성공과 행복의 기준, 학벌주의의 심리적 기제, AI 시대의 대학 교육, 혐오와 갈등의 언어가 법과 정치 담론을 왜곡하는 방식, 결혼 제도의 존속 여부 등을 다룹니다. 원고와 전체 기획·편집 방향은 VAN 구성원과 외부 참여 필진이 직접 설계하고 집필했습니다.',
+      ],
+    },
+    {
+      slug: 'standing-research-seminars',
+      category: 'ACADEMIA',
+      title: '상설연구조직 격주 정기 세미나',
+      excerpt: '구성원이 직접 연구 주제를 선정하고 발제문을 작성해 토론하는 학기 중 정기 학술 프로그램입니다.',
+      body: [
+        'VAN은 상설연구조직을 운영하며 격주 정기 세미나를 통해 구성원 간 학술적 교류와 전문성 강화를 지속해오고 있습니다. 매 학기 구성원들은 각자의 전공 및 관심 분야를 바탕으로 연구 주제를 선정하고 발제문을 작성·발표하며, 참석자들과의 토론을 통해 다양한 관점에서 해당 주제를 심층적으로 논의합니다.',
+        '가장 최근 학기에는 양당제하의 경제 상황과 정치 양극화의 인과성 분석, 한국 국민연금의 구조적 한계와 해결책, 현대 한국 법률체계상 점유취득시효 제도의 모순, 정치적 다양성과 국정 효율성의 균형, 성별 간 시간당 임금격차의 실재성에 관한 실증연구를 주제로 세미나가 진행되었습니다.',
+        '구성원들이 각자의 전문 분야를 넘어 다양한 사회·정치·경제적 현상을 비판적으로 분석하고, 서로 다른 관점과 근거를 바탕으로 논의를 발전시키는 학술적 교류의 장을 학기마다 이어가고 있습니다.',
+      ],
+    },
+    {
+      slug: 'ai-innovation-bureau',
+      category: 'TECH',
+      title: 'AI 혁신부 업무 자동화 및 AI Researcher 개발',
+      excerpt: '반복 업무를 AI로 자동화하고 축적된 데이터를 기반으로 자체 AI 서비스를 개발하는 기술 조직입니다.',
+      body: [
+        'VAN 기획조정실 산하의 AI 혁신부는 반복적이고 비효율적인 조직 업무를 AI로 자동화하고, VAN이 축적해온 자료와 데이터를 기반으로 AI Researcher 및 자체 AI 서비스를 개발하는 기술 조직입니다. 기존 AI 서비스를 활용하는 것을 넘어 실제 업무 프로세스를 분석하고 필요한 시스템을 직접 기획·개발합니다.',
+        '진행 중인 개발 과제는 네 가지입니다. 대한민국 선거 시뮬레이션은 여론조사·세대·이념·정책 데이터를 종합하여 전국·시도·선거구별 결과와 복수의 시나리오를 예측합니다. AI 기사 제작·발행 시스템은 자료 수집부터 주제 추출, 기사 작성, 인명·수치·출처 검증까지 자동화합니다.',
+        '금융투자 리서치 AI 에이전트는 공시·실적·산업통계·정책·뉴스를 분석하여 기업·산업 리포트를 자동 생성하고, 대외업무 통합 AI 에이전트는 계약서 검토, 상대 기관 리서치, 미팅 안건 작성과 후속업무까지 지원합니다. 대학생 단체의 범위를 넘어 실제 서비스 개발과 AI 실무를 경험할 수 있는 환경을 제공합니다.',
+      ],
+    },
+    {
+      slug: 'burkenroad-style-equity-research',
+      category: 'FINANCE',
+      title: '한국형 버큰로드 리포트 프로젝트',
+      excerpt: '증권사 분석에서 소외된 중소형 상장기업을 직접 발굴해 기업분석 보고서를 발간하는 리서치 프로젝트입니다.',
+      body: [
+        '대외전략부 산하 금융투자리서치위원회는 국내 증권사와 전문 애널리스트의 분석에서 소외된 중소형 상장기업을 직접 발굴하고 분석하는 실무형 금융 리서치 조직입니다. 미국 툴레인대학교 학생들이 기업을 선정하고 현장을 방문해 경영진 인터뷰와 재무·산업분석을 수행한 버큰로드 리포트를 모델로 삼았습니다.',
+        '위원들은 팀별로 하나의 기업을 전담하여 기업·산업 리서치, 기업 방문 및 경영진 인터뷰, 재무분석 및 재무모델링, DCF·비교기업 분석을 통한 가치평가, 투자포인트 및 위험요인 도출, 전문가 검수의 전 과정을 수행합니다. 자료를 정리하는 데 그치지 않고 직접 기업을 찾아가 실제 사업과 경영진의 설명을 확인합니다.',
+        '완성된 결과물은 독립 기업분석 보고서로 발간하여 증권사·자산운용사·금융기관·언론·학계에 배포하고, 발간 이후에도 3·6·12개월 단위로 실제 실적과 시장의 변화를 추적합니다. 국내 중소형기업의 리서치 공백을 다루는 대학 연합 독립 리서치 프로젝트로 운영됩니다.',
+      ],
+    },
+    {
+      slug: 'jenga-africa-edtech',
+      category: 'EDUCATION',
+      title: '아프리카 교육 플랫폼 개발 프로젝트 JENGA',
+      excerpt: '아프리카의 교육 격차와 학습 기회 문제를 다루는 교육 플랫폼 개발 프로젝트입니다.',
+      body: [
+        '대외전략부 산하 아프리카에듀테크위원회는 아프리카의 교육 격차와 학습 기회 문제를 해결하기 위한 교육 플랫폼 개발 프로젝트 JENGA를 추진하고 있습니다. JENGA는 스와힐리어로 짓다, 건축하다라는 의미로, 작은 블록을 하나씩 쌓아 새로운 기회를 만들어간다는 비전을 담고 있습니다.',
+        'JENGA는 먼저 현지의 교육 환경과 학습자가 겪는 문제를 리서치와 인터뷰를 통해 조사하고, 이를 바탕으로 필요한 교육 콘텐츠와 학습 방식을 설계한 뒤 디지털 플랫폼으로 구현합니다. 이후 현지 교육기관과 협력하여 실제 학습자를 대상으로 파일럿을 운영하고, 여러 국가의 교육 봉사 동아리와 협업하여 대면·비대면 멘토링을 진행할 예정입니다.',
+        '기획 초기 단계임에도 각 분야에서 검증된 인재들이 참여하고 있습니다. 개발 부문에는 세계 해킹대회 9위 수상 경력을 보유한 개발자가, 교육 콘텐츠 부문에는 상위권 강사와 입시컨설턴트가 참여하며, 현지 네트워크 부문에서는 르완다 현지 주요 인사와의 협력을 추진하고 있습니다.',
+      ],
+    },
+    {
+      slug: 'the-sheerit-independent-press',
+      category: 'MEDIA',
+      title: '청년 독립언론 The Sheerit 창간 추진',
+      excerpt: '법인 설립과 정식 언론사 등록을 진행 중인 청년 독립언론 창간 프로젝트입니다.',
+      body: [
+        'VAN은 6.6만 팔로워의 인스타 매거진 철학투스타는 이렇게 말했다와 함께 청년 독립언론 The Sheerit의 창간을 추진하고 있습니다. The Sheerit은 남은 자를 의미하는 이름으로, 혼돈과 거짓 속에서도 진리를 지키고 폐허 위에 공론장을 다시 세운다는 의미를 담고 있으며, 법인 설립과 정식 언론사 등록을 진행 중입니다.',
+        'The Sheerit은 정치·사회·경제·국제·문화 등 분야별로 실제 취재·인터뷰·기사 작성과 편집을 진행하고, 기명 기사를 발행하는 언론사 형태로 운영할 예정입니다. 영상 제작, 카드뉴스 및 SNS 콘텐츠 제작, 광고·후원처 발굴, 기관·기업 대외협력 등 언론사 운영에 필요한 실무를 각 부서에서 직접 수행합니다.',
+        '현재 여러 대학 학회 및 청년단체와도 협력을 논의하고 있으며, 각 단체와 공동 취재팀을 구성하거나 단체의 전문 분야를 바탕으로 공동 기획기사·칼럼을 연재하는 방식의 협업을 추진하고 있습니다.',
+      ],
+    },
+    {
+      slug: 'global-university-network',
+      category: 'NETWORK',
+      title: '세계 대학 네트워크 구축',
+      excerpt: '세계 주요 대학의 학생회 지도부와 소통하며 글로벌 대학 총연합체 창설을 추진하고 있습니다.',
+      body: [
+        '기획조정실 산하 국제교류위원회는 연대의 지평을 한국을 넘어 세계로 확장하며, 해외 대학·학생회·청년단체·연구기관·기업 및 주요 인사와 직접 소통하여 글로벌 대학 네트워크를 구축하고 국제 공동 프로젝트를 추진합니다.',
+        '현재 MIT, Oxbridge, UCLA, Columbia, Toronto, NUS, UCL, NYU, Imperial College London, LSE, Sydney, Melbourne, HKU, KCL, McGill, Edinburgh, Manchester, British Columbia, Purdue, CUHK, Waterloo, Durham, Bristol, Alberta, Montréal, SMU, HKBU, SIT, SUSS 등 세계 유수 대학의 학생회 지도부와 긴밀하게 소통하며 대학 총연합체 창설을 추진하고 있습니다.',
+        '해외 대학 및 학생단체와의 지속적인 컨택을 바탕으로 공동성명서 발표와 학술교류 등 구체적인 협력 관계를 확대하고, 국가별 VAN 지사 설립과 영어 기반 학술 스터디, 다국가 공동 세미나 및 해커톤 등을 운영할 예정입니다.',
+      ],
+    },
     {
       slug: 'youth-roundtable-park-yong-jin',
       category: 'FORUM',
@@ -117,6 +194,69 @@ export const archiveItems = {
     },
   ],
   en: [
+    {
+      slug: 'essay-anthology-on-the-line', category: 'ACADEMIA', title: 'Co-authored Essay Anthology On the Line',
+      excerpt: 'A social-criticism anthology in which VAN’s standing research organisation records today’s contested issues in the language of its own generation.',
+      body: [
+        'VAN’s standing research organisation published On the Line, a collection of social-criticism essays carrying the uncomfortable but necessary questions young people put to Korean society today.',
+        'Rather than offering conclusions, contributors from different backgrounds re-examine society through their own experience. By connecting everyday concerns to social structures, the book casts young people as active speakers and critics rather than passive observers.',
+        'The anthology is organised in five parts on existence, competition, conflict, relationships and community, covering standards of success and happiness, the psychology of credentialism, university education in the age of AI, how the language of hatred distorts legal and political discourse, and the future of marriage as an institution.',
+      ],
+    },
+    {
+      slug: 'standing-research-seminars', category: 'ACADEMIA', title: 'Fortnightly Seminars of the Standing Research Organisation',
+      excerpt: 'A regular in-semester programme where members choose research topics, write papers and defend them in discussion.',
+      body: [
+        'VAN runs a standing research organisation whose fortnightly seminars sustain academic exchange among members. Each semester members select research topics in their own fields, write and present papers, and discuss them in depth with attendees.',
+        'Recent seminars examined the causal link between two-party politics and polarisation, structural limits of Korea’s national pension, contradictions in the doctrine of acquisitive prescription, the balance between political diversity and governing efficiency, and an empirical study of the gender hourly wage gap.',
+        'The programme continues each semester so that members analyse social, political and economic phenomena critically and develop arguments from differing perspectives and evidence.',
+      ],
+    },
+    {
+      slug: 'ai-innovation-bureau', category: 'TECH', title: 'Workflow Automation and AI Researcher Development',
+      excerpt: 'A technical team that automates repetitive work with AI and builds in-house AI services on VAN’s accumulated data.',
+      body: [
+        'The AI Innovation Bureau, under the Planning and Coordination Office, automates repetitive organisational work and develops an AI Researcher and in-house AI services on the data VAN has accumulated. It analyses actual workflows and builds the systems required rather than simply adopting existing tools.',
+        'Four projects are under way. An election simulation predicts national, provincial and district results across multiple scenarios from polling, generational, ideological and policy data. An AI article production system automates collection, topic extraction, drafting and verification of names, figures and sources.',
+        'A financial research agent generates company and industry reports from disclosures, earnings, industry statistics, policy and news. An external-affairs agent supports contract review, counterpart research, meeting agendas and follow-up work.',
+      ],
+    },
+    {
+      slug: 'burkenroad-style-equity-research', category: 'FINANCE', title: 'Burkenroad-style Equity Research Project',
+      excerpt: 'An independent research project covering small and mid-cap listed companies overlooked by brokerage analysts.',
+      body: [
+        'The Investment Research Committee, under the External Strategy Bureau, identifies and analyses small and mid-cap listed companies overlooked by domestic brokerages and analysts. It follows the Burkenroad Reports model, in which Tulane University students select companies, visit them and conduct management interviews alongside financial and industry analysis.',
+        'Teams take a single company through industry research, company visits and management interviews, financial analysis and modelling, valuation via DCF and comparable companies, investment points and risk factors, and expert review. Members verify the business and management explanations on site rather than only compiling documents.',
+        'Completed reports are published independently and distributed to brokerages, asset managers, financial institutions, media and academia, with actual results and market changes tracked at three, six and twelve months.',
+      ],
+    },
+    {
+      slug: 'jenga-africa-edtech', category: 'EDUCATION', title: 'JENGA, an Education Platform for Africa',
+      excerpt: 'A platform development project addressing educational gaps and access to learning in Africa.',
+      body: [
+        'The Africa EdTech Committee, under the External Strategy Bureau, is developing JENGA, an education platform addressing educational gaps and learning opportunity in Africa. JENGA means to build in Swahili, carrying the vision of creating opportunity block by block.',
+        'JENGA first researches local education environments and learner problems through interviews, then designs the content and learning methods required and implements them as a digital platform. Pilots with real learners follow in cooperation with local institutions, alongside in-person and remote mentoring with education volunteer groups in several countries.',
+        'Despite being at an early stage, the project already involves proven specialists: a developer who placed ninth in a global hacking competition, senior instructors and admissions consultants for content, and cooperation with figures holding broad networks in Rwanda.',
+      ],
+    },
+    {
+      slug: 'the-sheerit-independent-press', category: 'MEDIA', title: 'Launching The Sheerit, an Independent Youth Press',
+      excerpt: 'An independent youth news outlet currently completing incorporation and press registration.',
+      body: [
+        'With the Instagram magazine Philosophy Two-Star, which has 66,000 followers, VAN is launching The Sheerit, an independent youth press. The name means the remnant, carrying the sense of keeping truth amid confusion and rebuilding public discourse on the ruins. Incorporation and formal press registration are in progress.',
+        'The Sheerit will operate as a news organisation with reporting, interviews, writing and editing across politics, society, economy, international affairs and culture, publishing bylined articles. Video production, card news and social content, advertising and sponsorship, and institutional partnerships are handled by VAN bureaus.',
+        'Cooperation is under discussion with several university societies and youth organisations, including joint reporting teams and co-planned series drawing on each group’s expertise.',
+      ],
+    },
+    {
+      slug: 'global-university-network', category: 'NETWORK', title: 'Building a Global University Network',
+      excerpt: 'Work with student leaders at major world universities toward a global federation of universities.',
+      body: [
+        'The International Exchange Committee, under the Planning and Coordination Office, extends VAN’s solidarity beyond Korea, communicating directly with overseas universities, student bodies, youth organisations, research institutes, companies and key figures to build a global university network and pursue joint international projects.',
+        'VAN is in close contact with student leadership at MIT, Oxbridge, UCLA, Columbia, Toronto, NUS, UCL, NYU, Imperial College London, LSE, Sydney, Melbourne, HKU, KCL, McGill, Edinburgh, Manchester, British Columbia, Purdue, CUHK, Waterloo, Durham, Bristol, Alberta, Montréal, SMU, HKBU, SIT and SUSS, working toward the founding of a federation of universities.',
+        'On that basis VAN is expanding concrete cooperation such as joint statements and academic exchange, and plans national VAN chapters, English-language study groups, and multi-country seminars and hackathons.',
+      ],
+    },
     {
       slug: 'youth-roundtable-park-yong-jin', category: 'FORUM', title: 'Youth Roundtable with Former Assembly Member Park Yong-jin',
       excerpt: 'A town-hall-style youth policy conversation held near the National Assembly in Yeouido.',
