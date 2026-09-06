@@ -101,17 +101,17 @@ const [title, description] = copy.meta.support
         <a class="inline-link" href={basePath(routePath(lang))} data-magnetic="8">{page.homeLink}<span aria-hidden="true">→</span></a>
       </div>
       <article class="donation-card" data-reveal="right" data-spotlight data-tilt="5">
-        <div class="donation-card__top"><span>DONATION ACCOUNT</span><i aria-hidden="true"></i></div>
+        <div class="donation-card__top"><span>{copy.common.donationAccount}</span><i aria-hidden="true"></i></div>
         <dl>
-          <div><dt>BANK</dt><dd>{support.bank}</dd></div>
+          <div><dt>{copy.common.bank}</dt><dd>{support.bank}</dd></div>
           <div>
-            <dt>ACCOUNT</dt>
+            <dt>{copy.common.accountNumber}</dt>
             <dd>
               <strong>{support.account}</strong>
               <button type="button" data-copy-account={support.account} data-copy-label={copy.common.copy} data-copied-label={copy.common.copied}>{copy.common.copy}</button>
             </dd>
           </div>
-          <div><dt>HOLDER</dt><dd>{support.holder}</dd></div>
+          <div><dt>{copy.common.holder}</dt><dd>{support.holder}</dd></div>
         </dl>
         <div class="donation-card__guide">
           <p>{support.guide}</p>
@@ -131,10 +131,10 @@ const [title, description] = copy.meta.support
       </div>
       <div class="contact-list" data-reveal-group>
         <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" data-reveal="fade">
-          <span>INSTAGRAM</span><strong>{contact.instagram}</strong>
+          <span>{copy.common.instagram}</span><strong>{contact.instagram}</strong>
         </a>
         <div data-reveal="fade">
-          <span>PHONE</span><strong>{contact.phone}</strong><small>{contact.manager}</small>
+          <span>{copy.common.phone}</span><strong>{contact.phone}</strong><small>{contact.manager}</small>
         </div>
       </div>
     </div>

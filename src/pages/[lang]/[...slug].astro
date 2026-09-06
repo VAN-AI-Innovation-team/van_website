@@ -73,7 +73,7 @@ const heroParticles = [
             </ul>
           </div>
         </div>
-        <a class="official-hero__scroll" href="#about"><span>SCROLL</span><i aria-hidden="true"></i></a>
+        <a class="official-hero__scroll" href="#about"><span>{copy.common.scroll}</span><i aria-hidden="true"></i></a>
       </section>
 
 <section id="activities" class="home-section home-section--ink activity-section" data-spotlight>
@@ -299,11 +299,11 @@ const heroParticles = [
             <a class="inline-link" href={basePath(routePath(lang, 'support'))} data-magnetic="8">{copy.common.supportDetails}<span aria-hidden="true">→</span></a>
           </div>
           <article class="donation-card" data-reveal="right" data-spotlight data-tilt="5">
-            <div class="donation-card__top"><span>DONATION ACCOUNT</span><i aria-hidden="true"></i></div>
+            <div class="donation-card__top"><span>{copy.common.donationAccount}</span><i aria-hidden="true"></i></div>
             <dl>
-              <div><dt>BANK</dt><dd>{page.support.bank}</dd></div>
-              <div><dt>ACCOUNT</dt><dd><strong>{page.support.account}</strong><button type="button" data-copy-account={page.support.account} data-copy-label={copy.common.copy} data-copied-label={copy.common.copied}>{copy.common.copy}</button></dd></div>
-              <div><dt>HOLDER</dt><dd>{page.support.holder}</dd></div>
+              <div><dt>{copy.common.bank}</dt><dd>{page.support.bank}</dd></div>
+              <div><dt>{copy.common.accountNumber}</dt><dd><strong>{page.support.account}</strong><button type="button" data-copy-account={page.support.account} data-copy-label={copy.common.copy} data-copied-label={copy.common.copied}>{copy.common.copy}</button></dd></div>
+              <div><dt>{copy.common.holder}</dt><dd>{page.support.holder}</dd></div>
             </dl>
             <div class="donation-card__guide"><p>{page.support.guide}</p><span>{page.support.example}</span></div>
           </article>
@@ -314,8 +314,8 @@ const heroParticles = [
         <div class="container contact-section__grid">
           <div data-reveal="left"><p class="eyebrow">{page.contact.subtitle}</p><h2>{page.contact.title}</h2></div>
           <div class="contact-list" data-reveal-group>
-            <a href={page.contact.instagramUrl} target="_blank" rel="noopener noreferrer" data-reveal="fade"><span>INSTAGRAM</span><strong>{page.contact.instagram}</strong></a>
-            <div data-reveal="fade"><span>PHONE</span><strong>{page.contact.phone}</strong><small>{page.contact.manager}</small></div>
+            <a href={page.contact.instagramUrl} target="_blank" rel="noopener noreferrer" data-reveal="fade"><span>{copy.common.instagram}</span><strong>{page.contact.instagram}</strong></a>
+            <div data-reveal="fade"><span>{copy.common.phone}</span><strong>{page.contact.phone}</strong><small>{page.contact.manager}</small></div>
           </div>
         </div>
       </section>
