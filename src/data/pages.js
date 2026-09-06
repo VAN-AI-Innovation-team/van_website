@@ -157,6 +157,8 @@ export const supportPage = {
     waysSubtitle: '후원 방식',
     waysTitle: '세 가지 방식으로 후원할 수 있습니다',
     waysLead: '후원의 목적과 규모에 따라 아래 세 가지 중에서 선택하실 수 있습니다. 어느 방식이든 사용 내역은 기록으로 남기고 공개합니다.',
+    waysContactTitle: '후원 참여 및 문의',
+    waysContactLead: '세 방식 모두 아래 창구로 안내드립니다. 눌러서 바로 연결하실 수 있습니다.',
     ways: [
       {
         tag: 'BOOK FUNDING',
@@ -172,7 +174,8 @@ export const supportPage = {
         title: '개인 후원',
         body: '매월 일정 금액을 후원하는 방식입니다. 아래 금액대 중에서 선택하실 수 있고, 부담 없는 수준에서 시작해 언제든 조정하실 수 있습니다.',
         tiers: ['월 1만원', '월 3만원', '월 5만원', '월 10만원'],
-        note: '정기 후원자께는 월간 활동 리포트를 보내드릴 예정입니다.',
+        points: ['아래 후원 계좌로 매월 자동이체를 설정해주시면 됩니다', '후원을 시작하셨다면 문의처로 한 번 알려주세요'],
+        note: '연락처를 남겨주신 정기 후원자께는 월간 활동 리포트를 보내드릴 예정입니다.',
       },
       {
         tag: 'PARTNERSHIP',
@@ -221,6 +224,8 @@ export const supportPage = {
     waysSubtitle: 'Ways to Give',
     waysTitle: 'Three ways to support VAN',
     waysLead: 'Choose the route that fits your purpose and scale. However you give, we document how the funds are used and publish that record.',
+    waysContactTitle: 'Getting started and questions',
+    waysContactLead: 'All three routes are handled through the channels below. Tap to get in touch directly.',
     ways: [
       {
         tag: 'BOOK FUNDING',
@@ -236,7 +241,8 @@ export const supportPage = {
         title: 'Individual giving',
         body: 'Give a set amount each month. Choose one of the tiers below, start at a level you are comfortable with and adjust it at any time.',
         tiers: ['KRW 10,000 / month', 'KRW 30,000 / month', 'KRW 50,000 / month', 'KRW 100,000 / month'],
-        note: 'Monthly donors will receive a monthly activity report.',
+        points: ['Set up a monthly standing order to the account below', 'Let us know once you have started so we can add you to the list'],
+        note: 'Monthly donors who leave their contact details will receive a monthly activity report.',
       },
       {
         tag: 'PARTNERSHIP',
