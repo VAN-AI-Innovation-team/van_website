@@ -95,6 +95,21 @@ const heroParticles = [
               </article>
             ))}
           </div>
+          {page.activities.domains && (
+            <div class="domain-grid" data-reveal-group>
+              {page.activities.domains.map((domain, index) => (
+                <article class="domain-card" data-reveal="up">
+                  <p class="domain-card__head">
+                    <span class="domain-card__index">{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{domain.field}</strong>
+                    <em>{domain.kr}</em>
+                  </p>
+                  <ul>{domain.items.map((item) => <li>{item}</li>)}</ul>
+                </article>
+              ))}
+            </div>
+          )}
+
           <a class="inline-link inline-link--light" href={archiveLink} data-reveal="up" data-magnetic="8">{copy.common.archive}<span aria-hidden="true">→</span></a>
         </div>
       </section>
@@ -137,11 +152,20 @@ const heroParticles = [
             <ol class="conference-program" data-reveal-group>
               {page.conference.program.map((item, index) => <li data-reveal="up"><span>0{index + 1}</span>{item}</li>)}
             </ol>
+            {page.conference.programNote && (
+              <p class="program-note" data-reveal="up">{page.conference.programNote}</p>
+            )}
             <div class="session-stack" data-reveal-group>
               {page.conference.sessions.map((session) => (
                 <article data-reveal="right"><h3>{session.title}</h3><ul>{session.people.map((person) => <li>{person}</li>)}</ul></article>
               ))}
             </div>
+            {page.conference.partners && (
+              <div class="partner-strip" data-reveal="up">
+                <h3>{page.conference.partnersTitle}</h3>
+                <ul>{page.conference.partners.map((name) => <li>{name}</li>)}</ul>
+              </div>
+            )}
           </div>
         </div>
       </section>

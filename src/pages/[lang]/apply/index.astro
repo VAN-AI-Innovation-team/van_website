@@ -22,7 +22,11 @@ const hasDetails = hasRecruitmentDetails(lang)
 const facts = [
   [page.labels.period, recruitment.period[lang]],
   [page.labels.eligibility, recruitment.eligibility[lang]],
+  [page.labels.fee, recruitment.fee[lang]],
+  [page.labels.contact, `${recruitment.contact.person[lang]} · ${recruitment.contact.phone} · ${recruitment.contact.email}`],
 ].filter(([, value]) => Boolean(value))
+const departments = recruitment.departments[lang]
+const terms = recruitment.terms[lang]
 const processSteps = recruitment.process[lang]
 ---
 
@@ -54,10 +58,51 @@ const processSteps = recruitment.process[lang]
               ))}
             </ol>
           )}
+          {recruitment.postingUrl && (
+            <a class="inline-link" href={recruitment.postingUrl} target="_blank" rel="noopener noreferrer" data-magnetic="8">
+              {page.postingLink}<span aria-hidden="true">→</span>
+            </a>
+          )}
         </div>
       ) : (
         <p class="notice" data-reveal="up">{page.overviewPending}</p>
       )}
+    </div>
+  </section>
+
+  <section class="home-section home-section--mist">
+    <div class="container">
+      <header class="section-intro" data-ghost={page.deptNumber} data-reveal="up">
+        <div class="section-intro__band">
+          <span class="section-number">{page.deptNumber}</span>
+          <p>{page.deptSubtitle}</p>
+          <i aria-hidden="true"></i>
+        </div>
+        <h2 data-split>{page.deptTitle}</h2>
+      </header>
+      <p class="section-lead section-lead--wide" data-reveal="up">{page.deptLead}</p>
+
+      <div class="dept-list" data-reveal-group>
+        {departments.map((dept, index) => (
+          <article class="dept-card" data-reveal="up" data-tilt="3">
+            <span class="dept-card__index">{String(index + 1).padStart(2, '0')}</span>
+            <div class="dept-card__body">
+              <h3>{dept.name}</h3>
+              <p class="dept-card__summary">{dept.summary}</p>
+              <p class="dept-card__fit"><strong>{page.deptFitLabel}</strong>{dept.fit}</p>
+            </div>
+            <dl class="dept-card__meta">
+              <div><dt>{page.deptPlaceLabel}</dt><dd>{dept.place}</dd></div>
+              <div><dt>{page.deptTimeLabel}</dt><dd>{dept.time}</dd></div>
+            </dl>
+          </article>
+        ))}
+      </div>
+
+      <div class="terms-block" data-reveal="up">
+        <h3>{page.termsTitle}</h3>
+        <ul>{terms.map((term) => <li>{term}</li>)}</ul>
+      </div>
     </div>
   </section>
 

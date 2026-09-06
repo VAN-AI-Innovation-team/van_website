@@ -17,14 +17,104 @@
  */
 export const recruitment = {
   cycle: '26-2',
-  /** 지원서 폼 URL. 예: 'https://forms.gle/...' */
-  applyUrl: '',
-  /** 모집 기간. 예: '2026. 09. 07.(월) – 09. 21.(월) 23:59' */
-  period: { ko: '', en: '' },
-  /** 모집 대상. 예: '서울권 대학 재학·휴학생' */
-  eligibility: { ko: '', en: '' },
-  /** 전형 절차 단계. 예: ['서류 접수', '1차 서류 심사', '2차 면접', '최종 합격 발표'] */
-  process: { ko: [], en: [] },
+
+  /** 지원서 폼. 링커리어 공고에 게시된 공식 접수 경로입니다. */
+  applyUrl: 'https://forms.gle/xdHAfKoom6HfNpgq6',
+
+  /** 링커리어 모집 공고. 전체 안내를 원하는 지원자에게 연결합니다. */
+  postingUrl: 'https://linkareer.com/activity/336282',
+
+  period: {
+    ko: '2026. 9. 8.(화) 23:59 마감',
+    en: 'Closes 8 September 2026, 23:59 KST',
+  },
+  eligibility: {
+    ko: '대학 무관 · 전공 무관 · 재학생 · 휴학생 · 졸업생 모두 지원 가능',
+    en: 'Open to students of any university and major, including those on leave and graduates',
+  },
+  fee: {
+    ko: '35,000원 · 서류 합격자에 한해 개별 안내',
+    en: 'KRW 35,000 · details sent individually to shortlisted applicants',
+  },
+
+  /** 공고에 명시된 단계만 적습니다. 확인되지 않은 전형 단계를 추가하지 않습니다. */
+  process: {
+    ko: ['지원서 접수', '서류 심사', '합격자 개별 안내'],
+    en: ['Application', 'Document screening', 'Individual notice to successful applicants'],
+  },
+
+  contact: {
+    person: { ko: '실장 유진아', en: 'Jina Yu, Chief of Staff' },
+    phone: '010-3702-3101',
+    email: 'veritas_van@naver.com',
+  },
+
+  /**
+   * 모집 부서. 지원자는 주 1회 대면 업무에 참여할 수 있는 부서를 선택합니다.
+   * 장소·일시는 운영 상황에 따라 조정될 수 있습니다.
+   */
+  departments: {
+    ko: [
+      {
+        name: '기획조정실',
+        summary: '내부 운영체계 고도화, AI 기반 업무 자동화 시스템 구축, 전사적 주요 사업 기획·총괄, 정부·기관 지원사업 발굴 및 제안서 작성',
+        fit: '조직 운영체계와 업무 프로세스 설계에 관심이 있고, AI·협업 도구로 복잡한 업무를 체계화하는 데 자신 있는 분',
+        place: '안암',
+        time: '일요일 15:00–17:00',
+      },
+      {
+        name: '대외전략부',
+        summary: '교육계·언론계·법조계·정계·금융계 등 분야별 네트워크 구축, 외부 단체·기관과의 연합 프로젝트 기획, 업무협약·후원·협력 제안 및 비즈니스 미팅',
+        fit: '여러 단체를 연결해 큰 프로젝트를 기획하고 싶고, 협상·제안·컨택 역량을 키우고 싶은 분',
+        place: '미정',
+        time: '미정',
+      },
+      {
+        name: '사업운영부',
+        summary: '주요 행사 현장 운영, 자체 사업 및 소규모 협력 사업 기획·운영, 구성원 교류진흥 프로그램 총괄, 참가자·인력·동선·운영체계 관리',
+        fit: '행사의 실질적인 운영과 실행에 관심이 있고, 사람과 현장을 관리하는 과정에 흥미가 있는 분',
+        place: '안암',
+        time: '목요일 19:00–21:00',
+      },
+      {
+        name: '콘텐츠마케팅부',
+        summary: '인터뷰·홍보영상 콘텐츠 기획 및 편집, 대외 네트워킹 채널 운영, 온·오프라인 홍보 및 마케팅 전략 수립, 카드뉴스·포스터·영상 제작',
+        fit: '영상 콘텐츠와 마케팅 전략에 관심이 있고, 자신의 콘텐츠를 실제 브랜딩 성과로 연결하고 싶은 분',
+        place: '신촌',
+        time: '화요일 19:00–21:00',
+      },
+      {
+        name: '상설연구조직',
+        summary: '학기 중 공개세미나 2~3회 진행, 연구·정책·외부 프로젝트 8회 이상 수행, 정책보고서 및 연구 결과물 작성, 공모전·학술대회·외부 연구사업 참여',
+        fit: '기관·단체의 외부 연구 및 정책 프로젝트에 참여하고 싶고, 정책보고서·논문을 직접 써보고 싶은 분',
+        place: '신촌',
+        time: '일요일 15:00–17:00',
+      },
+    ],
+    en: [
+      { name: 'Planning & Coordination Office', summary: 'Internal operating systems, AI-based workflow automation, organisation-wide project planning, and public grant proposals.', fit: 'Interested in designing operating systems and workflows, confident with AI and collaboration tools.', place: 'Anam', time: 'Sun 15:00–17:00' },
+      { name: 'External Strategy Bureau', summary: 'Sector networks across education, media, law, politics and finance; joint projects with outside organisations; partnership, sponsorship and business meetings.', fit: 'Wants to connect organisations into larger projects and build negotiation and outreach skills.', place: 'TBC', time: 'TBC' },
+      { name: 'Operations Bureau', summary: 'On-site operation of major events, planning and running in-house and partner projects, member exchange programmes, participant and logistics management.', fit: 'Interested in the practical execution of events and in managing people and venues.', place: 'Anam', time: 'Thu 19:00–21:00' },
+      { name: 'Content & Marketing Bureau', summary: 'Interview and promotional video content, external networking channels, on- and offline marketing strategy, card news, posters and video production.', fit: 'Interested in video content and marketing strategy, wants to turn content into brand results.', place: 'Sinchon', time: 'Tue 19:00–21:00' },
+      { name: 'Standing Research Organisation', summary: 'Two to three open seminars per semester, eight or more research and policy projects, policy reports and research outputs, competitions and academic conferences.', fit: 'Wants to join external research and policy projects and write policy reports first-hand.', place: 'Sinchon', time: 'Sun 15:00–17:00' },
+    ],
+  },
+
+  /** 활동 방식. 공고에 명시된 내용만 담습니다. */
+  terms: {
+    ko: [
+      '부서별 주 1회 대면 업무 겸 회의, 그 외 업무는 온라인 병행',
+      '중간·기말고사 기간에는 정규 대면 회의를 진행하지 않습니다',
+      '1년 이상 활동자에게 VAN 명의 공식 활동인증서 발급',
+      '매 학기 우수 활동자 선정 및 시상, 최우수 활동자는 인턴십·채용 추천 연계',
+    ],
+    en: [
+      'One in-person meeting per week per bureau; other work runs online',
+      'No regular in-person meetings during midterm and final exam periods',
+      'Official certificate of activity for members who stay one year or longer',
+      'Outstanding members recognised each semester; top members referred for internships and hiring',
+    ],
+  },
 }
 
 /** 모집 요강에 표시할 항목이 하나라도 있는지 여부. */
@@ -39,11 +129,11 @@ export function hasRecruitmentDetails(lang) {
 
 export const supportPage = {
   ko: {
-    eyebrow: 'SUPPORT VAN',
+    eyebrow: '후원 안내',
     title: '후원 안내',
     lead: '후원금은 VAN의 지속적인 학술·공익 활동, 청년 공론장 조성, 컨퍼런스 및 연계 프로젝트 운영을 위한 재원으로 소중히 사용됩니다.',
     usageNumber: '01',
-    usageSubtitle: 'Where Your Support Goes',
+    usageSubtitle: '후원금 사용처',
     usageTitle: '후원금은 이렇게 쓰입니다',
     usage: [
       {
@@ -64,11 +154,11 @@ export const supportPage = {
       },
     ],
     accountNumber: '02',
-    accountSubtitle: 'Donation Account',
+    accountSubtitle: '후원 계좌',
     accountTitle: '후원 계좌',
     accountLead: '아래 계좌로 후원해주시면 됩니다. 계좌번호는 복사 버튼으로 바로 옮길 수 있습니다.',
     contactNumber: '03',
-    contactSubtitle: 'Contact',
+    contactSubtitle: '문의',
     contactTitle: '후원 문의',
     contactLead: '후원 절차나 사용 내역에 대해 문의하실 내용이 있으시면 공식 채널로 연락해주세요. 담당자가 안내드립니다.',
     homeLink: 'VAN 단체 소개 보기',
@@ -112,20 +202,29 @@ export const supportPage = {
 
 export const applyPage = {
   ko: {
-    eyebrow: 'RECRUITMENT · 26-2',
+    eyebrow: '26-2학기 실무진 공개 모집',
     title: '26-2 리크루팅',
-    lead: 'VAN은 서울대학교·연세대학교·고려대학교를 중심으로 형성된 서울권 대학 학회들의 총연합체입니다. 진리를 성실히 탐구하고, 탐구한 진리를 사회에 비추는 일에 함께할 구성원을 찾습니다.',
+    lead: 'VAN은 서울대학교·연세대학교·고려대학교의 학회 연대에서 출발해 전국 대학의 우수 학회와 학술단체를 포괄하는 총연합체입니다. 학회 활동에 참여하는 데 그치지 않고, 직접 사업을 기획하고 외부 기관과 협력하며 자신의 아이디어를 실제 성과로 만들 실무진을 모집합니다.',
     overviewNumber: '01',
-    overviewSubtitle: 'Overview',
+    overviewSubtitle: '모집 개요',
     overviewTitle: '모집 개요',
     overviewPending: '26-2 모집 기간과 지원 방법은 확정되는 즉시 이 페이지와 공식 인스타그램에 함께 공지됩니다. 이 페이지 주소는 기수와 무관하게 유지되므로, QR이나 링크를 저장해두시면 공지 후 바로 확인하실 수 있습니다.',
-    labels: { period: '모집 기간', eligibility: '모집 대상', process: '전형 절차', link: '지원 링크' },
-    workNumber: '02',
-    workSubtitle: 'What You Will Work On',
+    labels: { period: '모집 기간', eligibility: '모집 대상', process: '전형 절차', fee: '회비', link: '지원 링크', contact: '문의' },
+    deptNumber: '02',
+    deptSubtitle: '모집 부서',
+    deptTitle: '어느 부서로 지원하나요',
+    deptLead: '지원자는 주 1회 대면 업무에 참여할 수 있는 부서를 선택합니다. 장소와 일시는 운영 상황에 따라 조정될 수 있습니다.',
+    deptFitLabel: '이런 분께 맞습니다',
+    deptPlaceLabel: '장소',
+    deptTimeLabel: '일시',
+    termsTitle: '활동 방식',
+    postingLink: '링커리어 공고에서 전체 안내 보기',
+    workNumber: '03',
+    workSubtitle: '담당 업무',
     workTitle: '어떤 일을 하게 되나요',
     workLead: 'VAN의 구성원은 아래와 같은 프로젝트를 직접 기획하고 기록합니다. 모두 실제로 진행해 온 활동입니다.',
-    orgNumber: '03',
-    orgSubtitle: 'The Structure',
+    orgNumber: '04',
+    orgSubtitle: '조직 구조',
     orgTitle: '어떤 조직과 함께하나요',
     orgLead: '대표단과 실무진, 그리고 각 분야의 실무 고문단과 지도교수단으로 구성된 자문위원회가 함께 움직입니다. 학생자치기구의 임기 교체와 무관하게 상시로 작동하는 구조이기 때문에, 한 학기의 활동이 다음 학기의 자산으로 남습니다.',
     orgPoints: [
@@ -133,8 +232,8 @@ export const applyPage = {
       { title: '자문 구조', body: '지도교수단과 전문가 자문위원단이 연구와 프로젝트에 구조적으로 결합합니다.' },
       { title: '기록과 축적', body: '활동을 자료실에 기록으로 남겨 다음 기수가 이어받을 수 있게 합니다.' },
     ],
-    ctaNumber: '04',
-    ctaSubtitle: 'Apply',
+    ctaNumber: '05',
+    ctaSubtitle: '지원 방법',
     ctaTitle: '지원하기',
     ctaButton: '지원서 작성하기',
     ctaFallback: '아직 지원 폼이 열리지 않았습니다. 공식 인스타그램을 팔로우해두시면 모집 시작을 가장 먼저 안내드립니다.',
@@ -145,17 +244,26 @@ export const applyPage = {
   en: {
     eyebrow: 'RECRUITMENT · 26-2',
     title: 'Join VAN 26-2',
-    lead: 'VAN is a federation of university academic societies centered on Seoul National University, Yonsei University and Korea University. We are looking for members who want to pursue truth rigorously and bring it to bear on society.',
+    lead: 'VAN is a federation of leading academic societies across Korean universities, founded on an alliance among Seoul National, Yonsei and Korea University. We are recruiting members who want to plan projects, work with outside institutions and turn their own ideas into results.',
     overviewNumber: '01',
     overviewSubtitle: 'Overview',
     overviewTitle: 'Recruitment overview',
     overviewPending: 'The 26-2 application window and process will be announced here and on our official Instagram as soon as they are confirmed. This page keeps the same address across cycles, so a saved QR or link will still work after the announcement.',
-    labels: { period: 'Period', eligibility: 'Who can apply', process: 'Process', link: 'Application' },
-    workNumber: '02',
+    labels: { period: 'Period', eligibility: 'Who can apply', process: 'Process', fee: 'Membership fee', link: 'Application', contact: 'Contact' },
+    deptNumber: '02',
+    deptSubtitle: 'Bureaus',
+    deptTitle: 'Which bureau will you join',
+    deptLead: 'Applicants choose a bureau whose weekly in-person meeting they can attend. Venues and times may be adjusted.',
+    deptFitLabel: 'A good fit if you',
+    deptPlaceLabel: 'Venue',
+    deptTimeLabel: 'When',
+    termsTitle: 'How the work runs',
+    postingLink: 'Read the full notice on Linkareer',
+    workNumber: '03',
     workSubtitle: 'What You Will Work On',
     workTitle: 'What you will work on',
     workLead: 'Members plan and document projects like the ones below. All of them are work VAN has actually carried out.',
-    orgNumber: '03',
+    orgNumber: '04',
     orgSubtitle: 'The Structure',
     orgTitle: 'The structure you join',
     orgLead: 'A representative council and operating staff work alongside an Advisory Council of professional advisers and faculty advisers. Because the structure runs independently of student-government terms, one semester’s work becomes the next semester’s foundation.',
@@ -164,7 +272,7 @@ export const applyPage = {
       { title: 'Advisory structure', body: 'Faculty advisers and professional advisers are built into research and projects.' },
       { title: 'Records that accumulate', body: 'Work is documented in the archive so the next cohort can build on it.' },
     ],
-    ctaNumber: '04',
+    ctaNumber: '05',
     ctaSubtitle: 'Apply',
     ctaTitle: 'Apply',
     ctaButton: 'Open the application form',
