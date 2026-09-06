@@ -25,6 +25,8 @@ const facts = [
   [page.labels.fee, recruitment.fee[lang]],
   [page.labels.contact, `${recruitment.contact.person[lang]} · ${recruitment.contact.phone} · ${recruitment.contact.email}`],
 ].filter(([, value]) => Boolean(value))
+// 링커리어 공고는 주소를 그대로 노출해 눌러서 이동할 수 있음을 분명히 합니다.
+const postingDisplayUrl = recruitment.postingUrl?.replace(/^https?:\/\//, '').replace(/\/$/, '')
 const departments = recruitment.departments[lang]
 const terms = recruitment.terms[lang]
 const processSteps = recruitment.process[lang]
@@ -59,9 +61,16 @@ const processSteps = recruitment.process[lang]
             </ol>
           )}
           {recruitment.postingUrl && (
-            <a class="inline-link" href={recruitment.postingUrl} target="_blank" rel="noopener noreferrer" data-magnetic="8">
-              {page.postingLink}<span aria-hidden="true">→</span>
-            </a>
+            <div class="posting-block">
+              <p class="posting-block__note">{page.postingNote}</p>
+              <a class="posting-card" href={recruitment.postingUrl} target="_blank" rel="noopener noreferrer" data-magnetic="8">
+                <span class="posting-card__text">
+                  <strong>{page.postingLink}</strong>
+                  <span class="posting-card__url">{postingDisplayUrl}</span>
+                </span>
+                <span class="posting-card__arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
           )}
         </div>
       ) : (
@@ -164,6 +173,9 @@ const processSteps = recruitment.process[lang]
         ? <a class="cta-button" data-magnetic="12" href={recruitment.applyUrl} target="_blank" rel="noopener noreferrer">{page.ctaButton}<span aria-hidden="true">→</span></a>
         : <p class="notice notice--inline">{page.ctaFallback}</p>}
       <div class="apply-cta__channels">
+        {recruitment.postingUrl && (
+          <a class="button-link" href={recruitment.postingUrl} target="_blank" rel="noopener noreferrer">{page.ctaPosting}<span aria-hidden="true">→</span></a>
+        )}
         <a class="button-link" href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">{contact.instagram}<span aria-hidden="true">→</span></a>
       </div>
     </div>

@@ -25,8 +25,8 @@ export const recruitment = {
   postingUrl: 'https://linkareer.com/activity/336282',
 
   period: {
-    ko: '2026. 9. 8.(화) 23:59 마감',
-    en: 'Closes 8 September 2026, 23:59 KST',
+    ko: '2026. 9. 15.(화) 23:59 마감',
+    en: 'Closes 15 September 2026, 23:59 KST',
   },
   eligibility: {
     ko: '대학 무관 · 전공 무관 · 재학생 · 휴학생 · 졸업생 모두 지원 가능',
@@ -218,7 +218,9 @@ export const applyPage = {
     deptPlaceLabel: '장소',
     deptTimeLabel: '일시',
     termsTitle: '활동 방식',
-    postingLink: '링커리어 공고에서 전체 안내 보기',
+    postingLink: '링커리어 모집 공고 바로가기',
+    postingNote: '아래 링크를 누르면 링커리어 공고 페이지로 이동합니다.',
+    ctaPosting: '링커리어 공고 보기',
     workNumber: '03',
     workSubtitle: '담당 업무',
     workTitle: '어떤 일을 하게 되나요',
@@ -258,7 +260,9 @@ export const applyPage = {
     deptPlaceLabel: 'Venue',
     deptTimeLabel: 'When',
     termsTitle: 'How the work runs',
-    postingLink: 'Read the full notice on Linkareer',
+    postingLink: 'Open the Linkareer notice',
+    postingNote: 'The link below opens our recruitment notice on Linkareer.',
+    ctaPosting: 'View the Linkareer notice',
     workNumber: '03',
     workSubtitle: 'What You Will Work On',
     workTitle: 'What you will work on',
