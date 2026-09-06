@@ -1,0 +1,33 @@
+---
+/**
+ * 언어 접두사가 없는 짧은 주소. QR·포스터·구두 안내용 진입점입니다.
+ *
+ * QR을 찍은 사람이 영문 페이지에 떨어지는 일을 막기 위해 존재합니다.
+ * /apply/ 로 들어오면 항상 한국어 페이지로 보냅니다.
+ * 영문 페이지는 헤더의 EN 전환이나 /en/apply/ 직접 접근으로 열 수 있습니다.
+ *
+ * Astro.redirect 를 쓰지 않는 이유: 정적 빌드에서는 지연 2초의 meta refresh 문서가
+ * 생성되어 QR로 들어온 사람이 흰 화면을 2초 보게 됩니다. 여기서는 지연 0초 +
+ * location.replace 로 즉시 넘기고, 히스토리에도 남기지 않습니다.
+ * Vercel 배포에서는 vercel.json 의 redirects 가 먼저 처리하므로 이 문서는
+ * 다른 호스팅·직접 열기 상황의 안전망입니다.
+ */
+const target = '/ko/apply/'
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <link rel="canonical" href={`https://www.veritasvan.org${target}`} />
+    <title>26-2 리크루팅으로 이동합니다</title>
+    <script is:inline define:vars={{ target }}>
+      window.location.replace(target)
+    </script>
+  </head>
+  <body>
+    <p>페이지로 이동하고 있습니다. 자동으로 넘어가지 않으면 <a href={target}>26-2 리크루팅 열기</a>를 눌러주세요.</p>
+  </body>
+</html>

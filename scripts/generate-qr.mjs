@@ -26,6 +26,12 @@ const outputDir = resolve(projectRoot, 'public/qr')
 const siteUrl = (process.env.SITE_URL || 'https://www.veritasvan.org').replace(/\/+$/, '')
 
 const targets = [
+  // 기본 배포용. 언어 접두사가 없는 짧은 주소로, 항상 한국어 페이지로 연결됩니다.
+  // 포스터·인쇄물에는 이 두 종을 쓰세요.
+  { name: 'apply', path: '/apply/', label: '26-2 지원 (기본 · 한국어로 연결)' },
+  { name: 'support', path: '/support/', label: '후원 안내 (기본 · 한국어로 연결)' },
+
+  // 언어를 명시해야 할 때 쓰는 보조 QR입니다.
   { name: 'apply-ko', path: '/ko/apply/', label: '26-2 지원 (한국어)' },
   { name: 'apply-en', path: '/en/apply/', label: '26-2 Recruitment (English)' },
   { name: 'support-ko', path: '/ko/support/', label: '후원 안내 (한국어)' },
