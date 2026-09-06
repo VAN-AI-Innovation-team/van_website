@@ -26,7 +26,7 @@ const hrefFor = (item) => item.slug ? basePath(routePath(lang, item.slug)) : hom
       ))}
     </nav>
 
-    <a class="language-link" href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a>
+    <a class="language-link" href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang} data-lang-switch={otherLang}>{languageLabel}</a>
 
     <a
       class="cta-link"
@@ -37,7 +37,7 @@ const hrefFor = (item) => item.slug ? basePath(routePath(lang, item.slug)) : hom
     <details class="mobile-menu">
       <summary aria-label={copy.menu}><span>{copy.menu}</span><i aria-hidden="true"></i></summary>
       <nav aria-label="Mobile navigation">
-        <div class="mobile-menu__top"><span>VERITAS ACADEMIAE NEXUS</span><a href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang}>{languageLabel}</a></div>
+        <div class="mobile-menu__top"><span>VERITAS ACADEMIAE NEXUS</span><a href={basePath(routePath(otherLang, currentSlug))} hreflang={otherLang} data-lang-switch={otherLang}>{languageLabel}</a></div>
         {navItems.map((item, index) => (
           <a href={hrefFor(item)} aria-current={currentKey === item.key ? 'page' : undefined}><span>{String(index + 1).padStart(2, '0')}</span>{copy.nav[item.key]}</a>
         ))}
