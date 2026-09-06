@@ -86,6 +86,20 @@ const [title, description] = copy.meta.support
           </article>
         ))}
       </div>
+
+      {/* 세 방식 모두 별도 결제 수단이 없어 담당자 안내로 진행된다. 눌러서 바로 연결되게 둔다. */}
+      <div class="way-contact" data-reveal="up">
+        <div class="way-contact__head">
+          <h3>{page.waysContactTitle}</h3>
+          <p>{page.waysContactLead}</p>
+        </div>
+        <div class="way-contact__actions">
+          <a class="button-link" href={`tel:${contact.phone.replace(/-/g, '')}`}>{contact.phone}<span aria-hidden="true">→</span></a>
+          <a class="button-link" href={`mailto:${contact.email}`}>{contact.email}<span aria-hidden="true">→</span></a>
+          <a class="button-link" href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">{contact.instagram}<span aria-hidden="true">→</span></a>
+        </div>
+        <p class="way-contact__manager">{contact.manager}</p>
+      </div>
     </div>
   </section>
 
