@@ -84,6 +84,14 @@ export const content = {
       toTop: '맨 위로 이동',
       sectionRail: '섹션 바로 이동',
       supportDetails: '후원 안내 자세히 보기',
+      scroll: '아래로 스크롤',
+      donationAccount: '후원 계좌',
+      bank: '은행',
+      accountNumber: '계좌번호',
+      holder: '예금주',
+      contact: '연락처',
+      instagram: '인스타그램',
+      phone: '전화',
     },
     ticker: ['VERITAS', 'ACADEMIAE', 'NEXUS', '서울대학교', '연세대학교', '고려대학교', 'EST. SEOUL'],
     home: {
@@ -109,7 +117,7 @@ export const content = {
         ],
       },
       endorsements: {
-        title: 'Featured Endorsement', subtitle: '각계의 지지와 격려',
+        title: '각계의 지지와 격려', subtitle: '추천의 말',
         items: [
           { name: 'Kenneth Maxwell Nance 박사', role: '대표 상임고문', image: '/assets/p03_0_159x161.min.jpg', quote: '여러분의 방향성과 원칙, 그리고 신조가 높기에 저는 여러분께 깊은 경의를 표합니다. 세 개 대학 사이에서뿐만 아니라 전 세계에 걸쳐 협력을 구축해 나가는 여러분의 협업 수준은 참으로 존경할 만합니다. 진리·학문·연대라는 여러분의 원칙은 고귀하며, 여러분을 멀리 나아가게 할 것입니다.' },
           { name: '김성훈 교수', role: '자문위원회장', image: '/assets/p04_2_159x160.min.jpg', quote: '우리 VAN이 어떤 진영을 넘어서, 또 우리 지역을 뛰어넘어서 함께 연대하고 포용하고 협력하고 그러한 연구단체로 성장하기 바랍니다. 우리 취업의 문제 또 일자리의 문제 이런 것들을 우리 VAN의 학생들과 함께 연구하고 싶습니다.' },
@@ -214,6 +222,14 @@ export const content = {
       toTop: 'Back to top',
       sectionRail: 'Jump to section',
       supportDetails: 'See the full donation guide',
+      scroll: 'Scroll',
+      donationAccount: 'Donation account',
+      bank: 'Bank',
+      accountNumber: 'Account',
+      holder: 'Holder',
+      contact: 'Contact',
+      instagram: 'Instagram',
+      phone: 'Phone',
     },
     ticker: ['VERITAS', 'ACADEMIAE', 'NEXUS', 'SEOUL NATIONAL', 'YONSEI', 'KOREA UNIVERSITY', 'EST. SEOUL'],
     home: {
