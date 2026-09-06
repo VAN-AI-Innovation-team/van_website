@@ -18,10 +18,8 @@ name: Deploy to Vercel
 # 둘 다 없으면 이 워크플로는 아무것도 하지 않고 성공으로 끝납니다(CI를 깨지 않음).
 # 등록 위치: 저장소 Settings → Secrets and variables → Actions → New repository secret
 
+# Deploy only when manually requested from GitHub Actions.
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 # 배포는 겹치면 안 되므로 직렬화합니다. 진행 중인 배포를 취소하지 않습니다.
