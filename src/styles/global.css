@@ -2989,6 +2989,108 @@ body::after {
 
 .posting-card:hover .posting-card__arrow { transform: translateX(6px); }
 
+/* 후원 방식 3분류 — 북 펀딩 / 개인 후원 / 기업·단체 후원 */
+.way-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.way-card {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 30px 28px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--paper-strong) 76%, transparent);
+  transition: border-color 480ms var(--ease-out), transform 480ms var(--ease-out), box-shadow 480ms var(--ease-out);
+}
+
+.way-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 62%, transparent);
+  box-shadow: 0 18px 40px -28px color-mix(in srgb, var(--shade-800) 45%, transparent);
+}
+
+.way-card__head { display: flex; align-items: center; gap: 12px; }
+
+.way-card__index {
+  color: var(--accent);
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+.way-card__tag {
+  color: var(--text-muted);
+  font-family: var(--display);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.way-card h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-family: var(--kr-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.way-card__body { margin: 0; color: var(--text-soft); font-size: 15px; line-height: 1.78; }
+
+.way-card__tiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 3px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.way-card__tiers li {
+  padding: 7px 13px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  color: var(--accent-deep);
+  font-family: var(--kr-display);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.way-card__points { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+
+.way-card__points li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--text-soft);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.way-card__points li::before { position: absolute; left: 0; color: var(--accent); content: '—'; }
+
+.way-card__note {
+  margin: auto 0 0;
+  padding-top: 13px;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.way-card .inline-link { margin-top: 4px; align-self: flex-start; font-size: 13px; }
+
+@media (max-width: 1000px) {
+  .way-list { grid-template-columns: minmax(0, 1fr); }
+  .way-card__note { margin-top: 4px; }
+}
+
 @media (max-width: 900px) {
   .dept-card { grid-template-columns: 44px minmax(0, 1fr); }
   .dept-card__meta { grid-column: 2; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2997,6 +3099,8 @@ body::after {
 @media (max-width: 640px) {
   .dept-card { gap: 16px; padding: 22px; }
   .terms-block { padding: 22px; }
+  .way-card { padding: 24px 22px; }
+  .way-card__tiers li { font-size: 12px; padding: 6px 11px; }
 }
 
 /* 11. 접근성 ----------------------------------------------------------- */

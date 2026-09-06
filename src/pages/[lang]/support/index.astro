@@ -42,6 +42,53 @@ const [title, description] = copy.meta.support
     </div>
   </section>
 
+  <section class="home-section home-section--mist">
+    <div class="container">
+      <header class="section-intro" data-ghost={page.waysNumber} data-reveal="up">
+        <div class="section-intro__band">
+          <span class="section-number">{page.waysNumber}</span>
+          <p>{page.waysSubtitle}</p>
+          <i aria-hidden="true"></i>
+        </div>
+        <h2 data-split>{page.waysTitle}</h2>
+      </header>
+      <p class="section-lead section-lead--wide" data-reveal="up">{page.waysLead}</p>
+
+      <div class="way-list" data-reveal-group>
+        {page.ways.map((way, index) => (
+          <article class="way-card" data-reveal="rise" data-tilt="4">
+            <header class="way-card__head">
+              <span class="way-card__index">{String(index + 1).padStart(2, '0')}</span>
+              <span class="way-card__tag">{way.tag}</span>
+            </header>
+            <h3>{way.title}</h3>
+            <p class="way-card__body">{way.body}</p>
+
+            {way.tiers && (
+              <ul class="way-card__tiers">
+                {way.tiers.map((tier) => <li>{tier}</li>)}
+              </ul>
+            )}
+
+            {way.points && (
+              <ul class="way-card__points">
+                {way.points.map((point) => <li>{point}</li>)}
+              </ul>
+            )}
+
+            {way.note && <p class="way-card__note">{way.note}</p>}
+
+            {way.linkSlug && (
+              <a class="inline-link" href={basePath(routePath(lang, `archive/${way.linkSlug}`))} data-magnetic="8">
+                {way.linkLabel}<span aria-hidden="true">→</span>
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <Marquee items={copy.ticker} display />
 
   <section class="home-section home-section--sand">
