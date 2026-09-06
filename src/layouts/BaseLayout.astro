@@ -113,6 +113,73 @@ if (pageKey === 'home') {
       인터랙션 스크립트가 끝내 실행되지 않으면 3초 뒤 클래스를 걷어내
       콘텐츠가 영구히 숨는 상황을 막는다.
     */}
+    {/*
+      이미 배포된 영문 QR·링크 구제용 언어 보정.
+
+      QR 인쇄물 중 일부가 /en/ 주소를 가리켜, 한국어 사용자가 스캔하면 영문
+      페이지가 열린다. 인쇄물을 회수할 수 없으므로 진입 시점에 보정한다.
+
+      영문 페이지 접근을 막지 않기 위해 아래 경우에는 절대 개입하지 않는다.
+        · 사이트 내부에서 넘어온 이동 (referrer 가 같은 오리진)
+        · 헤더의 EN 을 직접 누른 세션
+        · 주소에 ?lang=en 이 붙은 경우 (영문 QR은 이 쿼리를 포함해 생성한다)
+        · 브라우저 우선 언어가 한국어보다 영어가 앞선 경우
+      즉 "한국어 브라우저가 외부에서 영문 주소로 곧장 들어온 경우"만 바꾼다.
+
+      head 에서 먼저 실행해 영문 화면이 번쩍 보이는 일을 막고,
+      location.replace 로 뒤로가기 히스토리를 더럽히지 않는다.
+    */}
+    <script is:inline>
+      document.addEventListener(
+        'click',
+        function (event) {
+          var target = event.target
+          var link = target && target.closest ? target.closest('[data-lang-switch]') : null
+          if (!link) return
+          try {
+            sessionStorage.setItem('van:lang', link.getAttribute('data-lang-switch'))
+          } catch (error) {
+            /* 프라이빗 모드 등에서 저장이 막히면 referrer 검사로 충분하다 */
+          }
+        },
+        true,
+      )
+
+      ;(function () {
+        var path = window.location.pathname
+        if (path.indexOf('/en/') !== 0) return
+        if (window.location.search.indexOf('lang=en') !== -1) return
+
+        try {
+          if (sessionStorage.getItem('van:lang') === 'en') return
+        } catch (error) {
+          /* 저장소를 못 읽어도 아래 검사들로 판단한다 */
+        }
+
+        var referrer = document.referrer
+        if (referrer && referrer.indexOf(window.location.origin) === 0) return
+
+        var list =
+          navigator.languages && navigator.languages.length
+            ? navigator.languages
+            : [navigator.language || '']
+        var prefersKorean = false
+        for (var i = 0; i < list.length; i += 1) {
+          var tag = String(list[i] || '').toLowerCase()
+          if (tag.indexOf('ko') === 0) {
+            prefersKorean = true
+            break
+          }
+          if (tag.indexOf('en') === 0) break
+        }
+        if (!prefersKorean) return
+
+        window.location.replace(
+          '/ko/' + path.slice(4) + window.location.search + window.location.hash,
+        )
+      })()
+    </script>
+
     <script is:inline>
       document.documentElement.classList.add('js-ready')
       window.setTimeout(function () {

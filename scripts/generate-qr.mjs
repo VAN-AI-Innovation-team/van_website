@@ -33,6 +33,9 @@ const targets = [
 
   // 언어를 명시해야 할 때 쓰는 보조 QR입니다.
   { name: 'apply-ko', path: '/ko/apply/', label: '26-2 지원 (한국어)' },
+  // 아래 4종의 주소는 절대 바꾸지 않는다. 이미 인쇄물·발표자료에 실린 QR이므로
+  // 주소가 한 글자만 달라져도 QR 패턴이 바뀌어 기존 자료와 어긋난다.
+  // 영문 주소로 들어온 한국어 사용자는 BaseLayout 의 언어 보정이 처리한다.
   { name: 'apply-en', path: '/en/apply/', label: '26-2 Recruitment (English)' },
   { name: 'support-ko', path: '/ko/support/', label: '후원 안내 (한국어)' },
   { name: 'support-en', path: '/en/support/', label: 'Support VAN (English)' },
