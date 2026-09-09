@@ -18,7 +18,8 @@ const [title, description] = copy.meta.support
 ---
 
 <BaseLayout lang={lang} pageKey="support" slug="support" title={title} description={description}>
-  <PageHero eyebrow={page.eyebrow} title={page.title} lead={page.lead} />
+  <div class="support-page">
+    <PageHero eyebrow={page.eyebrow} title={page.title} lead={page.lead} />
 
   <section class="home-section home-section--paper">
     <div class="container">
@@ -89,6 +90,13 @@ const [title, description] = copy.meta.support
                 {way.linkLabel}<span aria-hidden="true">→</span>
               </a>
             )}
+
+            {way.linkAnchor && (
+              <a class="inline-link" href={`#${way.linkAnchor}`} data-magnetic="8">
+                {way.linkLabel}<span aria-hidden="true">↓</span>
+              </a>
+            )}
+
           </article>
         ))}
       </div>
@@ -96,7 +104,7 @@ const [title, description] = copy.meta.support
       {/* 담당자를 맨 위에 두어 누구에게 연락하는지 먼저 보이게 한다. */}
       <div class="way-contact" data-reveal="up">
         <div class="way-contact__head">
-          <p class="way-contact__manager">{contact.manager}</p>
+          <p class="way-contact__manager">{page.contactPersonLabel}: {contact.manager}</p>
           <h3>{page.waysContactTitle}</h3>
           <p>{page.waysContactLead}</p>
         </div>
@@ -108,7 +116,7 @@ const [title, description] = copy.meta.support
     </div>
   </section>
 
-  <section class="home-section home-section--paper">
+  <section id="support-application" class="home-section home-section--paper">
     <div class="container">
       <header class="section-intro" data-ghost={page.formNumber} data-reveal="up">
         <div class="section-intro__band">
@@ -133,21 +141,34 @@ const [title, description] = copy.meta.support
         data-incomplete={page.formIncomplete}
         data-copy-label={page.formCopy}
         data-copied-label={page.formCopied}
+        data-status-message={page.formStatus}
+        data-name-label={page.formLabels.name}
+        data-phone-label={page.formLabels.phone}
+        data-email-label={page.formLabels.email}
+        data-type-label={page.formLabels.type}
+        data-amount-label={page.formLabels.amount}
+        data-message-label={page.formLabels.message}
         data-reveal="up"
         novalidate
       >
         <div class="donor-form__grid">
           <label>
             <span>{page.formLabels.name} <i>{page.formLabels.required}</i></span>
-            <input type="text" name="name" autocomplete="name" required />
+            <input type="text" name="name" autocomplete="name" maxlength="60" placeholder={page.formPlaceholders.name} required />
           </label>
           <label>
             <span>{page.formLabels.phone} <i>{page.formLabels.required}</i></span>
-            <input type="tel" name="phone" autocomplete="tel" required />
+            <input type="tel" name="phone" autocomplete="tel" maxlength="30" inputmode="tel" placeholder={page.formPlaceholders.phone} required />
           </label>
           <label>
             <span>{page.formLabels.email} <i>{page.formLabels.required}</i></span>
-            <input type="email" name="email" autocomplete="email" required />
+            <input type="email" name="email" autocomplete="email" maxlength="120" placeholder={page.formPlaceholders.email} required />
+          </label>
+          <label>
+            <span>{page.formLabels.type}</span>
+            <select name="supportType" required>
+              {page.formTypes.map((type) => <option value={type}>{type}</option>)}
+            </select>
           </label>
           <label>
             <span>{page.formLabels.amount}</span>
@@ -157,11 +178,11 @@ const [title, description] = copy.meta.support
           </label>
           <label class="donor-form__custom" data-amount-custom hidden>
             <span>{page.formLabels.amountCustom}</span>
-            <input type="text" name="amountCustom" />
+            <input type="text" name="amountCustom" maxlength="60" />
           </label>
           <label class="donor-form__wide">
             <span>{page.formLabels.message}</span>
-            <textarea name="message" rows="3"></textarea>
+            <textarea name="message" rows="3" maxlength="1000" placeholder={page.formPlaceholders.message}></textarea>
           </label>
         </div>
 
@@ -176,14 +197,27 @@ const [title, description] = copy.meta.support
         </div>
 
         <p class="donor-form__hint">{page.formHint}</p>
+        <p class="donor-form__hint">{page.formPrivacy}</p>
+        <p class="donor-form__hint" data-support-status role="status" hidden></p>
         <p class="donor-form__error" data-support-error role="alert" hidden></p>
       </form>
+
+      <aside class="way-contact" data-reveal="up">
+        <div class="way-contact__head">
+          <h3>{page.paymentTitle}</h3>
+          <p>{page.paymentLead}</p>
+        </div>
+        <ol>
+          {page.paymentSteps.map((step) => <li>{step}</li>)}
+        </ol>
+        <a class="inline-link" href="#support-account">{page.paymentAccountLink}<span aria-hidden="true">↓</span></a>
+      </aside>
     </div>
   </section>
 
   <Marquee items={copy.ticker} display />
 
-  <section class="home-section home-section--sand">
+  <section id="support-account" class="home-section home-section--sand">
     <div class="container support-layout">
       <div data-reveal="left">
         <span class="section-number">{page.accountNumber}</span>
@@ -222,13 +256,17 @@ const [title, description] = copy.meta.support
         <p class="section-lead section-lead--light">{page.contactLead}</p>
       </div>
       <div class="contact-list" data-reveal-group>
-        <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" data-reveal="fade">
-          <span>{copy.common.instagram}</span><strong>{contact.instagram}</strong>
-        </a>
         <div data-reveal="fade">
-          <span>{copy.common.phone}</span><strong>{contact.phone}</strong><small>{contact.manager}</small>
+          <span>{page.contactPersonLabel}</span><strong>{contact.manager}</strong>
         </div>
+        <a href={`tel:${contact.phone.replace(/-/g, '')}`} data-reveal="fade">
+          <span>{page.phoneLabel}</span><strong>{contact.phone}</strong>
+        </a>
+        <a href={`mailto:${contact.email}`} data-reveal="fade">
+          <span>{page.emailLabel}</span><strong>{contact.email}</strong>
+        </a>
       </div>
     </div>
   </section>
+  </div>
 </BaseLayout>
