@@ -78,6 +78,12 @@ const [title, description] = copy.meta.support
 
             {way.note && <p class="way-card__note">{way.note}</p>}
 
+            {way.fundingUrl && (
+              <a class="way-card__cta" href={way.fundingUrl} target="_blank" rel="noopener noreferrer" data-magnetic="8">
+                {way.fundingLabel}<span aria-hidden="true">→</span>
+              </a>
+            )}
+
             {way.linkSlug && (
               <a class="inline-link" href={basePath(routePath(lang, `archive/${way.linkSlug}`))} data-magnetic="8">
                 {way.linkLabel}<span aria-hidden="true">→</span>
@@ -87,19 +93,91 @@ const [title, description] = copy.meta.support
         ))}
       </div>
 
-      {/* 세 방식 모두 별도 결제 수단이 없어 담당자 안내로 진행된다. 눌러서 바로 연결되게 둔다. */}
+      {/* 담당자를 맨 위에 두어 누구에게 연락하는지 먼저 보이게 한다. */}
       <div class="way-contact" data-reveal="up">
         <div class="way-contact__head">
+          <p class="way-contact__manager">{contact.manager}</p>
           <h3>{page.waysContactTitle}</h3>
           <p>{page.waysContactLead}</p>
         </div>
         <div class="way-contact__actions">
           <a class="button-link" href={`tel:${contact.phone.replace(/-/g, '')}`}>{contact.phone}<span aria-hidden="true">→</span></a>
           <a class="button-link" href={`mailto:${contact.email}`}>{contact.email}<span aria-hidden="true">→</span></a>
-          <a class="button-link" href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">{contact.instagram}<span aria-hidden="true">→</span></a>
         </div>
-        <p class="way-contact__manager">{contact.manager}</p>
       </div>
+    </div>
+  </section>
+
+  <section class="home-section home-section--paper">
+    <div class="container">
+      <header class="section-intro" data-ghost={page.formNumber} data-reveal="up">
+        <div class="section-intro__band">
+          <span class="section-number">{page.formNumber}</span>
+          <p>{page.formSubtitle}</p>
+          <i aria-hidden="true"></i>
+        </div>
+        <h2 data-split>{page.formTitle}</h2>
+      </header>
+      <p class="section-lead section-lead--wide" data-reveal="up">{page.formLead}</p>
+
+      {/*
+        정적 사이트라 서버가 없다. 외부 폼 서비스에 계정을 만들지 않고 처리하기 위해
+        입력값으로 메일 본문을 조립해 메일 앱으로 넘기고, 복사 버튼도 함께 제공한다.
+        조립과 검증은 interactions.js 의 setupSupportForm 이 담당한다.
+      */}
+      <form
+        class="donor-form"
+        data-support-form
+        data-mail-to={contact.email}
+        data-subject={page.formSubject}
+        data-incomplete={page.formIncomplete}
+        data-copy-label={page.formCopy}
+        data-copied-label={page.formCopied}
+        data-reveal="up"
+        novalidate
+      >
+        <div class="donor-form__grid">
+          <label>
+            <span>{page.formLabels.name} <i>{page.formLabels.required}</i></span>
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+          <label>
+            <span>{page.formLabels.phone} <i>{page.formLabels.required}</i></span>
+            <input type="tel" name="phone" autocomplete="tel" required />
+          </label>
+          <label>
+            <span>{page.formLabels.email} <i>{page.formLabels.required}</i></span>
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            <span>{page.formLabels.amount}</span>
+            <select name="amount">
+              {page.formAmounts.map((amount) => <option value={amount}>{amount}</option>)}
+            </select>
+          </label>
+          <label class="donor-form__custom" data-amount-custom hidden>
+            <span>{page.formLabels.amountCustom}</span>
+            <input type="text" name="amountCustom" />
+          </label>
+          <label class="donor-form__wide">
+            <span>{page.formLabels.message}</span>
+            <textarea name="message" rows="3"></textarea>
+          </label>
+        </div>
+
+        <label class="donor-form__consent">
+          <input type="checkbox" name="consent" required />
+          <span>{page.formLabels.consent}</span>
+        </label>
+
+        <div class="donor-form__actions">
+          <button class="cta-button" type="submit" data-magnetic="10">{page.formSubmit}<span aria-hidden="true">→</span></button>
+          <button class="button-link" type="button" data-support-copy>{page.formCopy}</button>
+        </div>
+
+        <p class="donor-form__hint">{page.formHint}</p>
+        <p class="donor-form__error" data-support-error role="alert" hidden></p>
+      </form>
     </div>
   </section>
 
