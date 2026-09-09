@@ -36,6 +36,53 @@ const asset = (path) => basePath(path)
         <div class="archive-article-body" data-reveal-group>
           {post.body.map((paragraph) => <p data-reveal="up">{paragraph}</p>)}
         </div>
+
+        {/* 펀딩·외부 안내 링크. 본문 바로 뒤에 두어 눌러서 이동할 수 있게 한다. */}
+        {post.link && (
+          <div class="archive-cta" data-reveal="up">
+            <a class="button" href={post.link.url} target="_blank" rel="noopener noreferrer" data-magnetic="10">
+              {post.link.label}<span aria-hidden="true">→</span>
+            </a>
+            {post.link.note && <p>{post.link.note}</p>}
+          </div>
+        )}
+
+        {/* 표지·내지 시안처럼 비율이 서로 다른 이미지는 잘라내지 않고 설명과 함께 세로로 쌓는다. */}
+        {post.figures && (
+          <div class="archive-figures" data-reveal-group>
+            {post.figures.map((item) => (
+              <figure data-reveal="wipe">
+                <img src={asset(item.image)} alt={item.alt} loading="lazy" />
+                {item.caption && <figcaption>{item.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        )}
+
+        {post.spec && (
+          <section class="archive-spec" data-reveal="up">
+            <h2>{post.spec.title}</h2>
+            <dl>
+              {post.spec.items.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
+            </dl>
+          </section>
+        )}
+
+        {post.contents && (
+          <section class="archive-contents" data-reveal="up">
+            <h2>{post.contents.title}</h2>
+            {post.contents.note && <p class="archive-contents__note">{post.contents.note}</p>}
+            <div class="archive-contents__parts">
+              {post.contents.parts.map((part) => (
+                <div>
+                  <h3>{part.title}</h3>
+                  <ul>{part.items.map((item) => <li>{item}</li>)}</ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {post.gallery && (
           <div class="archive-article-gallery" data-reveal-group>
             {post.gallery.map((item) => <img data-reveal="wipe" src={asset(item.image)} alt={item.alt} loading="lazy" />)}

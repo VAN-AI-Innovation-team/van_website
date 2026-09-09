@@ -356,6 +356,124 @@ function setupCopyButtons(signal) {
 /* ------------------------------------------------------------------ *
  * 12. 아카이브 검색·필터
  * ------------------------------------------------------------------ */
+/*
+  정기 후원 신청 폼.
+
+  정적 사이트라 받는 서버가 없다. 외부 폼 서비스에 계정을 만들지 않고 처리하기 위해
+  입력값으로 메일 본문을 조립해 mailto 로 넘긴다. 메일 앱을 쓰지 않는 사람을 위해
+  같은 본문을 클립보드로 복사하는 경로도 함께 둔다.
+*/
+function setupSupportForm(signal) {
+  const form = document.querySelector('[data-support-form]')
+  if (!form) return
+
+  const amountSelect = form.querySelector('select[name="amount"]')
+  const customWrap = form.querySelector('[data-amount-custom]')
+  const customInput = customWrap?.querySelector('input')
+  const errorBox = form.querySelector('[data-support-error]')
+  const copyButton = form.querySelector('[data-support-copy]')
+
+  // '직접 입력'을 골랐을 때만 금액 입력칸을 보여준다.
+  const syncCustom = () => {
+    if (!amountSelect || !customWrap) return
+    const options = Array.from(amountSelect.options)
+    const isLast = amountSelect.selectedIndex === options.length - 1
+    customWrap.hidden = !isLast
+    if (!isLast && customInput) customInput.value = ''
+  }
+
+  amountSelect?.addEventListener('change', syncCustom, { signal })
+  syncCustom()
+
+  const showError = (message) => {
+    if (!errorBox) return
+    errorBox.textContent = message
+    errorBox.hidden = !message
+  }
+
+  const readValue = (name) => (form.elements[name]?.value || '').trim()
+
+  const collect = () => {
+    const name = readValue('name')
+    const phone = readValue('phone')
+    const email = readValue('email')
+    const consent = form.elements.consent?.checked
+
+    if (!name || !phone || !email || !consent) {
+      showError(form.dataset.incomplete || '')
+      return null
+    }
+    showError('')
+
+    const options = amountSelect ? Array.from(amountSelect.options) : []
+    const picked = amountSelect?.value || ''
+    const isLast = amountSelect ? amountSelect.selectedIndex === options.length - 1 : false
+    const amount = isLast ? readValue('amountCustom') || picked : picked
+
+    const labels = form.querySelectorAll('.donor-form__grid > label > span')
+    const nameOf = (index) => (labels[index]?.textContent || '').replace(/\s*필수\s*$/, '').replace(/\s*Required\s*$/, '').trim()
+
+    const lines = [
+      `${nameOf(0)}: ${name}`,
+      `${nameOf(1)}: ${phone}`,
+      `${nameOf(2)}: ${email}`,
+      `${nameOf(3)}: ${amount}`,
+    ]
+    const message = readValue('message')
+    if (message) lines.push('', message)
+
+    return { subject: form.dataset.subject || '', body: lines.join('\n') }
+  }
+
+  form.addEventListener(
+    'submit',
+    (event) => {
+      event.preventDefault()
+      const payload = collect()
+      if (!payload) return
+      const to = form.dataset.mailTo || ''
+      window.location.href = `mailto:${to}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(payload.body)}`
+    },
+    { signal },
+  )
+
+  copyButton?.addEventListener(
+    'click',
+    async () => {
+      const payload = collect()
+      if (!payload) return
+      const text = `${payload.subject}\n\n${payload.body}`
+      try {
+        await navigator.clipboard.writeText(text)
+      } catch {
+        // 클립보드 권한이 없으면 선택 가능한 상태로라도 남긴다
+        const area = document.createElement('textarea')
+        area.value = text
+        area.setAttribute('readonly', '')
+        area.style.position = 'fixed'
+        area.style.opacity = '0'
+        document.body.append(area)
+        area.select()
+        try {
+          document.execCommand('copy')
+        } catch {
+          /* 복사가 막힌 환경에서는 안내 문구만 남는다 */
+        }
+        area.remove()
+      }
+      const copied = copyButton.dataset.copiedLabel || form.dataset.copiedLabel
+      const original = copyButton.dataset.copyLabel || form.dataset.copyLabel || copyButton.textContent
+      if (copied) {
+        copyButton.textContent = copied
+        window.setTimeout(() => {
+          copyButton.textContent = original
+        }, 2000)
+      }
+    },
+    { signal },
+  )
+}
+
 function setupArchiveBrowser(signal) {
   const browser = document.querySelector('[data-archive-browser]')
   if (!(browser instanceof HTMLElement)) return
@@ -425,6 +543,7 @@ function boot() {
   setupMagnetic(signal)
   setupMobileMenu(signal)
   setupCopyButtons(signal)
+  setupSupportForm(signal)
   setupArchiveBrowser(signal)
 }
 
