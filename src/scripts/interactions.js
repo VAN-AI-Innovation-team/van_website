@@ -371,6 +371,7 @@ function setupSupportForm(signal) {
   const customWrap = form.querySelector('[data-amount-custom]')
   const customInput = customWrap?.querySelector('input')
   const errorBox = form.querySelector('[data-support-error]')
+  const statusBox = form.querySelector('[data-support-status]')
   const copyButton = form.querySelector('[data-support-copy]')
 
   // '직접 입력'을 골랐을 때만 금액 입력칸을 보여준다.
@@ -379,7 +380,10 @@ function setupSupportForm(signal) {
     const options = Array.from(amountSelect.options)
     const isLast = amountSelect.selectedIndex === options.length - 1
     customWrap.hidden = !isLast
-    if (!isLast && customInput) customInput.value = ''
+    if (customInput) {
+      customInput.required = isLast
+      if (!isLast) customInput.value = ''
+    }
   }
 
   amountSelect?.addEventListener('change', syncCustom, { signal })
@@ -394,12 +398,13 @@ function setupSupportForm(signal) {
   const readValue = (name) => (form.elements[name]?.value || '').trim()
 
   const collect = () => {
+    if (statusBox) statusBox.hidden = true
     const name = readValue('name')
     const phone = readValue('phone')
     const email = readValue('email')
     const consent = form.elements.consent?.checked
 
-    if (!name || !phone || !email || !consent) {
+    if (!name || !phone || !email || !consent || !form.reportValidity()) {
       showError(form.dataset.incomplete || '')
       return null
     }
@@ -410,17 +415,17 @@ function setupSupportForm(signal) {
     const isLast = amountSelect ? amountSelect.selectedIndex === options.length - 1 : false
     const amount = isLast ? readValue('amountCustom') || picked : picked
 
-    const labels = form.querySelectorAll('.donor-form__grid > label > span')
-    const nameOf = (index) => (labels[index]?.textContent || '').replace(/\s*필수\s*$/, '').replace(/\s*Required\s*$/, '').trim()
-
-    const lines = [
-      `${nameOf(0)}: ${name}`,
-      `${nameOf(1)}: ${phone}`,
-      `${nameOf(2)}: ${email}`,
-      `${nameOf(3)}: ${amount}`,
+    const rows = [
+      [form.dataset.nameLabel || 'Name', name],
+      [form.dataset.phoneLabel || 'Phone', phone],
+      [form.dataset.emailLabel || 'Email', email],
+      [form.dataset.typeLabel || 'Giving route', readValue('supportType')],
+      [form.dataset.amountLabel || 'Amount', amount],
+      [form.dataset.messageLabel || 'Message', readValue('message')],
     ]
-    const message = readValue('message')
-    if (message) lines.push('', message)
+    const lines = rows
+      .filter(([, value]) => value)
+      .map(([label, value]) => `${label}: ${value}`)
 
     return { subject: form.dataset.subject || '', body: lines.join('\n') }
   }
@@ -433,6 +438,10 @@ function setupSupportForm(signal) {
       if (!payload) return
       const to = form.dataset.mailTo || ''
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(payload.body)}`
+      if (statusBox) {
+        statusBox.textContent = form.dataset.statusMessage || ''
+        statusBox.hidden = false
+      }
     },
     { signal },
   )
