@@ -13,7 +13,8 @@
     "qr": "node scripts/generate-qr.mjs",
     "lint": "oxlint astro.config.mjs scripts src/data src/pages",
     "preview": "astro preview",
-    "check": "npm run lint && npm run build",
+    "test:json-ld": "node --test scripts/organization-json-ld.test.mjs",
+    "check": "npm run lint && npm run test:json-ld && npm run build",
     "preview:html": "node scripts/build-standalone-preview.mjs"
   },
   "dependencies": {
