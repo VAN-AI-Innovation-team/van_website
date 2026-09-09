@@ -32,13 +32,44 @@ export const archiveItems = {
     {
       slug: 'essay-anthology-on-the-line',
       category: 'ACADEMIA',
-      title: '공동 저서 『선 위에 선 우리들』 발간',
+      title: '공동 저서 『선 위에 선 우리들』',
       excerpt: 'VAN 상설연구조직이 청년 세대의 언어로 오늘의 사회적 쟁점을 기록한 사회비평 에세이집입니다.',
+      cover: '/archive/on-the-line-cover.min.jpg',
+      coverAlt: '『선 위에 선 우리들』 표지 시안',
       body: [
-        'VAN 상설연구조직은 청년들이 오늘의 한국 사회에 던지는 불편하지만 필요한 질문을 담은 사회비평 에세이집 『선 위에 선 우리들』을 출간했습니다. 모두가 문제를 느끼면서도 선뜻 말하지 못했던 사회적 쟁점들을 청년 세대의 경험과 언어로 기록한 공동 저서입니다.',
+        'VAN 상설연구조직은 청년들이 오늘의 한국 사회에 던지는 불편하지만 필요한 질문을 담은 사회비평 에세이집 『선 위에 선 우리들』을 제작하고 있습니다. 모두가 문제를 느끼면서도 선뜻 말하지 못했던 사회적 쟁점들을 청년 세대의 경험과 언어로 기록한 공동 저서입니다.',
         '본 도서는 특정한 결론이나 정답을 제시하기보다, 서로 다른 배경을 지닌 청년 필진이 각자의 경험과 문제의식을 바탕으로 오늘의 사회를 다시 질문하는 방식으로 구성했습니다. 개인의 일상에서 출발한 고민을 사회 구조와 연결함으로써, 청년을 사회 문제의 수동적 관찰자가 아닌 적극적인 발화자이자 비평의 주체로 조명했습니다.',
-        '구성은 존재의 선, 경쟁의 선, 갈등의 선, 관계의 선, 공동체의 선 다섯 개 부로 나뉩니다. 성공과 행복의 기준, 학벌주의의 심리적 기제, AI 시대의 대학 교육, 혐오와 갈등의 언어가 법과 정치 담론을 왜곡하는 방식, 결혼 제도의 존속 여부 등을 다룹니다. 원고와 전체 기획·편집 방향은 VAN 구성원과 외부 참여 필진이 직접 설계하고 집필했습니다.',
+        '원고와 전체 기획·편집 방향은 VAN 구성원과 외부 참여 필진이 직접 설계하고 집필했습니다. 현재 실물 종이책 발행을 목표로 텀블벅에서 북 펀딩을 진행하고 있으며, 아래에서 표지와 내지 시안, 목차, 도서 사양을 확인하실 수 있습니다.',
       ],
+      figures: [
+        { image: '/archive/on-the-line-spread.min.jpg', alt: '『선 위에 선 우리들』 본문 내지 시안', caption: '본문 내지 시안' },
+        { image: '/archive/on-the-line-ebook.min.jpg', alt: '『선 위에 선 우리들』 전자책 표지 시안', caption: '전자책 표지 시안' },
+      ],
+      spec: {
+        title: '도서 사양',
+        items: [
+          ['판형', 'A5 · 148×210mm'],
+          ['제본', '무선 제본'],
+          ['분량', '약 120쪽 (예상)'],
+          ['용지', '표지 스노우지 250g 무광 코팅 · 내지 미색 모조지 100g'],
+        ],
+      },
+      contents: {
+        title: '목차',
+        note: '외부 투고를 함께 받고 있어 편집 과정에서 일부 제목과 세부 내용은 변경·추가될 수 있습니다.',
+        parts: [
+          { title: '1부 · 존재의 선', items: ['성공과 행복의 기준은 무엇인가', '서울대 문턱을 넘으며', '사회적 정의와 개인의 행복', '신이 사라진 세상에 남겨진 청년'] },
+          { title: '2부 · 경쟁의 선', items: ['학벌주의는 청년 세대에게 어떤 심리적 기제로 작동하는가', '경쟁 만능주의는 우리에게 무엇을 남겼는가', '교육을 받는다는 것은 권리인가 의무인가', 'AI 시대에 대학은 무엇을 가르쳐야 하는가'] },
+          { title: '3부 · 갈등의 선', items: ['청년 세대의 극우성에 대한 재고', '정치적 편가르기 — 우상화가 쉽게 이루어지는 사회의 특징을 중심으로', '익명의 온라인 공간에서 생산되는 혐오와 갈등의 언어는 현실의 법과 정치 담론을 어떻게 왜곡하는가', '유럽 극우 보고서'] },
+          { title: '4부 · 관계의 선', items: ['현대 사회에서 결혼이라는 제도는 존재해야 하는가', '대한민국 청년 세대의 시대정신 — 대화'] },
+          { title: '5부 · 공동체의 선', items: ['청년들은 일본에 우호적인가', '검찰개혁과 검찰청 폐지는 무엇을 남기는가'] },
+        ],
+      },
+      link: {
+        label: '텀블벅에서 북 펀딩 참여하기',
+        url: 'https://tumblbug.com/veritasvan',
+        note: '후원자에게는 구성에 따라 실물 도서, 전자책(PDF), 편집후기 아카이브, 컨퍼런스 티켓 등이 제공됩니다. 전자책은 후원자 개인 열람용으로만 제공되어 이 페이지에는 올리지 않습니다.',
+      },
     },
     {
       slug: 'standing-research-seminars',
@@ -195,13 +226,44 @@ export const archiveItems = {
   ],
   en: [
     {
-      slug: 'essay-anthology-on-the-line', category: 'ACADEMIA', title: 'Co-authored Essay Anthology On the Line',
+      slug: 'essay-anthology-on-the-line', category: 'ACADEMIA', title: 'Essay Anthology On the Line',
       excerpt: 'A social-criticism anthology in which VAN’s standing research organisation records today’s contested issues in the language of its own generation.',
+      cover: '/archive/on-the-line-cover.min.jpg',
+      coverAlt: 'Cover design for On the Line',
       body: [
-        'VAN’s standing research organisation published On the Line, a collection of social-criticism essays carrying the uncomfortable but necessary questions young people put to Korean society today.',
+        'VAN’s standing research organisation is producing On the Line, a collection of social-criticism essays carrying the uncomfortable but necessary questions young people put to Korean society today.',
         'Rather than offering conclusions, contributors from different backgrounds re-examine society through their own experience. By connecting everyday concerns to social structures, the book casts young people as active speakers and critics rather than passive observers.',
-        'The anthology is organised in five parts on existence, competition, conflict, relationships and community, covering standards of success and happiness, the psychology of credentialism, university education in the age of AI, how the language of hatred distorts legal and political discourse, and the future of marriage as an institution.',
+        'The manuscripts and the editorial direction were written and shaped by VAN members and invited outside contributors. A crowdfunding campaign for the printed edition is running on Tumblbug; the cover and interior designs, table of contents and specifications are below.',
       ],
+      figures: [
+        { image: '/archive/on-the-line-spread.min.jpg', alt: 'Interior spread design for On the Line', caption: 'Interior spread design' },
+        { image: '/archive/on-the-line-ebook.min.jpg', alt: 'E-book cover design for On the Line', caption: 'E-book cover design' },
+      ],
+      spec: {
+        title: 'Specifications',
+        items: [
+          ['Format', 'A5 · 148×210mm'],
+          ['Binding', 'Perfect bound'],
+          ['Extent', 'Around 120 pages (estimated)'],
+          ['Paper', 'Cover: 250g snow paper, matte lamination · Interior: 100g ivory woodfree'],
+        ],
+      },
+      contents: {
+        title: 'Table of contents',
+        note: 'Outside submissions are still open, so some titles and details may change or be added during editing.',
+        parts: [
+          { title: 'Part 1 · Lines of existence', items: ['What are the standards of success and happiness', 'Crossing the threshold of Seoul National University', 'Social justice and individual happiness', 'Young people left in a world without gods'] },
+          { title: 'Part 2 · Lines of competition', items: ['How credentialism works on young people psychologically', 'What has the cult of competition left us', 'Is education a right or an obligation', 'What should universities teach in the age of AI'] },
+          { title: 'Part 3 · Lines of conflict', items: ['Reconsidering the far-right turn among young people', 'Political tribalism — on societies where idolisation comes easily', 'How the language of hatred produced in anonymous online spaces distorts law and political discourse', 'A report on the European far right'] },
+          { title: 'Part 4 · Lines of relationship', items: ['Should marriage exist as an institution in contemporary society', 'The zeitgeist of Korea’s younger generation — dialogue'] },
+          { title: 'Part 5 · Lines of community', items: ['Are young Koreans favourable towards Japan', 'What prosecutorial reform and abolition would leave behind'] },
+        ],
+      },
+      link: {
+        label: 'Back the book on Tumblbug',
+        url: 'https://tumblbug.com/veritasvan',
+        note: 'Depending on the tier, backers receive the printed book, an e-book (PDF), an editors’ notes archive and conference tickets. The e-book is supplied for backers’ personal reading only and is therefore not hosted on this page.',
+      },
     },
     {
       slug: 'standing-research-seminars', category: 'ACADEMIA', title: 'Fortnightly Seminars of the Standing Research Organisation',

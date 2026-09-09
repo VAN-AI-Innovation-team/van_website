@@ -834,6 +834,20 @@ html[lang='ko'] .eyebrow { font-size: 13px; }
 html[lang='ko'] .donation-card dt,
 html[lang='ko'] .contact-list span { font-size: 12px; }
 
+/*
+  긴 줄글에만 양끝맞춤을 준다.
+  한글은 글자 단위로 줄바꿈되어 68ch 정도의 단에서는 오른쪽 끝이 가지런해진다.
+  영문은 하이픈 처리가 없어 단어 사이가 크게 벌어지므로 한국어 페이지에만 적용한다.
+  카드·요약처럼 짧은 문단에도 적용하지 않는다. 줄이 짧으면 간격이 튄다.
+*/
+html[lang='ko'] .archive-article-body p,
+html[lang='ko'] .prose-stack p,
+html[lang='ko'] .timeline p,
+html[lang='ko'] .philosophy-section p:last-child {
+  text-align: justify;
+  text-justify: inter-character;
+}
+
 .section-intro__band i {
   height: 1px;
   flex: 1;
@@ -1824,7 +1838,10 @@ html[lang='ko'] .contact-list span { font-size: 12px; }
 
 .archive-back-link:hover { color: var(--accent-soft); gap: 16px; }
 
-.archive-article-hero h1 { max-width: 24ch; margin: 0; font-family: var(--kr-display); font-size: clamp(24px, 2.7vw, 36px); font-weight: 600; letter-spacing: -0.012em; line-height: 1.32; }
+/* ch 단위는 숫자 0 기준이라 한글에서는 예상보다 좁게 잡힌다.
+   24ch 로는 20자 안팎의 한글 제목도 두 줄로 넘어가므로 폭을 넓히고,
+   줄바꿈이 필요할 때는 어절 단위로 끊기게 keep-all 을 준다. */
+.archive-article-hero h1 { max-width: 34ch; margin: 0; font-family: var(--kr-display); font-size: clamp(24px, 2.7vw, 36px); font-weight: 600; letter-spacing: -0.012em; line-height: 1.32; word-break: keep-all; }
 .archive-article-hero .container > p:last-child { max-width: 58ch; margin: 22px 0 0; color: var(--on-dark-soft); font-size: 17.5px; line-height: 1.9; }
 
 .archive-article-layout { max-width: 940px; }
@@ -1832,7 +1849,103 @@ html[lang='ko'] .contact-list span { font-size: 12px; }
 .archive-article-cover img { width: 100%; max-height: 620px; object-fit: cover; }
 
 .archive-article-body { max-width: 68ch; margin-inline: auto; }
-.archive-article-body p { margin: 0 0 28px; color: var(--text); font-family: var(--kr-display); font-size: 17.5px; line-height: 2.04; }
+
+/*
+  긴 줄글에만 양끝맞춤을 준다. 한글은 글자 단위로 줄바꿈되므로 이 정도 단(68ch)에서는
+  단어 사이가 벌어지는 현상 없이 오른쪽 끝이 가지런해진다.
+  카드·요약처럼 짧은 문단에는 적용하지 않는다. 줄이 짧으면 오히려 간격이 튄다.
+*/
+.archive-article-body p {
+  margin: 0 0 28px;
+  color: var(--text);
+  font-family: var(--kr-display);
+  font-size: 17.5px;
+  line-height: 2.04;
+}
+
+/* 펀딩 등 외부 안내 링크 */
+.archive-cta {
+  max-width: 68ch;
+  margin: 8px auto 0;
+  padding: 26px 28px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.archive-cta .button { color: var(--accent-deep); border-color: color-mix(in srgb, var(--accent) 52%, transparent); }
+.archive-cta .button:hover { color: var(--shade-900); }
+.archive-cta p { margin: 16px 0 0; color: var(--text-soft); font-size: 14px; line-height: 1.78; }
+
+/* 비율이 다른 시안 이미지는 자르지 않고 설명과 함께 쌓는다. */
+.archive-figures { display: grid; gap: 30px; margin-top: 48px; }
+.archive-figures figure { margin: 0; }
+
+.archive-figures img {
+  display: block;
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--text-strong) 10%, transparent);
+  border-radius: var(--radius);
+  background: var(--paper-tint);
+}
+
+.archive-figures figcaption {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  text-align: center;
+}
+
+/* 도서 사양 */
+.archive-spec { max-width: 68ch; margin: 52px auto 0; }
+.archive-spec h2, .archive-contents h2 {
+  margin: 0 0 18px;
+  color: var(--text-strong);
+  font-family: var(--kr-display);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.archive-spec dl { display: grid; gap: 0; margin: 0; }
+
+.archive-spec dl > div {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid color-mix(in srgb, var(--text-strong) 12%, transparent);
+}
+
+.archive-spec dl > div:last-child { border-bottom: 1px solid color-mix(in srgb, var(--text-strong) 12%, transparent); }
+.archive-spec dt { margin: 0; color: var(--text-muted); font-size: 14px; font-weight: 600; }
+.archive-spec dd { margin: 0; color: var(--text); font-size: 15.5px; line-height: 1.7; }
+
+/* 목차 */
+.archive-contents { max-width: 68ch; margin: 52px auto 0; }
+.archive-contents__note { margin: 0 0 22px; color: var(--text-muted); font-size: 13.5px; line-height: 1.7; }
+.archive-contents__parts { display: grid; gap: 26px; }
+
+.archive-contents__parts h3 {
+  margin: 0 0 11px;
+  color: var(--accent-deep);
+  font-family: var(--kr-display);
+  font-size: 15.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+.archive-contents__parts ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+
+.archive-contents__parts li {
+  position: relative;
+  padding-left: 17px;
+  color: var(--text-soft);
+  font-size: 15.5px;
+  line-height: 1.72;
+  word-break: keep-all;
+}
+
+.archive-contents__parts li::before { position: absolute; left: 0; color: var(--accent); content: '—'; }
 
 .archive-article-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; }
 .archive-article-gallery img { width: 100%; height: 260px; border-radius: var(--radius); object-fit: cover; transition: transform 800ms var(--ease-out); }
@@ -3121,7 +3234,124 @@ body::after {
 
 .way-contact__head p { margin: 0; color: var(--text-soft); font-size: 14.5px; line-height: 1.72; }
 
+/* 담당자는 블록 맨 위에 둔다. 누구에게 연락하는지가 먼저 보여야 한다. */
+.way-contact__manager {
+  margin: 0 0 8px;
+  color: var(--accent-deep);
+  font-family: var(--kr-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
 .way-contact__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* 카드 안의 외부 참여 링크 (텀블벅 등) */
+.way-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: var(--accent-deep);
+  color: #fff;
+  font-family: var(--kr-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 380ms var(--ease-out), transform 380ms var(--ease-out);
+}
+
+.way-card__cta:hover { background: var(--shade-800); transform: translateY(-2px); }
+.way-card__cta span { transition: transform 380ms var(--ease-out); }
+.way-card__cta:hover span { transform: translateX(4px); }
+
+/* 정기 후원 신청 폼 */
+.donor-form { max-width: 780px; margin-top: 34px; }
+
+.donor-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.donor-form__wide, .donor-form__custom { grid-column: 1 / -1; }
+.donor-form label { display: grid; gap: 8px; }
+
+/* display 를 지정하면 UA 스타일의 [hidden] { display: none } 이 무력화된다.
+   '직접 입력' 금액칸이 항상 보이던 원인이므로 명시적으로 다시 숨긴다. */
+.donor-form label[hidden] { display: none; }
+
+.donor-form label > span {
+  color: var(--text-strong);
+  font-family: var(--kr-display);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.donor-form label > span i {
+  margin-left: 5px;
+  color: var(--accent-deep);
+  font-size: 11.5px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.donor-form input, .donor-form select, .donor-form textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid color-mix(in srgb, var(--text-strong) 20%, transparent);
+  border-radius: var(--radius);
+  background: var(--paper-strong);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  transition: border-color 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+}
+
+.donor-form textarea { resize: vertical; line-height: 1.7; }
+
+.donor-form input:focus, .donor-form select:focus, .donor-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  outline: none;
+}
+
+.donor-form__consent {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 11px;
+  align-items: start;
+  margin-top: 22px;
+}
+
+.donor-form__consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); }
+
+.donor-form__consent > span {
+  color: var(--text-soft);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.donor-form__actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 26px; }
+.donor-form__actions .button-link { color: var(--accent-deep); border-color: color-mix(in srgb, var(--accent) 50%, transparent); cursor: pointer; }
+.donor-form__actions .button-link:hover { color: var(--shade-900); }
+
+.donor-form__hint { margin: 18px 0 0; color: var(--text-muted); font-size: 13.5px; line-height: 1.72; }
+
+.donor-form__error {
+  margin: 14px 0 0;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, #c0392b 12%, transparent);
+  color: #96271b;
+  font-size: 14px;
+  font-weight: 600;
+}
 
 /* .button-link 은 어두운 섹션 기준(흰 글씨·흰 테두리)이라 밝은 배경에서 흐려진다.
    후원 창구는 밝은 배경 위에 놓이므로 대비를 다시 잡는다. */
@@ -3156,6 +3386,9 @@ body::after {
   .way-card__tiers li { font-size: 12px; padding: 6px 11px; }
   .way-contact { padding: 22px; }
   .way-contact__actions { flex-direction: column; align-items: flex-start; }
+  .donor-form__grid { grid-template-columns: minmax(0, 1fr); }
+  .donor-form__actions .cta-button, .donor-form__actions .button-link { width: 100%; justify-content: center; }
+  .archive-spec dl > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
 
 /* 11. 접근성 ----------------------------------------------------------- */
