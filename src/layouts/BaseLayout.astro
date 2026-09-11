@@ -2,6 +2,7 @@
 import { ClientRouter } from 'astro:transitions'
 import SiteFooter from '../components/SiteFooter.astro'
 import SiteHeader from '../components/SiteHeader.astro'
+import { getOrganizationJsonLd, serializeJsonLd } from '../data/organizationJsonLd.js'
 import { basePath, content, routePath } from '../data/site.js'
 import '../styles/global.css'
 
@@ -17,14 +18,17 @@ const xDefault = new URL(rootPath, Astro.site)
 const homeUrl = new URL(basePath('/'), Astro.site)
 const socialImage = new URL(basePath('/social-card.svg'), Astro.site)
 
+const organization = await getOrganizationJsonLd({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: lang === 'en' ? 'VAN (Veritas Academiae Nexus)' : 'VAN',
+  url: homeUrl.href,
+  description: copy.meta.home[1],
+  inLanguage: lang === 'en' ? 'en' : 'ko-KR',
+}, lang)
+
 const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'VAN',
-    url: homeUrl.href,
-    description: copy.meta.home[1],
-  },
+  organization,
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -103,7 +107,7 @@ if (pageKey === 'home') {
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap"
     />
 
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll('<', '\\u003c')}></script>
+    <script type="application/ld+json" set:html={serializeJsonLd(structuredData)}></script>
 
     {/* 페이지 간 이동을 새로고침 없이 부드럽게 이어준다. 미지원 브라우저는 일반 이동으로 동작. */}
     <ClientRouter />

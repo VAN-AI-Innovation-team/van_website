@@ -34,7 +34,9 @@ npm run dev
 npm run check
 ```
 
-`npm run check`는 코드 검사 후 정적 사이트를 `dist/`에 생성합니다.
+`npm run check`는 코드 검사와 JSON-LD 연동 테스트 후 정적 사이트를 `dist/`에 생성합니다.
+
+3-2 팀의 Organization JSON-LD API는 빌드 시점에 `language=ko/en`으로 연동합니다. `/ko/` 페이지는 한국어 응답을, `/en/` 페이지는 영문 응답을 사용하며 언어마다 한 번만 조회합니다. 적용 범위, 호출 방식, Event API 추가 확인사항과 담당자 답장 초안은 [JSON-LD 연동 정리](docs/JSON_LD_INTEGRATION.md)에 있습니다.
 
 ## 배포
 
