@@ -12,18 +12,19 @@ function isOrganization(value) {
   }
 }
 
-/** Share one request across prerendered pages, including when the API is unavailable. */
+/** Share one request per language across prerendered pages, including failures. */
 export function createOrganizationJsonLdLoader({
   baseUrl = DEFAULT_JSON_LD_API_BASE_URL,
   fetchImpl = globalThis.fetch,
   timeoutMs = 8000,
   warn = console.warn,
 } = {}) {
-  let request
+  const requests = new Map()
 
-  async function fetchOrganization() {
+  async function fetchOrganization(language) {
     try {
       const endpoint = new URL('/api/json-ld/organization', baseUrl)
+      endpoint.searchParams.set('language', language)
       const response = await fetchImpl(endpoint, {
         method: 'GET',
         headers: { Accept: 'application/json' },
@@ -35,14 +36,15 @@ export function createOrganizationJsonLdLoader({
       if (!isOrganization(organization)) throw new Error('Invalid Organization JSON-LD response')
       return organization
     } catch (error) {
-      warn(`[json-ld] Organization API unavailable; using local data. ${error instanceof Error ? error.message : 'Unknown error'}`)
+      warn(`[json-ld] Organization API (${language}) unavailable; using local data. ${error instanceof Error ? error.message : 'Unknown error'}`)
       return null
     }
   }
 
-  return async function getOrganization(fallback) {
-    request ??= fetchOrganization()
-    return (await request) ?? fallback
+  return async function getOrganization(fallback, requestedLanguage = 'ko') {
+    const language = requestedLanguage === 'en' ? 'en' : 'ko'
+    if (!requests.has(language)) requests.set(language, fetchOrganization(language))
+    return (await requests.get(language)) ?? fallback
   }
 }
 

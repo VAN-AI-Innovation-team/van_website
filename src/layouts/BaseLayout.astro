@@ -21,10 +21,11 @@ const socialImage = new URL(basePath('/social-card.svg'), Astro.site)
 const organization = await getOrganizationJsonLd({
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'VAN',
+  name: lang === 'en' ? 'VAN (Veritas Academiae Nexus)' : 'VAN',
   url: homeUrl.href,
   description: copy.meta.home[1],
-})
+  inLanguage: lang === 'en' ? 'en' : 'ko-KR',
+}, lang)
 
 const structuredData = [
   organization,

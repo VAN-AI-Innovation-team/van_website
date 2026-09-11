@@ -13,6 +13,13 @@ const organization = {
   logo: { '@type': 'ImageObject', url: 'https://www.veritasvan.org/assets/logo_dark.png' },
 }
 const fallback = { ...organization, description: 'Local description' }
+const englishOrganization = {
+  ...organization,
+  name: 'VAN (Veritas Academiae Nexus)',
+  description: 'A national alliance of university academic societies in Korea.',
+  inLanguage: 'en',
+}
+const englishFallback = { ...englishOrganization, description: 'English page fallback' }
 
 test('one GET serves concurrent pages and preserves the complete API response', async () => {
   const calls = []
@@ -24,16 +31,59 @@ test('one GET serves concurrent pages and preserves the complete API response', 
     },
     warn: () => assert.fail('Successful API must not warn'),
   })
-  const pages = await Promise.all([load(fallback), load(fallback), load(fallback)])
+  const pages = await Promise.all([load(fallback), load(fallback, 'ko'), load(fallback)])
   for (const page of pages) assert.deepEqual(page, organization)
   assert.equal(calls.length, 1)
-  assert.equal(calls[0].url, 'https://api.example.com/api/json-ld/organization')
+  assert.equal(calls[0].url, 'https://api.example.com/api/json-ld/organization?language=ko')
   assert.equal(calls[0].options.method, 'GET')
   assert.equal(calls[0].options.headers.Accept, 'application/json')
   assert.ok(calls[0].options.signal instanceof AbortSignal)
 })
 
-test('API failures preserve each page fallback and warn once per build', async (t) => {
+test('concurrent Korean and English pages share requests only within their language', async () => {
+  const calls = []
+  const load = createOrganizationJsonLdLoader({
+    fetchImpl: async (url) => {
+      const language = url.searchParams.get('language')
+      calls.push(language)
+      return Response.json(language === 'en' ? englishOrganization : organization)
+    },
+    warn: () => assert.fail('Successful API must not warn'),
+  })
+  const pages = await Promise.all([
+    load(englishFallback, 'en'),
+    load(fallback, 'ko'),
+    load(englishFallback, 'en'),
+    load(fallback),
+  ])
+  assert.deepEqual(pages, [englishOrganization, organization, englishOrganization, organization])
+  assert.deepEqual(calls, ['en', 'ko'])
+  assert.deepEqual(await load(englishFallback, 'en'), englishOrganization)
+  assert.equal(calls.length, 2)
+})
+
+test('a failed language does not replace a successful language or another page fallback', async () => {
+  const calls = []
+  const warnings = []
+  const load = createOrganizationJsonLdLoader({
+    fetchImpl: async (url) => {
+      const language = url.searchParams.get('language')
+      calls.push(language)
+      return language === 'en' ? new Response('Unavailable', { status: 503 }) : Response.json(organization)
+    },
+    warn: message => warnings.push(message),
+  })
+  const pages = await Promise.all([load(englishFallback, 'en'), load(fallback, 'ko')])
+  assert.deepEqual(pages, [englishFallback, organization])
+  const otherEnglishFallback = { ...englishFallback, description: 'Another local description' }
+  assert.deepEqual(await load(otherEnglishFallback, 'en'), otherEnglishFallback)
+  assert.deepEqual(await load(fallback, 'ko'), organization)
+  assert.deepEqual(calls, ['en', 'ko'])
+  assert.equal(warnings.length, 1)
+  assert.match(warnings[0], /\(en\).*using local data/)
+})
+
+test('API failures preserve each page fallback and warn once per language per build', async (t) => {
   const failures = {
     'HTTP failure': () => new Response('Unavailable', { status: 503 }),
     'invalid JSON': () => new Response('<html>Error</html>'),
@@ -51,9 +101,9 @@ test('API failures preserve each page fallback and warn once per build', async (
         fetchImpl: async () => { calls += 1; return fail() },
         warn: message => warnings.push(message),
       })
-      const englishFallback = { ...fallback, description: 'English page fallback' }
+      const otherFallback = { ...fallback, description: 'Another page fallback' }
       assert.deepEqual(await load(fallback), fallback)
-      assert.deepEqual(await load(englishFallback), englishFallback)
+      assert.deepEqual(await load(otherFallback), otherFallback)
       assert.equal(calls, 1)
       assert.equal(warnings.length, 1)
       assert.match(warnings[0], /using local data/)

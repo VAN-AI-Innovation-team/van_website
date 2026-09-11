@@ -35,6 +35,9 @@ jobs:
       - name: Check source
         run: npm run lint
 
+      - name: Test Organization JSON-LD integration
+        run: npm run test:json-ld
+
       - name: Build website
         run: npm run build
 
