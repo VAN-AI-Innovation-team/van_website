@@ -11,7 +11,7 @@
     "dev:share": "astro dev --host 0.0.0.0",
     "build": "astro build",
     "qr": "node scripts/generate-qr.mjs",
-    "lint": "oxlint astro.config.mjs scripts src/data src/pages",
+    "lint": "oxlint astro.config.mjs scripts src/data src/features src/pages src/scripts",
     "preview": "astro preview",
     "test:json-ld": "node --test scripts/organization-json-ld.test.mjs",
     "check": "npm run lint && npm run test:json-ld && npm run build",

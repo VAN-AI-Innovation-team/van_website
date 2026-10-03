@@ -19,7 +19,7 @@ const [title, description] = copy.meta.support
 
 <BaseLayout lang={lang} pageKey="support" slug="support" title={title} description={description}>
   <div class="support-page">
-    <PageHero eyebrow={page.eyebrow} title={page.title} lead={page.lead} />
+    <PageHero eyebrow={page.eyebrow} title={page.title} lead={page.lead} contentPrefix="pages.support" />
 
   <section class="home-section home-section--paper">
     <div class="container">
@@ -51,9 +51,9 @@ const [title, description] = copy.meta.support
           <p>{page.waysSubtitle}</p>
           <i aria-hidden="true"></i>
         </div>
-        <h2 data-split>{page.waysTitle}</h2>
+        <h2 data-split data-content-key="pages.support.waysTitle">{page.waysTitle}</h2>
       </header>
-      <p class="section-lead section-lead--wide" data-reveal="up">{page.waysLead}</p>
+      <p class="section-lead section-lead--wide" data-reveal="up" data-content-key="pages.support.waysLead">{page.waysLead}</p>
 
       <div class="way-list" data-reveal-group>
         {page.ways.map((way, index) => (

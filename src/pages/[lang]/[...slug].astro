@@ -61,11 +61,11 @@ const heroParticles = [
         </div>
         <div class="container official-hero__content">
           <div class="official-hero__lede">
-            <p class="official-hero__kicker">{page.hero.kicker}</p>
+            <p class="official-hero__kicker" data-content-key="site.home.hero.kicker">{page.hero.kicker}</p>
             <img class="official-hero__logo" src={asset(page.hero.logoWhite)} alt="VAN · Veritas Academiae Nexus" width="880" height="276" />
-            <h1 data-split>{page.hero.title}</h1>
-            <p class="official-hero__label">{page.hero.label}</p>
-            <p class="official-hero__lead">{page.hero.lead}</p>
+            <h1 data-split data-content-key="site.home.hero.title">{page.hero.title}</h1>
+            <p class="official-hero__label" data-content-key="site.home.hero.label">{page.hero.label}</p>
+            <p class="official-hero__lead" data-content-key="site.home.hero.lead">{page.hero.lead}</p>
           </div>
           <div class="official-hero__meta">
             <ul class="official-hero__schools">
@@ -84,9 +84,9 @@ const heroParticles = [
               <p>{page.activities.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
-            <h2 data-split>{page.activities.title}</h2>
+            <h2 data-split data-content-key="site.home.activities.title">{page.activities.title}</h2>
           </header>
-          <p class="section-lead section-lead--light" data-reveal="up">{page.activities.intro}</p>
+          <p class="section-lead section-lead--light" data-reveal="up" data-content-key="site.home.activities.intro">{page.activities.intro}</p>
           <div class="activity-grid" data-reveal-group>
             {page.activities.items.map((item, index) => (
               <article class="activity-card" data-reveal="rise" data-tilt="5">
@@ -124,7 +124,7 @@ const heroParticles = [
               <p>{page.about.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
-            <h2 data-split>{page.about.title}</h2>
+            <h2 data-split data-content-key="site.home.about.title">{page.about.title}</h2>
           </header>
           <ol class="timeline" data-reveal="fade" data-reveal-group>
             {page.about.paragraphs.map((paragraph, index) => (
@@ -265,7 +265,7 @@ const heroParticles = [
               <p>{page.future.subtitle}</p>
               <i aria-hidden="true"></i>
             </div>
-            <h2 data-split>{page.future.title}</h2>
+            <h2 data-split data-content-key="site.home.future.title">{page.future.title}</h2>
           </header>
           <div class="roadmap-grid" data-reveal-group>
             {page.future.items.map((item) => (
@@ -282,7 +282,7 @@ const heroParticles = [
           <div data-reveal="left">
             <span class="section-number">{sectionNumber('philosophy')}</span>
             <p class="eyebrow">VERITAS · ACADEMIAE · NEXUS</p>
-            <h2 data-split>{page.philosophy.title}</h2>
+            <h2 data-split data-content-key="site.home.philosophy.title">{page.philosophy.title}</h2>
             <p class="ornament" aria-hidden="true"><i></i><span>◆</span><i></i></p>
             <p>{page.philosophy.body}</p>
           </div>
@@ -294,7 +294,7 @@ const heroParticles = [
         <div class="container support-layout">
           <div data-reveal="left">
             <p class="eyebrow">{page.support.subtitle}</p>
-            <h2>{page.support.title}</h2>
+            <h2 data-content-key="site.home.support.title">{page.support.title}</h2>
             <p>{page.support.description}</p>
             <a class="inline-link" href={basePath(routePath(lang, 'support'))} data-magnetic="8">{copy.common.supportDetails}<span aria-hidden="true">→</span></a>
           </div>
@@ -312,7 +312,7 @@ const heroParticles = [
 
       <section id="contact" class="contact-section">
         <div class="container contact-section__grid">
-          <div data-reveal="left"><p class="eyebrow">{page.contact.subtitle}</p><h2>{page.contact.title}</h2></div>
+          <div data-reveal="left"><p class="eyebrow">{page.contact.subtitle}</p><h2 data-content-key="site.home.contact.title">{page.contact.title}</h2></div>
           <div class="contact-list" data-reveal-group>
             <a href={page.contact.instagramUrl} target="_blank" rel="noopener noreferrer" data-reveal="fade"><span>{copy.common.instagram}</span><strong>{page.contact.instagram}</strong></a>
             <div data-reveal="fade"><span>{copy.common.phone}</span><strong>{page.contact.phone}</strong><small>{page.contact.manager}</small></div>

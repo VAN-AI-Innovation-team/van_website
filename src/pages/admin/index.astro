@@ -1,0 +1,111 @@
+---
+import { basePath } from '../../data/site.js'
+import { ADMIN_MODULES } from '../../features/platform/admin-modules.js'
+import '../../styles/admin.css'
+
+const siteHome = basePath('/ko/')
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#101413" />
+    <title>콘텐츠 관리 초안 | VAN</title>
+    <link rel="icon" type="image/svg+xml" href={basePath('/favicon.svg')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" />
+  </head>
+  <body>
+    <div class="admin-shell" data-admin-root data-site-base={basePath('/')}>
+      <aside class="admin-sidebar" aria-label="관리 메뉴">
+        <a class="admin-brand" href={siteHome}>
+          <span class="admin-brand__mark">V</span>
+          <span><strong>VAN</strong><small>CONTENT STUDIO</small></span>
+        </a>
+        <div class="admin-sidebar__caption">WORKSPACE</div>
+        <nav class="admin-nav" aria-label="기능">
+          {ADMIN_MODULES.map((module) => module.status === 'ready' ? (
+            <a class:list={{ 'admin-nav__active': module.id === 'content' }} href={basePath(module.path)} aria-current={module.id === 'content' ? 'page' : undefined}><span aria-hidden="true">{module.icon}</span>{module.label}</a>
+          ) : (
+            <div class="admin-nav__planned"><span aria-hidden="true">{module.icon}</span>{module.label}<small>추후</small></div>
+          ))}
+        </nav>
+        <div class="admin-sidebar__foot">
+          <span class="admin-dot" aria-hidden="true"></span>
+          프론트 편집 초안
+        </div>
+      </aside>
+
+      <main class="admin-main" id="content-editor">
+        <header class="admin-topbar">
+          <div>
+            <p class="admin-eyebrow">VAN / ADMIN</p>
+            <h1>콘텐츠 관리</h1>
+            <p class="admin-topbar__lead">화면의 주요 문구를 바꾸고, 한국어와 영어 페이지에서 확인하세요.</p>
+          </div>
+          <a class="admin-site-link" href={siteHome} target="_blank" rel="noopener noreferrer">공식 사이트 열기 <span aria-hidden="true">↗</span></a>
+        </header>
+
+        <div class="admin-notice" role="note">
+          <strong>브라우저 초안</strong>
+          <p>여기서 저장한 내용은 현재 브라우저의 미리보기에만 보입니다. 실제 사이트에 게시하려면 관리자 인증, 저장 API 및 배포 연결이 필요합니다.</p>
+        </div>
+
+        <div class="admin-toolbar">
+          <div class="admin-toolbar__selectors">
+            <label for="admin-language">편집 언어</label>
+            <select id="admin-language" data-language>
+              <option value="ko">한국어</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <div class="admin-toolbar__actions">
+            <button class="admin-button admin-button--quiet" type="button" data-reset>초안 초기화</button>
+            <button class="admin-button admin-button--quiet" type="button" data-export>JSON 내보내기</button>
+            <button class="admin-button admin-button--primary" type="button" data-save>초안 저장 · 미리보기 <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+
+        <p class="admin-status" role="status" aria-live="polite" data-status>편집 화면을 준비하고 있습니다.</p>
+
+        <div class="admin-workspace">
+          <section class="admin-editor" aria-label="콘텐츠 편집 필드">
+            <div class="admin-panel-heading">
+              <div><p class="admin-eyebrow">01 / EDITOR</p><h2>페이지 문구</h2></div>
+              <span data-field-count></span>
+            </div>
+            <div data-field-groups></div>
+            <noscript>콘텐츠 편집에는 JavaScript가 필요합니다.</noscript>
+          </section>
+
+          <aside class="admin-preview" aria-label="사이트 미리보기">
+            <div class="admin-panel-heading">
+              <div><p class="admin-eyebrow">02 / PREVIEW</p><h2>미리보기</h2></div>
+              <span class="admin-preview__badge">초안 전용</span>
+            </div>
+            <div class="admin-preview__controls">
+              <label for="admin-preview-page">페이지</label>
+              <select id="admin-preview-page" data-preview-page>
+                <option value="home">홈</option>
+                <option value="support">후원</option>
+                <option value="apply">지원</option>
+              </select>
+              <button type="button" data-preview-refresh aria-label="미리보기 새로고침" title="미리보기 새로고침">↻</button>
+            </div>
+            <div class="admin-preview__frame">
+              <iframe title="VAN 사이트 초안 미리보기" data-preview loading="lazy"></iframe>
+            </div>
+            <p class="admin-preview__hint">초안을 저장하면 위 화면에 반영됩니다. 공개 사이트 방문자에게는 표시되지 않습니다.</p>
+          </aside>
+        </div>
+      </main>
+    </div>
+    <script>
+      import '../../scripts/admin-editor.js'
+    </script>
+  </body>
+</html>
