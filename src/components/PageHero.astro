@@ -1,6 +1,6 @@
 ---
 /** 서브 페이지 공통 히어로. HOME의 풀스크린 히어로보다 낮고 조용한 변주. */
-const { eyebrow, title, lead } = Astro.props
+const { eyebrow, title, lead, contentPrefix } = Astro.props
 
 // 금빛 입자. 난수 대신 고정 좌표를 쓴다 — 빌드마다 결과가 흔들리면
 // 정적 산출물의 diff가 매번 바뀌어 리뷰가 어려워진다.
@@ -23,8 +23,8 @@ const particles = [
   </div>
   <div class="container page-hero__content">
     <p class="eyebrow">{eyebrow}</p>
-    <h1 data-split>{title}</h1>
-    {lead && <p class="page-hero__lead">{lead}</p>}
+    <h1 data-split data-content-key={contentPrefix ? `${contentPrefix}.title` : undefined}>{title}</h1>
+    {lead && <p class="page-hero__lead" data-content-key={contentPrefix ? `${contentPrefix}.lead` : undefined}>{lead}</p>}
     <div class="page-hero__rule" aria-hidden="true"><i></i><span>◆</span></div>
   </div>
 </header>

@@ -533,7 +533,16 @@ function setupArchiveBrowser(signal) {
 
 /* ------------------------------------------------------------------ */
 
-function boot() {
+async function boot() {
+  if (new URLSearchParams(window.location.search).get('content-preview') === '1') {
+    try {
+      const { applyContentPreview } = await import('../features/content/content-preview.js')
+      applyContentPreview()
+    } catch {
+      // The published HTML is still usable if local draft preview is unavailable.
+    }
+  }
+
   pageController?.abort()
   pageController = new AbortController()
   const { signal } = pageController
